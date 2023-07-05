@@ -3,6 +3,7 @@
 #include "Pythia8/Pythia.h"
 #include "TFile.h"
 #include "TTree.h"
+#include "TH1F.h"
 #include "fastjet/PseudoJet.hh"
 #include "fastjet/ClusterSequence.hh"
 
@@ -30,6 +31,11 @@ int main() {
     tree->Branch("AK6_jet_phi", &AK6_jet_phi);
     tree->Branch("AK8_jet_phi", &AK8_jet_phi);
 
+    TH1F *h1_particle_pt = new TH1F("h1_particle_pt", "", 100, 0., 100.);
+    TH1F *h1_particle_eta = new TH1F("h1_particle_eta", "", 100, -5., 5.);
+    TH1F *h1_particle_phi = new TH1F("h1_particle_phi", "", 100, 0., 10.);
+
+    // Initialize pythia
     Pythia8::Pythia pythia;
 
     pythia.readString("Beams::idA = 2212");
@@ -40,7 +46,7 @@ int main() {
 
     pythia.init();
 
-    int nEvent = 10000;
+    int nEvent = 1000000;
 
     auto &event = pythia.event;
 
@@ -80,6 +86,13 @@ int main() {
         }
 
         if (particles.size() < 0) continue;
+
+        // Fill particle histos
+        for (int j = 0; j < particles.size(); j++) {
+            h1_particle_pt->Fill(particles[j].pt());
+            h1_particle_eta->Fill(particles[j].eta());
+            h1_particle_phi->Fill(particles[j].phi());
+        }
 
         // ----------------
         // Clustering jets
