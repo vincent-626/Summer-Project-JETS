@@ -1,3 +1,5 @@
+// In this plot the histograms are not normalized
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"
@@ -7,43 +9,43 @@
 #include "TLegend.h"
 
 void compareJetPt() {
-    TFile *f = new TFile("rootfiles/Histo_Jet_PtEtaPhi.root");
+    TFile *f = new TFile("rootfiles/Histo_Jet_Parton.root");
 
     auto *h1_AK2_jet_pt = f->Get<TH1D>("h1_AK2_jet_pt");
     h1_AK2_jet_pt->SetFillColor(0);
     h1_AK2_jet_pt->SetLineColor(kBlue+1);
     h1_AK2_jet_pt->SetStats(0);
     h1_AK2_jet_pt->SetTitle("");
+    h1_AK2_jet_pt->SetMarkerStyle(kFullCircle);
     h1_AK2_jet_pt->SetMarkerSize(2);
     h1_AK2_jet_pt->SetMarkerColor(kBlue+1);
-    h1_AK2_jet_pt->GetXaxis()->SetRangeUser(0., 20.);
 
     auto *h1_AK4_jet_pt = f->Get<TH1D>("h1_AK4_jet_pt");
     h1_AK4_jet_pt->SetFillColor(0);
     h1_AK4_jet_pt->SetLineColor(kGreen+1);
     h1_AK4_jet_pt->SetStats(0);
     h1_AK4_jet_pt->SetTitle("");
+    h1_AK4_jet_pt->SetMarkerStyle(kFullSquare);
     h1_AK4_jet_pt->SetMarkerSize(2);
     h1_AK4_jet_pt->SetMarkerColor(kGreen+1);
-    h1_AK4_jet_pt->GetXaxis()->SetRangeUser(0., 20.);
 
     auto *h1_AK6_jet_pt = f->Get<TH1D>("h1_AK6_jet_pt");
     h1_AK6_jet_pt->SetFillColor(0);
     h1_AK6_jet_pt->SetLineColor(kOrange+1);
     h1_AK6_jet_pt->SetStats(0);
     h1_AK6_jet_pt->SetTitle("");
+    h1_AK6_jet_pt->SetMarkerStyle(kFullTriangleUp);
     h1_AK6_jet_pt->SetMarkerSize(2);
     h1_AK6_jet_pt->SetMarkerColor(kOrange+1);
-    h1_AK6_jet_pt->GetXaxis()->SetRangeUser(0., 20.);
 
     auto *h1_AK8_jet_pt = f->Get<TH1D>("h1_AK8_jet_pt");
     h1_AK8_jet_pt->SetFillColor(0);
     h1_AK8_jet_pt->SetLineColor(kRed+1);
     h1_AK8_jet_pt->SetStats(0);
     h1_AK8_jet_pt->SetTitle("");
+    h1_AK8_jet_pt->SetMarkerStyle(kFullTriangleDown);
     h1_AK8_jet_pt->SetMarkerSize(2);
     h1_AK8_jet_pt->SetMarkerColor(kRed+1);
-    h1_AK8_jet_pt->GetXaxis()->SetRangeUser(0., 20.);
 
     TCanvas *c1 = new TCanvas("c1", "c1");
     c1->cd();
@@ -56,6 +58,7 @@ void compareJetPt() {
     pad1->SetTopMargin(0.15);
     pad1->SetTickx();
     pad1->SetTicky();
+    pad1->SetLogy();
     pad1->Draw();
     pad1->cd();
 
@@ -74,18 +77,18 @@ void compareJetPt() {
     yaxis->SetLabelFont(43);
     yaxis->SetLabelSize(35);
 
-    h1_AK2_jet_pt->Draw("hist");
-    h1_AK4_jet_pt->Draw("histsame");
-    h1_AK6_jet_pt->Draw("histsame");
-    h1_AK8_jet_pt->Draw("histsame");
+    h1_AK2_jet_pt->Draw("ep");
+    h1_AK4_jet_pt->Draw("epsame");
+    h1_AK6_jet_pt->Draw("epsame");
+    h1_AK8_jet_pt->Draw("epsame");
 
     // Legend
     TLegend *leg = new TLegend(0.6, 0.6, 0.8, 0.8);
     leg->SetBorderSize(0);
-    leg->AddEntry(h1_AK2_jet_pt, "R = 0.2", "f");
-    leg->AddEntry(h1_AK4_jet_pt, "R = 0.4", "f");
-    leg->AddEntry(h1_AK6_jet_pt, "R = 0.6", "f");
-    leg->AddEntry(h1_AK8_jet_pt, "R = 0.8", "f");
+    leg->AddEntry(h1_AK2_jet_pt, "R = 0.2", "pl");
+    leg->AddEntry(h1_AK4_jet_pt, "R = 0.4", "pl");
+    leg->AddEntry(h1_AK6_jet_pt, "R = 0.6", "pl");
+    leg->AddEntry(h1_AK8_jet_pt, "R = 0.8", "pl");
     leg->Draw();
 
     c1->cd();
