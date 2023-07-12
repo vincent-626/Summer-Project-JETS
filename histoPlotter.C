@@ -45,10 +45,10 @@ void histoPlotter() {
     ROOT::RDF::TH1DModel model_AK6_jet_matched_phi("h1_AK6_jet_matched_phi", "", 63, -TMath::Pi(), TMath::Pi());
     ROOT::RDF::TH1DModel model_AK8_jet_matched_phi("h1_AK8_jet_matched_phi", "", 63, -TMath::Pi(), TMath::Pi());
 
-    ROOT::RDF::TH1DModel model_AK2_jet_matched_delR("h1_AK2_jet_matched_delR", "", 80, 0., 0.8);
-    ROOT::RDF::TH1DModel model_AK4_jet_matched_delR("h1_AK4_jet_matched_delR", "", 80, 0., 0.8);
-    ROOT::RDF::TH1DModel model_AK6_jet_matched_delR("h1_AK6_jet_matched_delR", "", 80, 0., 0.8);
-    ROOT::RDF::TH1DModel model_AK8_jet_matched_delR("h1_AK8_jet_matched_delR", "", 80, 0., 0.8);
+    ROOT::RDF::TH1DModel model_AK2_jet_matched_delR("h1_AK2_jet_matched_delR", "", 20, 0., 0.2);
+    ROOT::RDF::TH1DModel model_AK4_jet_matched_delR("h1_AK4_jet_matched_delR", "", 20, 0., 0.2);
+    ROOT::RDF::TH1DModel model_AK6_jet_matched_delR("h1_AK6_jet_matched_delR", "", 20, 0., 0.2);
+    ROOT::RDF::TH1DModel model_AK8_jet_matched_delR("h1_AK8_jet_matched_delR", "", 20, 0., 0.2);
 
     auto h1_AK2_jet_pt = df.Histo1D(model_AK2_jet_pt, "AK2_jet_pt");
     auto h1_AK4_jet_pt = df.Histo1D(model_AK4_jet_pt, "AK4_jet_pt");

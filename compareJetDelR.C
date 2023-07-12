@@ -11,28 +11,28 @@ void compareJetDelR() {
 
     auto *h1_AK2_jet_matched_delR = f->Get<TH1D>("h1_AK2_jet_matched_delR");
     h1_AK2_jet_matched_delR->Scale(1/h1_AK2_jet_matched_delR->Integral());
-    h1_AK2_jet_matched_delR->SetFillColorAlpha(kBlue+1, 0.35);
+    h1_AK2_jet_matched_delR->SetFillColorAlpha(kBlue+1, 0.25);
     h1_AK2_jet_matched_delR->SetLineColor(kBlue+1);
     h1_AK2_jet_matched_delR->SetStats(0);
     h1_AK2_jet_matched_delR->SetTitle("");
 
     auto *h1_AK4_jet_matched_delR = f->Get<TH1D>("h1_AK4_jet_matched_delR");
     h1_AK4_jet_matched_delR->Scale(1/h1_AK4_jet_matched_delR->Integral());
-    h1_AK4_jet_matched_delR->SetFillColorAlpha(kGreen+1, 0.35);
+    h1_AK4_jet_matched_delR->SetFillColorAlpha(kGreen+1, 0.25);
     h1_AK4_jet_matched_delR->SetLineColor(kGreen+1);
     h1_AK4_jet_matched_delR->SetStats(0);
     h1_AK4_jet_matched_delR->SetTitle("");
 
     auto *h1_AK6_jet_matched_delR = f->Get<TH1D>("h1_AK6_jet_matched_delR");
     h1_AK6_jet_matched_delR->Scale(1/h1_AK6_jet_matched_delR->Integral());
-    h1_AK6_jet_matched_delR->SetFillColorAlpha(kOrange+1, 0.35);
+    h1_AK6_jet_matched_delR->SetFillColorAlpha(kOrange+1, 0.25);
     h1_AK6_jet_matched_delR->SetLineColor(kOrange+1);
     h1_AK6_jet_matched_delR->SetStats(0);
     h1_AK6_jet_matched_delR->SetTitle("");
 
     auto *h1_AK8_jet_matched_delR = f->Get<TH1D>("h1_AK8_jet_matched_delR");
     h1_AK8_jet_matched_delR->Scale(1/h1_AK8_jet_matched_delR->Integral());
-    h1_AK8_jet_matched_delR->SetFillColorAlpha(kRed+1, 0.35);
+    h1_AK8_jet_matched_delR->SetFillColorAlpha(kRed+1, 0.25);
     h1_AK8_jet_matched_delR->SetLineColor(kRed+1);
     h1_AK8_jet_matched_delR->SetStats(0);
     h1_AK8_jet_matched_delR->SetTitle("");
@@ -55,14 +55,14 @@ void compareJetDelR() {
     h1_AK8_jet_matched_delR->SetMaximum(0.1);
 
     auto xaxis = h1_AK8_jet_matched_delR->GetXaxis();
-    xaxis->SetTitle("p_{T}^{Jet} (GeV)");
+    xaxis->SetTitle("#DeltaR");
     xaxis->SetTitleFont(43);
     xaxis->SetTitleSize(55);
     xaxis->SetLabelFont(43);
     xaxis->SetLabelSize(35);
 
     auto yaxis = h1_AK8_jet_matched_delR->GetYaxis();
-    yaxis->SetTitle("Events per bin");
+    yaxis->SetTitle("Normalised events per bin");
     yaxis->SetTitleFont(43);
     yaxis->SetTitleSize(55);
     yaxis->SetLabelFont(43);

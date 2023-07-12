@@ -12,7 +12,7 @@ int main() {
 
     TTree *tree = new TTree("tree", "tree");
 
-    int nParton, nAK2_jet, nAK4_jet, nAK6_jet, nAK8_jet;
+    int nParton, AK2_nJet, AK4_nJet, AK6_nJet, AK8_nJet, AK2_nMatchedJet, AK4_nMatchedJet, AK6_nMatchedJet, AK8_nMatchedJet;
 
     std::vector<float>  Parton_pt, Parton_eta, Parton_phi, Parton_id,
                         AK2_jet_pt, AK4_jet_pt, AK6_jet_pt, AK8_jet_pt,
@@ -45,37 +45,41 @@ int main() {
     tree->Branch("Parton_phi", &Parton_phi);
     tree->Branch("Parton_id", &Parton_id);
 
-    tree->Branch("nAK2_jet", &nAK2_jet);
+    tree->Branch("AK2_nJet", &AK2_nJet);
     tree->Branch("AK2_jet_pt", &AK2_jet_pt);
     tree->Branch("AK2_jet_eta", &AK2_jet_eta);
     tree->Branch("AK2_jet_phi", &AK2_jet_phi);
+    tree->Branch("AK2_nMatchedJet", &AK2_nMatchedJet);
     tree->Branch("AK2_jet_matched_pt", &AK2_jet_matched_pt);
     tree->Branch("AK2_jet_matched_eta", &AK2_jet_matched_eta);
     tree->Branch("AK2_jet_matched_phi", &AK2_jet_matched_phi);
     tree->Branch("AK2_jet_matched_delR", &AK2_jet_matched_delR);
 
-    tree->Branch("nAK4_jet", &nAK4_jet);
+    tree->Branch("AK4_nJet", &AK4_nJet);
     tree->Branch("AK4_jet_pt", &AK4_jet_pt);
     tree->Branch("AK4_jet_eta", &AK4_jet_eta);
     tree->Branch("AK4_jet_phi", &AK4_jet_phi);
+    tree->Branch("AK4_nMatchedJet", &AK4_nMatchedJet);
     tree->Branch("AK4_jet_matched_pt", &AK4_jet_matched_pt);
     tree->Branch("AK4_jet_matched_eta", &AK4_jet_matched_eta);
     tree->Branch("AK4_jet_matched_phi", &AK4_jet_matched_phi);
     tree->Branch("AK4_jet_matched_delR", &AK4_jet_matched_delR);
 
-    tree->Branch("nAK6_jet", &nAK6_jet);
+    tree->Branch("AK6_nJet", &AK6_nJet);
     tree->Branch("AK6_jet_pt", &AK6_jet_pt);
     tree->Branch("AK6_jet_eta", &AK6_jet_eta);
     tree->Branch("AK6_jet_phi", &AK6_jet_phi);
+    tree->Branch("AK6_nMatchedJet", &AK6_nMatchedJet);
     tree->Branch("AK6_jet_matched_pt", &AK6_jet_matched_pt);
     tree->Branch("AK6_jet_matched_eta", &AK6_jet_matched_eta);
     tree->Branch("AK6_jet_matched_phi", &AK6_jet_matched_phi);
     tree->Branch("AK6_jet_matched_delR", &AK6_jet_matched_delR);
 
-    tree->Branch("nAK8_jet", &nAK8_jet);
+    tree->Branch("AK8_nJet", &AK8_nJet);
     tree->Branch("AK8_jet_pt", &AK8_jet_pt);
     tree->Branch("AK8_jet_eta", &AK8_jet_eta);    
     tree->Branch("AK8_jet_phi", &AK8_jet_phi);
+    tree->Branch("AK8_nMatchedJet", &AK8_nMatchedJet);
     tree->Branch("AK8_jet_matched_pt", &AK8_jet_matched_pt);
     tree->Branch("AK8_jet_matched_eta", &AK8_jet_matched_eta);
     tree->Branch("AK8_jet_matched_phi", &AK8_jet_matched_phi);
@@ -92,7 +96,7 @@ int main() {
 
     pythia.init();
 
-    int nEvent = 10000;
+    int nEvent = 100000;
 
     auto &event = pythia.event;
 
@@ -220,10 +224,10 @@ int main() {
         }
 
         // nJet
-        nAK2_jet = AK2_cutJets.size();
-        nAK4_jet = AK4_cutJets.size();
-        nAK6_jet = AK6_cutJets.size();
-        nAK8_jet = AK8_cutJets.size();
+        AK2_nJet = AK2_cutJets.size();
+        AK4_nJet = AK4_cutJets.size();
+        AK6_nJet = AK6_cutJets.size();
+        AK8_nJet = AK8_cutJets.size();
 
         // Write jet pt eta phi
         for (int j = 0; j < AK2_cutJets.size(); j++) {
@@ -298,7 +302,11 @@ int main() {
             }
         }
 
+        AK2_nMatchedJet = 0;
+
         if (AK2_n1 != -1) {
+            AK2_nMatchedJet++;
+
             AK2_jet_matched_pt.push_back(AK2_cutJets[AK2_n1].pt());
             AK2_jet_matched_eta.push_back(AK2_cutJets[AK2_n1].eta());
             AK2_jet_matched_phi.push_back(AK2_cutJets[AK2_n1].phi_std());
@@ -306,6 +314,8 @@ int main() {
         }
 
         if (AK2_n2 != -1) {
+            AK2_nMatchedJet++;
+
             AK2_jet_matched_pt.push_back(AK2_cutJets[AK2_n2].pt());
             AK2_jet_matched_eta.push_back(AK2_cutJets[AK2_n2].eta());
             AK2_jet_matched_phi.push_back(AK2_cutJets[AK2_n2].phi_std());
@@ -320,7 +330,7 @@ int main() {
         for (int j = 0; j < AK4_cutJets.size(); j++) {
             AK4_delta_R1_temp = AK4_cutJets[j].delta_R(partons[0]);
 
-            if (AK4_delta_R1_temp > 0.4 || AK4_delta_R1_temp > AK4_delta_R1) continue;
+            if (AK4_delta_R1_temp > 0.2 || AK4_delta_R1_temp > AK4_delta_R1) continue;
 
             AK4_n1 = j;
             AK4_delta_R1 = AK4_delta_R1_temp;
@@ -330,7 +340,7 @@ int main() {
         for (int j = 0; j < AK4_cutJets.size(); j++) {
             AK4_delta_R2_temp = AK4_cutJets[j].delta_R(partons[1]);
 
-            if (AK4_delta_R2_temp > 0.4 || AK4_delta_R2_temp > AK4_delta_R2) continue;
+            if (AK4_delta_R2_temp > 0.2 || AK4_delta_R2_temp > AK4_delta_R2) continue;
 
             AK4_n2_temp = j;
 
@@ -348,7 +358,7 @@ int main() {
 
                     AK4_delta_R1_temp = AK4_cutJets[k].delta_R(partons[0]);
 
-                    if (AK4_delta_R1_temp > 0.4 || AK4_delta_R1_temp > AK4_delta_R1) continue;
+                    if (AK4_delta_R1_temp > 0.2 || AK4_delta_R1_temp > AK4_delta_R1) continue;
 
                     AK4_n1 = k;
                     AK4_delta_R1 = AK4_delta_R1_temp;
@@ -356,7 +366,11 @@ int main() {
             }
         }
 
+        AK4_nMatchedJet = 0;
+
         if (AK4_n1 != -1) {
+            AK4_nMatchedJet++;
+
             AK4_jet_matched_pt.push_back(AK4_cutJets[AK4_n1].pt());
             AK4_jet_matched_eta.push_back(AK4_cutJets[AK4_n1].eta());
             AK4_jet_matched_phi.push_back(AK4_cutJets[AK4_n1].phi_std());
@@ -364,6 +378,8 @@ int main() {
         }
 
         if (AK4_n2 != -1) {
+            AK4_nMatchedJet++;
+
             AK4_jet_matched_pt.push_back(AK4_cutJets[AK4_n2].pt());
             AK4_jet_matched_eta.push_back(AK4_cutJets[AK4_n2].eta());
             AK4_jet_matched_phi.push_back(AK4_cutJets[AK4_n2].phi_std());
@@ -378,7 +394,7 @@ int main() {
         for (int j = 0; j < AK6_cutJets.size(); j++) {
             AK6_delta_R1_temp = AK6_cutJets[j].delta_R(partons[0]);
 
-            if (AK6_delta_R1_temp > 0.6 || AK6_delta_R1_temp > AK6_delta_R1) continue;
+            if (AK6_delta_R1_temp > 0.2 || AK6_delta_R1_temp > AK6_delta_R1) continue;
 
             AK6_n1 = j;
             AK6_delta_R1 = AK6_delta_R1_temp;
@@ -388,7 +404,7 @@ int main() {
         for (int j = 0; j < AK6_cutJets.size(); j++) {
             AK6_delta_R2_temp = AK6_cutJets[j].delta_R(partons[1]);
 
-            if (AK6_delta_R2_temp > 0.6 || AK6_delta_R2_temp > AK6_delta_R2) continue;
+            if (AK6_delta_R2_temp > 0.2 || AK6_delta_R2_temp > AK6_delta_R2) continue;
 
             AK6_n2_temp = j;
 
@@ -406,7 +422,7 @@ int main() {
 
                     AK6_delta_R1_temp = AK6_cutJets[k].delta_R(partons[0]);
 
-                    if (AK6_delta_R1_temp > 0.6 || AK6_delta_R1_temp > AK6_delta_R1) continue;
+                    if (AK6_delta_R1_temp > 0.2 || AK6_delta_R1_temp > AK6_delta_R1) continue;
 
                     AK6_n1 = k;
                     AK6_delta_R1 = AK6_delta_R1_temp;
@@ -414,7 +430,11 @@ int main() {
             }
         }
 
+        AK6_nMatchedJet = 0;
+
         if (AK6_n1 != -1) {
+            AK6_nMatchedJet++;
+
             AK6_jet_matched_pt.push_back(AK6_cutJets[AK6_n1].pt());
             AK6_jet_matched_eta.push_back(AK6_cutJets[AK6_n1].eta());
             AK6_jet_matched_phi.push_back(AK6_cutJets[AK6_n1].phi_std());
@@ -422,6 +442,8 @@ int main() {
         }
 
         if (AK6_n2 != -1) {
+            AK6_nMatchedJet++;
+
             AK6_jet_matched_pt.push_back(AK6_cutJets[AK6_n2].pt());
             AK6_jet_matched_eta.push_back(AK6_cutJets[AK6_n2].eta());
             AK6_jet_matched_phi.push_back(AK6_cutJets[AK6_n2].phi_std());
@@ -436,7 +458,7 @@ int main() {
         for (int j = 0; j < AK8_cutJets.size(); j++) {
             AK8_delta_R1_temp = AK8_cutJets[j].delta_R(partons[0]);
 
-            if (AK8_delta_R1_temp > 0.8 || AK8_delta_R1_temp > AK8_delta_R1) continue;
+            if (AK8_delta_R1_temp > 0.2 || AK8_delta_R1_temp > AK8_delta_R1) continue;
 
             AK8_n1 = j;
             AK8_delta_R1 = AK8_delta_R1_temp;
@@ -446,7 +468,7 @@ int main() {
         for (int j = 0; j < AK8_cutJets.size(); j++) {
             AK8_delta_R2_temp = AK8_cutJets[j].delta_R(partons[1]);
 
-            if (AK8_delta_R2_temp > 0.8 || AK8_delta_R2_temp > AK8_delta_R2) continue;
+            if (AK8_delta_R2_temp > 0.2 || AK8_delta_R2_temp > AK8_delta_R2) continue;
 
             AK8_n2_temp = j;
 
@@ -464,7 +486,7 @@ int main() {
 
                     AK8_delta_R1_temp = AK8_cutJets[k].delta_R(partons[0]);
 
-                    if (AK8_delta_R1_temp > 0.8 || AK8_delta_R1_temp > AK8_delta_R1) continue;
+                    if (AK8_delta_R1_temp > 0.2 || AK8_delta_R1_temp > AK8_delta_R1) continue;
 
                     AK8_n1 = k;
                     AK8_delta_R1 = AK8_delta_R1_temp;
@@ -472,7 +494,11 @@ int main() {
             }
         }
 
+        AK8_nMatchedJet = 0;
+
         if (AK8_n1 != -1) {
+            AK8_nMatchedJet++;
+
             AK8_jet_matched_pt.push_back(AK8_cutJets[AK8_n1].pt());
             AK8_jet_matched_eta.push_back(AK8_cutJets[AK8_n1].eta());
             AK8_jet_matched_phi.push_back(AK8_cutJets[AK8_n1].phi_std());
@@ -480,6 +506,8 @@ int main() {
         }
 
         if (AK8_n2 != -1) {
+            AK8_nMatchedJet++;
+
             AK8_jet_matched_pt.push_back(AK8_cutJets[AK8_n2].pt());
             AK8_jet_matched_eta.push_back(AK8_cutJets[AK8_n2].eta());
             AK8_jet_matched_phi.push_back(AK8_cutJets[AK8_n2].phi_std());
