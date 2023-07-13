@@ -52,7 +52,7 @@ void compareJetDelR() {
     pad1->cd();
 
     // Formatting
-    h1_AK8_jet_matched_delR->SetMaximum(0.1);
+    h1_AK8_jet_matched_delR->SetMaximum(0.12);
 
     auto xaxis = h1_AK8_jet_matched_delR->GetXaxis();
     xaxis->SetTitle("#DeltaR");
@@ -62,7 +62,7 @@ void compareJetDelR() {
     xaxis->SetLabelSize(35);
 
     auto yaxis = h1_AK8_jet_matched_delR->GetYaxis();
-    yaxis->SetTitle("Normalised events per bin");
+    yaxis->SetTitle("Normalised jets per bin");
     yaxis->SetTitleFont(43);
     yaxis->SetTitleSize(55);
     yaxis->SetLabelFont(43);

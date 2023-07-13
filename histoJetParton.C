@@ -1378,4 +1378,199 @@ void histoJetParton() {
 
     c31->cd();
     c31->SaveAs("pdffiles/h1_AK8_jet_matched_delR.pdf");
+
+    // nMatchedJet
+
+    // AK2
+    auto *h1_AK2_nMatchedJet = f->Get<TH1D>("h1_AK2_nMatchedJet");
+    h1_AK2_nMatchedJet->SetFillColor(kBlue+1);
+    h1_AK2_nMatchedJet->SetLineColor(kBlue+1);
+    h1_AK2_nMatchedJet->SetStats(0);
+    h1_AK2_nMatchedJet->SetTitle("");
+    h1_AK2_nMatchedJet->SetMarkerSize(2);
+    h1_AK2_nMatchedJet->SetMarkerColor(kBlue+1);
+
+    TCanvas *c32 = new TCanvas("c32", "c32");
+    c32->cd();
+    c32->SetCanvasSize(1200, 1200);
+
+    TPad *pad32 = new TPad("pad32", "pad32", 0, 0, 1, 1);
+    pad32->SetLeftMargin(0.15);
+    pad32->SetRightMargin(0.15);
+    pad32->SetBottomMargin(0.15);
+    pad32->SetTopMargin(0.15);
+    pad32->SetTickx();
+    pad32->SetTicky();
+    pad32->Draw();
+    pad32->cd();
+
+    // Formatting
+    auto xaxis32 = h1_AK2_nMatchedJet->GetXaxis();
+    xaxis32->SetTitle("Number of matched jets");
+    xaxis32->SetTitleFont(43);
+    xaxis32->SetTitleSize(55);
+    xaxis32->SetLabelFont(43);
+    xaxis32->SetLabelSize(35);
+    xaxis32->SetBinLabel(1, "0");
+    xaxis32->SetBinLabel(2, "1");
+    xaxis32->SetBinLabel(3, "2");
+    xaxis32->SetBinLabel(4, "3");
+    xaxis32->SetBinLabel(5, "4");
+    
+
+    auto yaxis32 = h1_AK2_nMatchedJet->GetYaxis();
+    yaxis32->SetTitle("Events per bin");
+    yaxis32->SetTitleFont(43);
+    yaxis32->SetTitleSize(55);
+    yaxis32->SetLabelFont(43);
+    yaxis32->SetLabelSize(35);
+
+    h1_AK2_nMatchedJet->Draw("hist");
+
+    c32->cd();
+    c32->SaveAs("pdffiles/h1_AK2_nMatchedJet_perEvent.pdf");
+
+    // AK4
+    auto *h1_AK4_nMatchedJet = f->Get<TH1D>("h1_AK4_nMatchedJet");
+    h1_AK4_nMatchedJet->SetFillColor(kGreen+1);
+    h1_AK4_nMatchedJet->SetLineColor(kGreen+1);
+    h1_AK4_nMatchedJet->SetStats(0);
+    h1_AK4_nMatchedJet->SetTitle("");
+    h1_AK4_nMatchedJet->SetMarkerSize(2);
+    h1_AK4_nMatchedJet->SetMarkerColor(kGreen+1);
+
+    TCanvas *c33 = new TCanvas("c33", "c33");
+    c33->cd();
+    c33->SetCanvasSize(1200, 1200);
+
+    TPad *pad33 = new TPad("pad33", "pad33", 0, 0, 1, 1);
+    pad33->SetLeftMargin(0.15);
+    pad33->SetRightMargin(0.15);
+    pad33->SetBottomMargin(0.15);
+    pad33->SetTopMargin(0.15);
+    pad33->SetTickx();
+    pad33->SetTicky();
+    pad33->Draw();
+    pad33->cd();
+
+    // Formatting
+    auto xaxis33 = h1_AK4_nMatchedJet->GetXaxis();
+    xaxis33->SetTitle("Number of matched jets");
+    xaxis33->SetTitleFont(43);
+    xaxis33->SetTitleSize(55);
+    xaxis33->SetLabelFont(43);
+    xaxis33->SetLabelSize(35);
+    xaxis33->SetBinLabel(1, "0");
+    xaxis33->SetBinLabel(2, "1");
+    xaxis33->SetBinLabel(3, "2");
+    xaxis33->SetBinLabel(4, "3");
+    xaxis33->SetBinLabel(5, "4");
+
+    auto yaxis33 = h1_AK4_nMatchedJet->GetYaxis();
+    yaxis33->SetTitle("Events per bin");
+    yaxis33->SetTitleFont(43);
+    yaxis33->SetTitleSize(55);
+    yaxis33->SetLabelFont(43);
+    yaxis33->SetLabelSize(35);
+
+    h1_AK4_nMatchedJet->Draw("hist");
+
+    c33->cd();
+    c33->SaveAs("pdffiles/h1_AK4_nMatchedJet_perEvent.pdf");
+
+    // AK6
+    auto *h1_AK6_nMatchedJet = f->Get<TH1D>("h1_AK6_nMatchedJet");
+    h1_AK6_nMatchedJet->SetFillColor(kOrange+1);
+    h1_AK6_nMatchedJet->SetLineColor(kOrange+1);
+    h1_AK6_nMatchedJet->SetStats(0);
+    h1_AK6_nMatchedJet->SetTitle("");
+    h1_AK6_nMatchedJet->SetMarkerSize(2);
+    h1_AK6_nMatchedJet->SetMarkerColor(kOrange+1);
+
+    TCanvas *c34 = new TCanvas("c34", "c34");
+    c34->cd();
+    c34->SetCanvasSize(1200, 1200);
+
+    TPad *pad34 = new TPad("pad34", "pad34", 0, 0, 1, 1);
+    pad34->SetLeftMargin(0.15);
+    pad34->SetRightMargin(0.15);
+    pad34->SetBottomMargin(0.15);
+    pad34->SetTopMargin(0.15);
+    pad34->SetTickx();
+    pad34->SetTicky();
+    pad34->Draw();
+    pad34->cd();
+
+    // Formatting
+    auto xaxis34 = h1_AK6_nMatchedJet->GetXaxis();
+    xaxis34->SetTitle("Number of matched jets");
+    xaxis34->SetTitleFont(43);
+    xaxis34->SetTitleSize(55);
+    xaxis34->SetLabelFont(43);
+    xaxis34->SetLabelSize(35);
+    xaxis34->SetBinLabel(1, "0");
+    xaxis34->SetBinLabel(2, "1");
+    xaxis34->SetBinLabel(3, "2");
+    xaxis34->SetBinLabel(4, "3");
+    xaxis34->SetBinLabel(5, "4");
+
+    auto yaxis34 = h1_AK6_nMatchedJet->GetYaxis();
+    yaxis34->SetTitle("Events per bin");
+    yaxis34->SetTitleFont(43);
+    yaxis34->SetTitleSize(55);
+    yaxis34->SetLabelFont(43);
+    yaxis34->SetLabelSize(35);
+
+    h1_AK6_nMatchedJet->Draw("hist");
+
+    c34->cd();
+    c34->SaveAs("pdffiles/h1_AK6_nMatchedJet_perEvent.pdf");
+
+    // AK8
+    auto *h1_AK8_nMatchedJet = f->Get<TH1D>("h1_AK8_nMatchedJet");
+    h1_AK8_nMatchedJet->SetFillColor(kRed+1);
+    h1_AK8_nMatchedJet->SetLineColor(kRed+1);
+    h1_AK8_nMatchedJet->SetStats(0);
+    h1_AK8_nMatchedJet->SetTitle("");
+    h1_AK8_nMatchedJet->SetMarkerSize(2);
+    h1_AK8_nMatchedJet->SetMarkerColor(kRed+1);
+
+    TCanvas *c35 = new TCanvas("c35", "c35");
+    c35->cd();
+    c35->SetCanvasSize(1200, 1200);
+
+    TPad *pad35 = new TPad("pad35", "pad35", 0, 0, 1, 1);
+    pad35->SetLeftMargin(0.15);
+    pad35->SetRightMargin(0.15);
+    pad35->SetBottomMargin(0.15);
+    pad35->SetTopMargin(0.15);
+    pad35->SetTickx();
+    pad35->SetTicky();
+    pad35->Draw();
+    pad35->cd();
+
+    // Formatting
+    auto xaxis35 = h1_AK8_nMatchedJet->GetXaxis();
+    xaxis35->SetTitle("Number of matched jets");
+    xaxis35->SetTitleFont(43);
+    xaxis35->SetTitleSize(55);
+    xaxis35->SetLabelFont(43);
+    xaxis35->SetLabelSize(35);
+    xaxis35->SetBinLabel(1, "0");
+    xaxis35->SetBinLabel(2, "1");
+    xaxis35->SetBinLabel(3, "2");
+    xaxis35->SetBinLabel(4, "3");
+    xaxis35->SetBinLabel(5, "4");
+
+    auto yaxis35 = h1_AK8_nMatchedJet->GetYaxis();
+    yaxis35->SetTitle("Events per bin");
+    yaxis35->SetTitleFont(43);
+    yaxis35->SetTitleSize(55);
+    yaxis35->SetLabelFont(43);
+    yaxis35->SetLabelSize(35);
+
+    h1_AK8_nMatchedJet->Draw("hist");
+
+    c35->cd();
+    c35->SaveAs("pdffiles/h1_AK8_nMatchedJet_perEvent.pdf");
 }

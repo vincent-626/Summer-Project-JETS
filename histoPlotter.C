@@ -50,6 +50,11 @@ void histoPlotter() {
     ROOT::RDF::TH1DModel model_AK6_jet_matched_delR("h1_AK6_jet_matched_delR", "", 20, 0., 0.2);
     ROOT::RDF::TH1DModel model_AK8_jet_matched_delR("h1_AK8_jet_matched_delR", "", 20, 0., 0.2);
 
+    ROOT::RDF::TH1DModel model_AK2_nMatchedJet("h1_AK2_nMatchedJet", "", 5, 0, 5);
+    ROOT::RDF::TH1DModel model_AK4_nMatchedJet("h1_AK4_nMatchedJet", "", 5, 0, 5);
+    ROOT::RDF::TH1DModel model_AK6_nMatchedJet("h1_AK6_nMatchedJet", "", 5, 0, 5);
+    ROOT::RDF::TH1DModel model_AK8_nMatchedJet("h1_AK8_nMatchedJet", "", 5, 0, 5);
+
     auto h1_AK2_jet_pt = df.Histo1D(model_AK2_jet_pt, "AK2_jet_pt");
     auto h1_AK4_jet_pt = df.Histo1D(model_AK4_jet_pt, "AK4_jet_pt");
     auto h1_AK6_jet_pt = df.Histo1D(model_AK6_jet_pt, "AK6_jet_pt");
@@ -89,6 +94,11 @@ void histoPlotter() {
     auto h1_AK6_jet_matched_delR = df.Histo1D(model_AK6_jet_matched_delR, "AK6_jet_matched_delR");
     auto h1_AK8_jet_matched_delR = df.Histo1D(model_AK8_jet_matched_delR, "AK8_jet_matched_delR");
 
+    auto h1_AK2_nMatchedJet = df.Histo1D(model_AK2_nMatchedJet, "AK2_nMatchedJet");
+    auto h1_AK4_nMatchedJet = df.Histo1D(model_AK4_nMatchedJet, "AK4_nMatchedJet");
+    auto h1_AK6_nMatchedJet = df.Histo1D(model_AK6_nMatchedJet, "AK6_nMatchedJet");
+    auto h1_AK8_nMatchedJet = df.Histo1D(model_AK8_nMatchedJet, "AK8_nMatchedJet");
+
     // ----------------
     // Save histograms
     // ----------------
@@ -98,6 +108,7 @@ void histoPlotter() {
     h1_AK2_jet_pt->Write();
     h1_AK2_jet_eta->Write();
     h1_AK2_jet_phi->Write();
+    h1_AK2_nMatchedJet->Write();
     h1_AK2_jet_matched_pt->Write();
     h1_AK2_jet_matched_eta->Write();
     h1_AK2_jet_matched_phi->Write();
@@ -106,6 +117,7 @@ void histoPlotter() {
     h1_AK4_jet_pt->Write();
     h1_AK4_jet_eta->Write();
     h1_AK4_jet_phi->Write();
+    h1_AK4_nMatchedJet->Write();
     h1_AK4_jet_matched_pt->Write();
     h1_AK4_jet_matched_eta->Write();
     h1_AK4_jet_matched_phi->Write();
@@ -114,6 +126,7 @@ void histoPlotter() {
     h1_AK6_jet_pt->Write();
     h1_AK6_jet_eta->Write();
     h1_AK6_jet_phi->Write();
+    h1_AK6_nMatchedJet->Write();
     h1_AK6_jet_matched_pt->Write();
     h1_AK6_jet_matched_eta->Write();
     h1_AK6_jet_matched_phi->Write();
@@ -122,6 +135,7 @@ void histoPlotter() {
     h1_AK8_jet_pt->Write();
     h1_AK8_jet_eta->Write();
     h1_AK8_jet_phi->Write();
+    h1_AK8_nMatchedJet->Write();
     h1_AK8_jet_matched_pt->Write();
     h1_AK8_jet_matched_eta->Write();
     h1_AK8_jet_matched_phi->Write();
