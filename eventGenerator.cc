@@ -274,11 +274,11 @@ int main() {
         // AK6_loopOption = 2;
         // AK8_loopOption = 2;
 
-        // // All jets
-        // AK2_loopOption = AK2_cutJets.size();
-        // AK4_loopOption = AK4_cutJets.size();
-        // AK6_loopOption = AK6_cutJets.size();
-        // AK8_loopOption = AK8_cutJets.size();
+        // All jets
+        AK2_loopOption = AK2_cutJets.size();
+        AK4_loopOption = AK4_cutJets.size();
+        AK6_loopOption = AK6_cutJets.size();
+        AK8_loopOption = AK8_cutJets.size();
 
         // AK2
         AK2_nMatchedJet = 0;
