@@ -12,7 +12,8 @@ int main() {
 
     TTree *tree = new TTree("tree", "tree");
 
-    int nParton, AK2_nJet, AK4_nJet, AK6_nJet, AK8_nJet, AK2_nMatchedJet, AK4_nMatchedJet, AK6_nMatchedJet, AK8_nMatchedJet;
+    int nParton, nEtaCutParton;
+    int AK2_nJet, AK4_nJet, AK6_nJet, AK8_nJet, AK2_nMatchedJet, AK4_nMatchedJet, AK6_nMatchedJet, AK8_nMatchedJet;
 
     std::vector<float>  Parton_pt, Parton_eta, Parton_phi, Parton_id,
                         AK2_jet_pt, AK4_jet_pt, AK6_jet_pt, AK8_jet_pt,
@@ -42,6 +43,7 @@ int main() {
     int AK2_loopOption, AK4_loopOption, AK6_loopOption, AK8_loopOption;
 
     tree->Branch("nParton", &nParton);
+    tree->Branch("nEtaCutParton", &nEtaCutParton);
     tree->Branch("Parton_pt", &Parton_pt);
     tree->Branch("Parton_eta", &Parton_eta);
     tree->Branch("Parton_phi", &Parton_phi);
@@ -129,11 +131,15 @@ int main() {
         // Save parton properties
         // -----------------------
         nParton = 0;
+        nEtaCutParton = 0;
 
         for (int j = 0; j < event.size(); j++) {
             if (TMath::Abs(event[j].status()) != 23) continue;
 
             nParton++;
+
+            if (event[j].eta() < 2) nEtaCutParton++;
+
             Parton_pt.push_back(event[j].pT());
             Parton_eta.push_back(event[j].eta());
             Parton_phi.push_back(event[j].phi());

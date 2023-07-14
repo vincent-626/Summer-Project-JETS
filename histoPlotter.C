@@ -55,6 +55,8 @@ void histoPlotter() {
     ROOT::RDF::TH1DModel model_AK6_nMatchedJet("h1_AK6_nMatchedJet", "", 5, 0, 5);
     ROOT::RDF::TH1DModel model_AK8_nMatchedJet("h1_AK8_nMatchedJet", "", 5, 0, 5);
 
+    ROOT::RDF::TH1DModel model_nEtaCutParton("h1_nEtaCutParton", "", 3, 0, 3);
+
     auto h1_AK2_jet_pt = df.Histo1D(model_AK2_jet_pt, "AK2_jet_pt");
     auto h1_AK4_jet_pt = df.Histo1D(model_AK4_jet_pt, "AK4_jet_pt");
     auto h1_AK6_jet_pt = df.Histo1D(model_AK6_jet_pt, "AK6_jet_pt");
@@ -99,6 +101,8 @@ void histoPlotter() {
     auto h1_AK6_nMatchedJet = df.Histo1D(model_AK6_nMatchedJet, "AK6_nMatchedJet");
     auto h1_AK8_nMatchedJet = df.Histo1D(model_AK8_nMatchedJet, "AK8_nMatchedJet");
 
+    auto h1_nEtaCutParton = df.Histo1D(model_nEtaCutParton, "nEtaCutParton");
+
     // ----------------
     // Save histograms
     // ----------------
@@ -141,6 +145,7 @@ void histoPlotter() {
     h1_AK8_jet_matched_phi->Write();
     h1_AK8_jet_matched_delR->Write();
 
+    h1_nEtaCutParton->Write();
     h1_parton_pt->Write();
     h1_parton_eta->Write();
     h1_parton_phi->Write();
