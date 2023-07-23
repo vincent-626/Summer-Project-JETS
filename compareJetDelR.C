@@ -52,21 +52,21 @@ void compareJetDelR() {
     pad1->cd();
 
     // Formatting
-    h1_AK8_jet_matched_delR->SetMaximum(0.025);
+    h1_AK8_jet_matched_delR->SetMaximum(0.22);
 
-    auto xaxis = h1_AK8_jet_matched_delR->GetXaxis();
-    xaxis->SetTitle("#DeltaR");
-    xaxis->SetTitleFont(43);
-    xaxis->SetTitleSize(55);
-    xaxis->SetLabelFont(43);
-    xaxis->SetLabelSize(35);
+    auto xaxis1 = h1_AK8_jet_matched_delR->GetXaxis();
+    xaxis1->SetTitle("#DeltaR");
+    xaxis1->SetTitleFont(43);
+    xaxis1->SetTitleSize(55);
+    xaxis1->SetLabelFont(43);
+    xaxis1->SetLabelSize(35);
 
-    auto yaxis = h1_AK8_jet_matched_delR->GetYaxis();
-    yaxis->SetTitle("Normalised jets per bin");
-    yaxis->SetTitleFont(43);
-    yaxis->SetTitleSize(55);
-    yaxis->SetLabelFont(43);
-    yaxis->SetLabelSize(35);
+    auto yaxis1 = h1_AK8_jet_matched_delR->GetYaxis();
+    yaxis1->SetTitle("Normalised jets per bin");
+    yaxis1->SetTitleFont(43);
+    yaxis1->SetTitleSize(55);
+    yaxis1->SetLabelFont(43);
+    yaxis1->SetLabelSize(35);
 
     h1_AK8_jet_matched_delR->Draw("hist");
     h1_AK6_jet_matched_delR->Draw("histsame");
@@ -74,13 +74,13 @@ void compareJetDelR() {
     h1_AK2_jet_matched_delR->Draw("histsame");
 
     // Legend
-    TLegend *leg = new TLegend(0.6, 0.6, 0.8, 0.8);
-    leg->SetBorderSize(0);
-    leg->AddEntry(h1_AK2_jet_matched_delR, "R = 0.2", "f");
-    leg->AddEntry(h1_AK4_jet_matched_delR, "R = 0.4", "f");
-    leg->AddEntry(h1_AK6_jet_matched_delR, "R = 0.6", "f");
-    leg->AddEntry(h1_AK8_jet_matched_delR, "R = 0.8", "f");
-    leg->Draw();
+    TLegend *leg1 = new TLegend(0.6, 0.6, 0.8, 0.8);
+    leg1->SetBorderSize(0);
+    leg1->AddEntry(h1_AK2_jet_matched_delR, "R = 0.2", "f");
+    leg1->AddEntry(h1_AK4_jet_matched_delR, "R = 0.4", "f");
+    leg1->AddEntry(h1_AK6_jet_matched_delR, "R = 0.6", "f");
+    leg1->AddEntry(h1_AK8_jet_matched_delR, "R = 0.8", "f");
+    leg1->Draw();
 
     c1->cd();
     c1->SaveAs("pdffiles/h1_jet_matched_delR_compare.pdf");

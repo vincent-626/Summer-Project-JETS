@@ -1619,4 +1619,245 @@ void histoJetParton() {
 
     c36->cd();
     c36->SaveAs("pdffiles/h1_nEtaCutParton_perEvent.pdf");
+
+    // delR (projection)
+    const int pt[6] = {10, 40, 50, 70, 100, 200};
+
+    for (int i = 1; i < 6; i++) {
+        // AK2
+        string title_AK2 = "h1_AK2_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK2 = title_AK2.c_str();
+        auto h1_AK2_project = f->Get<TH1D>(c_title_AK2);
+
+        h1_AK2_project->SetFillColor(kBlue+1);
+        h1_AK2_project->SetLineColor(kBlue+1);
+        h1_AK2_project->SetStats(0);
+        h1_AK2_project->SetTitle("");
+        h1_AK2_project->SetMarkerSize(2);
+        h1_AK2_project->SetMarkerColor(kBlue+1);
+
+        TCanvas *c37 = new TCanvas("c37", "c37");
+        c37->cd();
+        c37->SetCanvasSize(1200, 1200);
+
+        TPad *pad37 = new TPad("pad37", "pad37", 0, 0, 1, 1);
+        pad37->SetLeftMargin(0.15);
+        pad37->SetRightMargin(0.15);
+        pad37->SetBottomMargin(0.15);
+        pad37->SetTopMargin(0.15);
+        pad37->SetTickx();
+        pad37->SetTicky();
+        pad37->Draw();
+        pad37->cd();
+
+        // Formatting
+        auto xaxis37 = h1_AK2_project->GetXaxis();
+        xaxis37->SetTitle("#Delta R");
+        xaxis37->SetTitleFont(43);
+        xaxis37->SetTitleSize(55);
+        xaxis37->SetLabelFont(43);
+        xaxis37->SetLabelSize(35);
+
+        auto yaxis37 = h1_AK2_project->GetYaxis();
+        yaxis37->SetTitle("AK2 jets per bin");
+        yaxis37->SetTitleFont(43);
+        yaxis37->SetTitleSize(55);
+        yaxis37->SetLabelFont(43);
+        yaxis37->SetLabelSize(35);
+
+        h1_AK2_project->Draw("hist");
+
+        c37->cd();
+        TLatex *latex37 = new TLatex();
+        latex37->SetNDC();
+        latex37->SetTextFont(42);
+        latex37->SetTextSize(0.03);
+        latex37->SetTextColor(1);
+        latex37->SetTextAlign(12);
+        string text37 = std::to_string(pt[i-1]) + "GeV < p_{T} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text37 = text37.c_str();
+        latex37->DrawLatex(0.53, 0.78, c_text37);
+        
+        string outFile_AK2 = "pdffiles/h1_AK2_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_outFile_AK2 = outFile_AK2.c_str();
+        c37->cd();
+        c37->SaveAs(c_outFile_AK2);
+
+        // AK4
+        string title_AK4 = "h1_AK4_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK4 = title_AK4.c_str();
+        auto h1_AK4_project = f->Get<TH1D>(c_title_AK4);
+
+        h1_AK4_project->SetFillColor(kGreen+1);
+        h1_AK4_project->SetLineColor(kGreen+1);
+        h1_AK4_project->SetStats(0);
+        h1_AK4_project->SetTitle("");
+        h1_AK4_project->SetMarkerSize(2);
+        h1_AK4_project->SetMarkerColor(kGreen+1);
+
+        TCanvas *c38 = new TCanvas("c38", "c38");
+        c38->cd();
+        c38->SetCanvasSize(1200, 1200);
+
+        TPad *pad38 = new TPad("pad38", "pad38", 0, 0, 1, 1);
+        pad38->SetLeftMargin(0.15);
+        pad38->SetRightMargin(0.15);
+        pad38->SetBottomMargin(0.15);
+        pad38->SetTopMargin(0.15);
+        pad38->SetTickx();
+        pad38->SetTicky();
+        pad38->Draw();
+        pad38->cd();
+
+        // Formatting
+        auto xaxis38 = h1_AK4_project->GetXaxis();
+        xaxis38->SetTitle("#Delta R");
+        xaxis38->SetTitleFont(43);
+        xaxis38->SetTitleSize(55);
+        xaxis38->SetLabelFont(43);
+        xaxis38->SetLabelSize(35);
+
+        auto yaxis38 = h1_AK4_project->GetYaxis();
+        yaxis38->SetTitle("AK4 jets per bin");
+        yaxis38->SetTitleFont(43);
+        yaxis38->SetTitleSize(55);
+        yaxis38->SetLabelFont(43);
+        yaxis38->SetLabelSize(35);
+
+        h1_AK4_project->Draw("hist");
+
+        c38->cd();
+        TLatex *latex38 = new TLatex();
+        latex38->SetNDC();
+        latex38->SetTextFont(42);
+        latex38->SetTextSize(0.03);
+        latex38->SetTextColor(1);
+        latex38->SetTextAlign(12);
+        string text38 = std::to_string(pt[i-1]) + "GeV < p_{T} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text38 = text38.c_str();
+        latex38->DrawLatex(0.53, 0.78, c_text38);
+        
+        string outFile_AK4 = "pdffiles/h1_AK4_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_outFile_AK4 = outFile_AK4.c_str();
+        c38->cd();
+        c38->SaveAs(c_outFile_AK4);
+
+        // AK6
+        string title_AK6 = "h1_AK6_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK6 = title_AK6.c_str();
+        auto h1_AK6_project = f->Get<TH1D>(c_title_AK6);
+
+        h1_AK6_project->SetFillColor(kOrange+1);
+        h1_AK6_project->SetLineColor(kOrange+1);
+        h1_AK6_project->SetStats(0);
+        h1_AK6_project->SetTitle("");
+        h1_AK6_project->SetMarkerSize(2);
+        h1_AK6_project->SetMarkerColor(kOrange+1);
+
+        TCanvas *c39 = new TCanvas("c39", "c39");
+        c39->cd();
+        c39->SetCanvasSize(1200, 1200);
+
+        TPad *pad39 = new TPad("pad39", "pad39", 0, 0, 1, 1);
+        pad39->SetLeftMargin(0.15);
+        pad39->SetRightMargin(0.15);
+        pad39->SetBottomMargin(0.15);
+        pad39->SetTopMargin(0.15);
+        pad39->SetTickx();
+        pad39->SetTicky();
+        pad39->Draw();
+        pad39->cd();
+
+        // Formatting
+        auto xaxis39 = h1_AK6_project->GetXaxis();
+        xaxis39->SetTitle("#Delta R");
+        xaxis39->SetTitleFont(43);
+        xaxis39->SetTitleSize(55);
+        xaxis39->SetLabelFont(43);
+        xaxis39->SetLabelSize(35);
+
+        auto yaxis39 = h1_AK6_project->GetYaxis();
+        yaxis39->SetTitle("AK6 jets per bin");
+        yaxis39->SetTitleFont(43);
+        yaxis39->SetTitleSize(55);
+        yaxis39->SetLabelFont(43);
+        yaxis39->SetLabelSize(35);
+
+        h1_AK6_project->Draw("hist");
+        
+        c39->cd();
+        TLatex *latex39 = new TLatex();
+        latex39->SetNDC();
+        latex39->SetTextFont(42);
+        latex39->SetTextSize(0.03);
+        latex39->SetTextColor(1);
+        latex39->SetTextAlign(12);
+        string text39 = std::to_string(pt[i-1]) + "GeV < p_{T} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text39 = text39.c_str();
+        latex39->DrawLatex(0.53, 0.78, c_text39);
+
+        string outFile_AK6 = "pdffiles/h1_AK6_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_outFile_AK6 = outFile_AK6.c_str();
+        c39->cd();
+        c39->SaveAs(c_outFile_AK6);
+
+        // AK8
+        string title_AK8 = "h1_AK8_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK8 = title_AK8.c_str();
+        auto h1_AK8_project = f->Get<TH1D>(c_title_AK8);
+
+        h1_AK8_project->SetFillColor(kRed+1);
+        h1_AK8_project->SetLineColor(kRed+1);
+        h1_AK8_project->SetStats(0);
+        h1_AK8_project->SetTitle("");
+        h1_AK8_project->SetMarkerSize(2);
+        h1_AK8_project->SetMarkerColor(kRed+1);
+
+        TCanvas *c40 = new TCanvas("c40", "c40");
+        c40->cd();
+        c40->SetCanvasSize(1200, 1200);
+
+        TPad *pad40 = new TPad("pad40", "pad40", 0, 0, 1, 1);
+        pad40->SetLeftMargin(0.15);
+        pad40->SetRightMargin(0.15);
+        pad40->SetBottomMargin(0.15);
+        pad40->SetTopMargin(0.15);
+        pad40->SetTickx();
+        pad40->SetTicky();
+        pad40->Draw();
+        pad40->cd();
+
+        // Formatting
+        auto xaxis40 = h1_AK8_project->GetXaxis();
+        xaxis40->SetTitle("#Delta R");
+        xaxis40->SetTitleFont(43);
+        xaxis40->SetTitleSize(55);
+        xaxis40->SetLabelFont(43);
+        xaxis40->SetLabelSize(35);
+
+        auto yaxis40 = h1_AK8_project->GetYaxis();
+        yaxis40->SetTitle("AK8 jets per bin");
+        yaxis40->SetTitleFont(43);
+        yaxis40->SetTitleSize(55);
+        yaxis40->SetLabelFont(43);
+        yaxis40->SetLabelSize(35);
+
+        h1_AK8_project->Draw("hist");
+
+        c40->cd();
+        TLatex *latex40 = new TLatex();
+        latex40->SetNDC();
+        latex40->SetTextFont(42);
+        latex40->SetTextSize(0.03);
+        latex40->SetTextColor(1);
+        latex40->SetTextAlign(12);
+        string text40 = std::to_string(pt[i-1]) + "GeV < p_{T} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text40 = text40.c_str();
+        latex40->DrawLatex(0.53, 0.78, c_text40);
+        
+        string outFile_AK8 = "pdffiles/h1_AK8_jet_matched_delR_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_outFile_AK8 = outFile_AK8.c_str();
+        c40->cd();
+        c40->SaveAs(c_outFile_AK8);
+    }
 }
