@@ -25,7 +25,7 @@ void compareEtaPhi() {
     TTreeReaderValue<std::vector<float>> AK8_jet_matched_phi(reader, "AK8_jet_matched_phi");
     TTreeReaderValue<std::vector<float>> Parton_phi(reader, "Parton_phi");
 
-    int iEvent = 5;
+    int iEvent = 0;
 
     for (int i = 0; i < iEvent+1; i++) reader.Next();
 
@@ -169,5 +169,5 @@ void compareEtaPhi() {
     // g2->Draw("APsame");
 
     c1->cd();
-    c1->SaveAs("pdffiles/g2_compareEtaPhi_5.pdf");
+    c1->SaveAs("pdffiles/g2_compareEtaPhi_0.pdf");
 }
