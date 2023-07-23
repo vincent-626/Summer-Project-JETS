@@ -353,7 +353,7 @@ int main() {
         // }
 
         // ------------------------
-        // Jet matching (all jets)
+        // Jet matching (two jets)
         // ------------------------
 
         // AK2
@@ -389,7 +389,7 @@ int main() {
         AK4_nUnmatchedJet = 0;
 
         for (int j = 0; j < 2; j++) {
-            if (abs(partons[j].eta()) > 2.) continue;
+            if (abs(partons[j].eta()) > 1.8) continue;
             if (AK4_cutJets.size() == 0) break;
 
             AK4_delta_R.clear();
@@ -419,7 +419,7 @@ int main() {
         AK6_nUnmatchedJet = 0;
 
         for (int j = 0; j < 2; j++) {
-            if (abs(partons[j].eta()) > 2.) continue;
+            if (abs(partons[j].eta()) > 1.6) continue;
             if (AK6_cutJets.size() == 0) break;
 
             AK6_delta_R.clear();
@@ -447,7 +447,7 @@ int main() {
         AK8_nUnmatchedJet = 0;
 
         for (int j = 0; j < 2; j++) {
-            if (abs(partons[j].eta()) > 2.) continue;
+            if (abs(partons[j].eta()) > 1.4) continue;
             if (AK8_cutJets.size() == 0) break;
 
             AK8_delta_R.clear();
