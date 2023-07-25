@@ -1582,6 +1582,7 @@ void histoJetParton() {
     h1_nEtaCutParton->SetTitle("");
     h1_nEtaCutParton->SetMarkerSize(2);
     h1_nEtaCutParton->SetMarkerColor(kCyan+1);
+    h1_nEtaCutParton->SetMinimum(0);
 
     TCanvas *c36 = new TCanvas("c36", "c36");
     c36->cd();
