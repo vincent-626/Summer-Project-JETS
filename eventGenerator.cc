@@ -106,6 +106,7 @@ int main() {
     pythia.readString("PhaseSpace:pTHatMin = 40.");
     pythia.readString("PartonLevel:ISR = off");
     pythia.readString("PartonLevel:FSR = off");
+    pythia.readString("PartonLevel:MPI = off");
 
     pythia.init();
 
@@ -148,7 +149,7 @@ int main() {
 
             nParton++;
 
-            if (event[j].eta() < 2) nEtaCutParton++;
+            if (TMath::Abs(event[j].eta()) < 1.) nEtaCutParton++;
 
             Parton_pt.push_back(event[j].pT());
             Parton_eta.push_back(event[j].eta());
@@ -353,7 +354,7 @@ int main() {
         // }
 
         // ------------------------
-        // Jet matching (two jets)
+        // Jet matching (all jets)
         // ------------------------
 
         // AK2
@@ -361,8 +362,11 @@ int main() {
         AK2_nUnmatchedJet = 0;
 
         for (int j = 0; j < 2; j++) {
-            if (abs(partons[j].eta()) > 2.) continue;
-            if (AK2_cutJets.size() == 0) break;
+            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+            if (AK2_cutJets.size() == 0) {
+                AK2_nUnmatchedJet++;
+                continue;
+            }
 
             AK2_delta_R.clear();
 
@@ -389,8 +393,11 @@ int main() {
         AK4_nUnmatchedJet = 0;
 
         for (int j = 0; j < 2; j++) {
-            if (abs(partons[j].eta()) > 1.8) continue;
-            if (AK4_cutJets.size() == 0) break;
+            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+            if (AK4_cutJets.size() == 0) {
+                AK4_nUnmatchedJet++;
+                continue;
+            }
 
             AK4_delta_R.clear();
 
@@ -419,8 +426,11 @@ int main() {
         AK6_nUnmatchedJet = 0;
 
         for (int j = 0; j < 2; j++) {
-            if (abs(partons[j].eta()) > 1.6) continue;
-            if (AK6_cutJets.size() == 0) break;
+            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+            if (AK6_cutJets.size() == 0) {
+                AK6_nUnmatchedJet++;
+                continue;
+            }
 
             AK6_delta_R.clear();
 
@@ -447,8 +457,11 @@ int main() {
         AK8_nUnmatchedJet = 0;
 
         for (int j = 0; j < 2; j++) {
-            if (abs(partons[j].eta()) > 1.4) continue;
-            if (AK8_cutJets.size() == 0) break;
+            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+            if (AK8_cutJets.size() == 0) {
+                AK8_nUnmatchedJet++;
+                continue;
+            }
 
             AK8_delta_R.clear();
 
