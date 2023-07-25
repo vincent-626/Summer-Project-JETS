@@ -58,10 +58,10 @@ void histoPlotter() {
     ROOT::RDF::TH1DModel model_nEtaCutParton("h1_nEtaCutParton", "", 3, 0, 3);
 
     const double ptbins[6] = {10., 40., 50., 70., 100., 200.};
-    ROOT::RDF::TH2DModel model_AK2_jet_matched_delR_pt("h2_AK2_jet_matched_delR_pt", "", 20, 0., 0.2, 5, ptbins);
-    ROOT::RDF::TH2DModel model_AK4_jet_matched_delR_pt("h2_AK4_jet_matched_delR_pt", "", 20, 0., 0.2, 5, ptbins);
-    ROOT::RDF::TH2DModel model_AK6_jet_matched_delR_pt("h2_AK6_jet_matched_delR_pt", "", 20, 0., 0.2, 5, ptbins);
-    ROOT::RDF::TH2DModel model_AK8_jet_matched_delR_pt("h2_AK8_jet_matched_delR_pt", "", 20, 0., 0.2, 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK2_jet_matched_delR_pt("h2_AK2_jet_matched_delR_pt", "", 200, 0., 0.2, 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK4_jet_matched_delR_pt("h2_AK4_jet_matched_delR_pt", "", 200, 0., 0.2, 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK6_jet_matched_delR_pt("h2_AK6_jet_matched_delR_pt", "", 200, 0., 0.2, 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK8_jet_matched_delR_pt("h2_AK8_jet_matched_delR_pt", "", 200, 0., 0.2, 5, ptbins);
 
     auto h1_AK2_jet_pt = df.Histo1D(model_AK2_jet_pt, "AK2_jet_pt");
     auto h1_AK4_jet_pt = df.Histo1D(model_AK4_jet_pt, "AK4_jet_pt");

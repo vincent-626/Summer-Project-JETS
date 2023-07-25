@@ -52,7 +52,7 @@ void compareJetDelR() {
     pad1->cd();
 
     // Formatting
-    h1_AK8_jet_matched_delR->SetMaximum(0.03);
+    h1_AK8_jet_matched_delR->SetMaximum(0.033);
 
     auto xaxis1 = h1_AK8_jet_matched_delR->GetXaxis();
     xaxis1->SetTitle("#DeltaR");
