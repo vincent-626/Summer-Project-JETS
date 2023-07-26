@@ -1861,4 +1861,134 @@ void histoJetParton() {
         c40->cd();
         c40->SaveAs(c_outFile_AK8);
     }
+
+    // Matched parton
+    auto *h1_parton_matched_pt = f->Get<TH1D>("h1_parton_matched_pt");
+    h1_parton_matched_pt->SetFillColor(kCyan+1);
+    h1_parton_matched_pt->SetLineColor(kCyan+1);
+    h1_parton_matched_pt->SetStats(0);
+    h1_parton_matched_pt->SetTitle("");
+    h1_parton_matched_pt->SetMarkerSize(2);
+    h1_parton_matched_pt->SetMarkerColor(kCyan+1);
+
+    TCanvas *c41 = new TCanvas("c41", "c41");
+    c41->cd();
+    c41->SetCanvasSize(1200, 1200);
+
+    TPad *pad41 = new TPad("pad41", "pad41", 0, 0, 1, 1);
+    pad41->SetLeftMargin(0.15);
+    pad41->SetRightMargin(0.15);
+    pad41->SetBottomMargin(0.15);
+    pad41->SetTopMargin(0.15);
+    pad41->SetLogy();
+    pad41->SetTickx();
+    pad41->SetTicky();
+    pad41->Draw();
+    pad41->cd();
+
+    // Formatting
+    auto xaxis41 = h1_parton_matched_pt->GetXaxis();
+    xaxis41->SetTitle("p_{T}^{Parton} (GeV)");
+    xaxis41->SetTitleFont(43);
+    xaxis41->SetTitleSize(55);
+    xaxis41->SetLabelFont(43);
+    xaxis41->SetLabelSize(35);
+
+    auto yaxis41 = h1_parton_matched_pt->GetYaxis();
+    yaxis41->SetTitle("Events per bin");
+    yaxis41->SetTitleFont(43);
+    yaxis41->SetTitleSize(55);
+    yaxis41->SetLabelFont(43);
+    yaxis41->SetLabelSize(35);
+
+    h1_parton_matched_pt->Draw("hist");
+
+    c41->cd();
+    c41->SaveAs("pdffiles/h1_parton_matched_pt.pdf");
+
+    auto *h1_parton_matched_eta = f->Get<TH1D>("h1_parton_matched_eta");
+    h1_parton_matched_eta->SetFillColor(kCyan+1);
+    h1_parton_matched_eta->SetLineColor(kCyan+1);
+    h1_parton_matched_eta->SetStats(0);
+    h1_parton_matched_eta->SetTitle("");
+    h1_parton_matched_eta->SetMarkerSize(2);
+    h1_parton_matched_eta->SetMarkerColor(kCyan+1);
+    h1_parton_matched_eta->SetMinimum(0);
+
+    TCanvas *c42 = new TCanvas("c42", "c42");
+    c42->cd();
+    c42->SetCanvasSize(1200, 1200);
+
+    TPad *pad42 = new TPad("pad42", "pad42", 0, 0, 1, 1);
+    pad42->SetLeftMargin(0.15);
+    pad42->SetRightMargin(0.15);
+    pad42->SetBottomMargin(0.15);
+    pad42->SetTopMargin(0.15);
+    pad42->SetTickx();
+    pad42->SetTicky();
+    pad42->Draw();
+    pad42->cd();
+
+    // Formatting
+    auto xaxis42 = h1_parton_matched_eta->GetXaxis();
+    xaxis42->SetTitle("#eta^{Parton} (GeV)");
+    xaxis42->SetTitleFont(43);
+    xaxis42->SetTitleSize(55);
+    xaxis42->SetLabelFont(43);
+    xaxis42->SetLabelSize(35);
+
+    auto yaxis42 = h1_parton_matched_eta->GetYaxis();
+    yaxis42->SetTitle("Events per bin");
+    yaxis42->SetTitleFont(43);
+    yaxis42->SetTitleSize(55);
+    yaxis42->SetLabelFont(43);
+    yaxis42->SetLabelSize(35);
+
+    h1_parton_matched_eta->Draw("hist");
+
+    c42->cd();
+    c42->SaveAs("pdffiles/h1_parton_matched_eta.pdf");
+
+    auto *h1_parton_matched_phi = f->Get<TH1D>("h1_parton_matched_phi");
+    h1_parton_matched_phi->SetFillColor(kCyan+1);
+    h1_parton_matched_phi->SetLineColor(kCyan+1);
+    h1_parton_matched_phi->SetStats(0);
+    h1_parton_matched_phi->SetTitle("");
+    h1_parton_matched_phi->SetMarkerSize(2);
+    h1_parton_matched_phi->SetMarkerColor(kCyan+1);
+    h1_parton_matched_phi->SetMinimum(0);
+
+    TCanvas *c43 = new TCanvas("c43", "c43");
+    c43->cd();
+    c43->SetCanvasSize(1200, 1200);
+
+    TPad *pad43 = new TPad("pad43", "pad43", 0, 0, 1, 1);
+    pad43->SetLeftMargin(0.15);
+    pad43->SetRightMargin(0.15);
+    pad43->SetBottomMargin(0.15);
+    pad43->SetTopMargin(0.15);
+    pad43->SetTickx();
+    pad43->SetTicky();
+    pad43->Draw();
+    pad43->cd();
+
+    // Formatting
+    auto xaxis43 = h1_parton_matched_phi->GetXaxis();
+    xaxis43->SetTitle("#eta^{Parton} (GeV)");
+    xaxis43->SetTitleFont(43);
+    xaxis43->SetTitleSize(55);
+    xaxis43->SetLabelFont(43);
+    xaxis43->SetLabelSize(35);
+
+    auto yaxis43 = h1_parton_matched_phi->GetYaxis();
+    yaxis43->SetTitle("Events per bin");
+    yaxis43->SetTitleFont(43);
+    yaxis43->SetTitleSize(55);
+    yaxis43->SetLabelFont(43);
+    yaxis43->SetLabelSize(35);
+
+    h1_parton_matched_phi->Draw("hist");
+
+    c43->cd();
+    c43->SaveAs("pdffiles/h1_parton_matched_phi.pdf");
 }

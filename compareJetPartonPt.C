@@ -1,5 +1,3 @@
-// In this plot the histograms are not normalized
-
 #include <iostream>
 #include <vector>
 #include "TROOT.h"
@@ -11,9 +9,7 @@
 void compareJetPartonPt() {
     TFile *f = new TFile("rootfiles/Histo_Jet_Parton.root");
 
-    // Make sure all the partons have matched jets!
-
-    auto *h1_parton_pt = f->Get<TH1D>("h1_parton_pt");
+    auto *h1_parton_pt = f->Get<TH1D>("h1_parton_matched_pt");
     h1_parton_pt->SetFillColor(0);
     h1_parton_pt->SetLineColor(kBlack);
     h1_parton_pt->SetStats(0);
@@ -22,7 +18,7 @@ void compareJetPartonPt() {
     h1_parton_pt->SetMarkerSize(2);
     h1_parton_pt->SetMarkerColor(kBlack);
 
-    auto *h1_AK2_jet_pt = f->Get<TH1D>("h1_AK2_jet_matched_pt");
+    auto *h1_AK2_jet_pt = f->Get<TH1D>("h1_AK2_jet_all_matched_pt");
     h1_AK2_jet_pt->SetFillColor(0);
     h1_AK2_jet_pt->SetLineColor(kBlue+1);
     h1_AK2_jet_pt->SetStats(0);
@@ -31,7 +27,7 @@ void compareJetPartonPt() {
     h1_AK2_jet_pt->SetMarkerSize(2);
     h1_AK2_jet_pt->SetMarkerColor(kBlue+1);
 
-    auto *h1_AK4_jet_pt = f->Get<TH1D>("h1_AK4_jet_matched_pt");
+    auto *h1_AK4_jet_pt = f->Get<TH1D>("h1_AK4_jet_all_matched_pt");
     h1_AK4_jet_pt->SetFillColor(0);
     h1_AK4_jet_pt->SetLineColor(kGreen+1);
     h1_AK4_jet_pt->SetStats(0);
@@ -40,7 +36,7 @@ void compareJetPartonPt() {
     h1_AK4_jet_pt->SetMarkerSize(2);
     h1_AK4_jet_pt->SetMarkerColor(kGreen+1);
 
-    auto *h1_AK6_jet_pt = f->Get<TH1D>("h1_AK6_jet_matched_pt");
+    auto *h1_AK6_jet_pt = f->Get<TH1D>("h1_AK6_jet_all_matched_pt");
     h1_AK6_jet_pt->SetFillColor(0);
     h1_AK6_jet_pt->SetLineColor(kOrange+1);
     h1_AK6_jet_pt->SetStats(0);
@@ -49,7 +45,7 @@ void compareJetPartonPt() {
     h1_AK6_jet_pt->SetMarkerSize(2);
     h1_AK6_jet_pt->SetMarkerColor(kOrange+1);
 
-    auto *h1_AK8_jet_pt = f->Get<TH1D>("h1_AK8_jet_matched_pt");
+    auto *h1_AK8_jet_pt = f->Get<TH1D>("h1_AK8_jet_all_matched_pt");
     h1_AK8_jet_pt->SetFillColor(0);
     h1_AK8_jet_pt->SetLineColor(kRed+1);
     h1_AK8_jet_pt->SetStats(0);
