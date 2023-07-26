@@ -50,12 +50,11 @@ void histoPlotter() {
     ROOT::RDF::TH1DModel model_AK6_jet_matched_delR("h1_AK6_jet_matched_delR", "", 200, 0., 0.2);
     ROOT::RDF::TH1DModel model_AK8_jet_matched_delR("h1_AK8_jet_matched_delR", "", 200, 0., 0.2);
 
+    ROOT::RDF::TH1DModel model_nParton("h1_nParton", "", 3, 0, 3);
     ROOT::RDF::TH1DModel model_AK2_nMatchedJet("h1_AK2_nMatchedJet", "", 5, 0, 5);
     ROOT::RDF::TH1DModel model_AK4_nMatchedJet("h1_AK4_nMatchedJet", "", 5, 0, 5);
     ROOT::RDF::TH1DModel model_AK6_nMatchedJet("h1_AK6_nMatchedJet", "", 5, 0, 5);
     ROOT::RDF::TH1DModel model_AK8_nMatchedJet("h1_AK8_nMatchedJet", "", 5, 0, 5);
-
-    ROOT::RDF::TH1DModel model_nEtaCutParton("h1_nEtaCutParton", "", 3, 0, 3);
 
     const double ptbins[6] = {10., 40., 50., 70., 100., 200.};
     ROOT::RDF::TH2DModel model_AK2_jet_matched_delR_pt("h2_AK2_jet_matched_delR_pt", "", 200, 0., 0.2, 5, ptbins);
@@ -102,12 +101,11 @@ void histoPlotter() {
     auto h1_AK6_jet_matched_delR = df.Histo1D(model_AK6_jet_matched_delR, "AK6_jet_matched_delR");
     auto h1_AK8_jet_matched_delR = df.Histo1D(model_AK8_jet_matched_delR, "AK8_jet_matched_delR");
 
+    auto h1_nParton = df.Histo1D(model_nParton, "nParton");
     auto h1_AK2_nMatchedJet = df.Histo1D(model_AK2_nMatchedJet, "AK2_nMatchedJet");
     auto h1_AK4_nMatchedJet = df.Histo1D(model_AK4_nMatchedJet, "AK4_nMatchedJet");
     auto h1_AK6_nMatchedJet = df.Histo1D(model_AK6_nMatchedJet, "AK6_nMatchedJet");
     auto h1_AK8_nMatchedJet = df.Histo1D(model_AK8_nMatchedJet, "AK8_nMatchedJet");
-
-    auto h1_nEtaCutParton = df.Histo1D(model_nEtaCutParton, "nEtaCutParton");
 
     auto h2_AK2_jet_matched_delR_pt = df.Histo2D(model_AK2_jet_matched_delR_pt, "AK2_jet_matched_delR", "AK2_jet_matched_pt");
     auto h2_AK4_jet_matched_delR_pt = df.Histo2D(model_AK4_jet_matched_delR_pt, "AK4_jet_matched_delR", "AK4_jet_matched_pt");
@@ -157,11 +155,10 @@ void histoPlotter() {
     h1_AK8_jet_matched_phi->Write();
     h1_AK8_jet_matched_delR->Write();
 
+    h1_nParton->Write();
     h1_parton_pt->Write();
     h1_parton_eta->Write();
     h1_parton_phi->Write();
-
-    h1_nEtaCutParton->Write();
 
     h2_AK2_jet_matched_delR_pt->Write();
     h2_AK4_jet_matched_delR_pt->Write();

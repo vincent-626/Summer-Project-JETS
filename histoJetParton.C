@@ -1574,15 +1574,15 @@ void histoJetParton() {
     c35->cd();
     c35->SaveAs("pdffiles/h1_AK8_nMatchedJet_perEvent.pdf");
 
-    // nEtaCutParton
-    auto *h1_nEtaCutParton = f->Get<TH1D>("h1_nEtaCutParton");
-    h1_nEtaCutParton->SetFillColor(kCyan+1);
-    h1_nEtaCutParton->SetLineColor(kCyan+1);
-    h1_nEtaCutParton->SetStats(0);
-    h1_nEtaCutParton->SetTitle("");
-    h1_nEtaCutParton->SetMarkerSize(2);
-    h1_nEtaCutParton->SetMarkerColor(kCyan+1);
-    h1_nEtaCutParton->SetMinimum(0);
+    // nParton
+    auto *h1_nParton = f->Get<TH1D>("h1_nParton");
+    h1_nParton->SetFillColor(kCyan+1);
+    h1_nParton->SetLineColor(kCyan+1);
+    h1_nParton->SetStats(0);
+    h1_nParton->SetTitle("");
+    h1_nParton->SetMarkerSize(2);
+    h1_nParton->SetMarkerColor(kCyan+1);
+    h1_nParton->SetMinimum(0);
 
     TCanvas *c36 = new TCanvas("c36", "c36");
     c36->cd();
@@ -1599,7 +1599,7 @@ void histoJetParton() {
     pad36->cd();
 
     // Formatting
-    auto xaxis36 = h1_nEtaCutParton->GetXaxis();
+    auto xaxis36 = h1_nParton->GetXaxis();
     xaxis36->SetTitle("Number of partons");
     xaxis36->SetTitleFont(43);
     xaxis36->SetTitleSize(55);
@@ -1609,17 +1609,17 @@ void histoJetParton() {
     xaxis36->SetBinLabel(2, "1");
     xaxis36->SetBinLabel(3, "2");
 
-    auto yaxis36 = h1_nEtaCutParton->GetYaxis();
+    auto yaxis36 = h1_nParton->GetYaxis();
     yaxis36->SetTitle("Events per bin");
     yaxis36->SetTitleFont(43);
     yaxis36->SetTitleSize(55);
     yaxis36->SetLabelFont(43);
     yaxis36->SetLabelSize(35);
 
-    h1_nEtaCutParton->Draw("hist");
+    h1_nParton->Draw("hist");
 
     c36->cd();
-    c36->SaveAs("pdffiles/h1_nEtaCutParton_perEvent.pdf");
+    c36->SaveAs("pdffiles/h1_nParton_perEvent.pdf");
 
     // delR (projection)
     const int pt[6] = {10, 40, 50, 70, 100, 200};

@@ -12,7 +12,7 @@ int main() {
 
     TTree *tree = new TTree("tree", "tree");
 
-    int nParton, nEtaCutParton;
+    int nParton;
     int AK2_nJet, AK4_nJet, AK6_nJet, AK8_nJet;
     int AK2_nMatchedJet, AK4_nMatchedJet, AK6_nMatchedJet, AK8_nMatchedJet;
     int AK2_nUnmatchedJet, AK4_nUnmatchedJet, AK6_nUnmatchedJet, AK8_nUnmatchedJet;
@@ -46,7 +46,6 @@ int main() {
     std::vector<float> AK2_delta_R, AK4_delta_R, AK6_delta_R, AK8_delta_R;
 
     tree->Branch("nParton", &nParton);
-    tree->Branch("nEtaCutParton", &nEtaCutParton);
     tree->Branch("Parton_pt", &Parton_pt);
     tree->Branch("Parton_eta", &Parton_eta);
     tree->Branch("Parton_phi", &Parton_phi);
@@ -142,14 +141,12 @@ int main() {
         // Save parton properties
         // -----------------------
         nParton = 0;
-        nEtaCutParton = 0;
 
         for (int j = 0; j < event.size(); j++) {
             if (TMath::Abs(event[j].status()) != 23) continue;
             if (TMath::Abs(event[j].eta()) > 1.) continue;
 
             nParton++;
-            nEtaCutParton++;
 
             Parton_pt.push_back(event[j].pT());
             Parton_eta.push_back(event[j].eta());
