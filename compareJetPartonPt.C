@@ -8,8 +8,19 @@
 #include "TH1.h"
 #include "TLegend.h"
 
-void compareJetPt() {
+void compareJetPartonPt() {
     TFile *f = new TFile("rootfiles/Histo_Jet_Parton.root");
+
+    // Make sure all the partons have matched jets!
+
+    auto *h1_parton_pt = f->Get<TH1D>("h1_parton_pt");
+    h1_parton_pt->SetFillColor(0);
+    h1_parton_pt->SetLineColor(kBlack);
+    h1_parton_pt->SetStats(0);
+    h1_parton_pt->SetTitle("");
+    h1_parton_pt->SetMarkerStyle(kFullCross);
+    h1_parton_pt->SetMarkerSize(2);
+    h1_parton_pt->SetMarkerColor(kBlack);
 
     auto *h1_AK2_jet_pt = f->Get<TH1D>("h1_AK2_jet_matched_pt");
     h1_AK2_jet_pt->SetFillColor(0);
@@ -54,6 +65,7 @@ void compareJetPt() {
     double nEvent = 10000.;
 
     for (int i = 0; i < nBin; i++) {
+        h1_parton_pt->SetBinContent(i+1, pow(h1_parton_pt->GetBinContent(i+1), 2) / dpt / deta / nEvent);
         h1_AK2_jet_pt->SetBinContent(i+1, pow(h1_AK2_jet_pt->GetBinContent(i+1), 2) / dpt / deta / nEvent);
         h1_AK4_jet_pt->SetBinContent(i+1, pow(h1_AK4_jet_pt->GetBinContent(i+1), 2) / dpt / deta / nEvent);
         h1_AK6_jet_pt->SetBinContent(i+1, pow(h1_AK6_jet_pt->GetBinContent(i+1), 2) / dpt / deta / nEvent);
@@ -76,11 +88,11 @@ void compareJetPt() {
     pad1->cd();
 
     // Formatting
-    h1_AK2_jet_pt->SetMaximum(100);
-    h1_AK2_jet_pt->SetMinimum(1e-6);
+    h1_parton_pt->SetMaximum(100);
+    h1_parton_pt->SetMinimum(1e-6);
 
-    auto yaxis = h1_AK2_jet_pt->GetYaxis();
-    yaxis->SetTitle("#frac{1}{N_{event}} #frac{d^{2}N}{dp_{T, Jet}d#eta_{Jet}}");
+    auto yaxis = h1_parton_pt->GetYaxis();
+    yaxis->SetTitle("#frac{1}{N_{event}} #frac{d^{2}N}{dp_{T}d#eta}");
     yaxis->SetTitleFont(43);
     yaxis->SetTitleSize(55);
     yaxis->SetTitleOffset(1.7);
@@ -89,14 +101,16 @@ void compareJetPt() {
     yaxis->ChangeLabel(1, -1, -1, -1, -1, -1, " ");
 
     pad1->cd();
-    h1_AK2_jet_pt->DrawCopy("p");
+    h1_parton_pt->DrawCopy("p");
+    h1_AK2_jet_pt->DrawCopy("psame");
     h1_AK4_jet_pt->DrawCopy("psame");
     h1_AK6_jet_pt->DrawCopy("psame");
     h1_AK8_jet_pt->DrawCopy("psame");
 
     // Legend
-    TLegend *leg = new TLegend(0.72, 0.6, 0.86, 0.85);
+    TLegend *leg = new TLegend(0.72, 0.55, 0.86, 0.85);
     leg->SetBorderSize(0);
+    leg->AddEntry(h1_parton_pt, "Parton", "pl");
     leg->AddEntry(h1_AK2_jet_pt, "R = 0.2", "pl");
     leg->AddEntry(h1_AK4_jet_pt, "R = 0.4", "pl");
     leg->AddEntry(h1_AK6_jet_pt, "R = 0.6", "pl");
@@ -122,7 +136,7 @@ void compareJetPt() {
     htemp->SetStats(0);
 
     auto xaxis1 = htemp->GetXaxis();
-    xaxis1->SetTitle("p_{T, Jet} (GeV)");
+    xaxis1->SetTitle("p_{T} (GeV)");
     xaxis1->SetTitleFont(43);
     xaxis1->SetTitleSize(55);
     xaxis1->SetLabelFont(43);
@@ -130,7 +144,7 @@ void compareJetPt() {
     xaxis1->SetTitleOffset(2.5);
 
     auto yaxis1 = htemp->GetYaxis();
-    yaxis1->SetTitle("#frac{R = x}{R = 0.2}");
+    yaxis1->SetTitle("#frac{Jet}{Parton}");
     yaxis1->SetTitleFont(43);
     yaxis1->SetTitleSize(55);
     yaxis1->SetTitleOffset(1.7);
@@ -153,14 +167,16 @@ void compareJetPt() {
     line->Draw("same");
 
     // Draw histos
-    h1_AK4_jet_pt->Divide(h1_AK2_jet_pt);
-    h1_AK6_jet_pt->Divide(h1_AK2_jet_pt);
-    h1_AK8_jet_pt->Divide(h1_AK2_jet_pt);
+    h1_AK2_jet_pt->Divide(h1_parton_pt);
+    h1_AK4_jet_pt->Divide(h1_parton_pt);
+    h1_AK6_jet_pt->Divide(h1_parton_pt);
+    h1_AK8_jet_pt->Divide(h1_parton_pt);
 
+    h1_AK2_jet_pt->Draw("psame");
     h1_AK4_jet_pt->Draw("psame");
     h1_AK6_jet_pt->Draw("psame");
     h1_AK8_jet_pt->Draw("psame");
 
     c1->cd();
-    c1->SaveAs("pdffiles/h1_jet_matched_pt_compare.pdf");
+    c1->SaveAs("pdffiles/h1_jet_parton_pt_compare.pdf");
 }

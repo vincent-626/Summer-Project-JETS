@@ -114,6 +114,7 @@ void compareMeanDelR() {
     }
         
     xaxis->LabelsOption("d");
+    xaxis->SetLabelOffset(0.01);
 
     auto yaxis = htemp->GetYaxis();
     yaxis->SetTitle("#LT#DeltaR#GT");
@@ -132,7 +133,7 @@ void compareMeanDelR() {
     gr_AK8->Draw("psame");
 
     // Legend
-    TLegend *leg = new TLegend(0.6, 0.6, 0.8, 0.8);
+    TLegend *leg = new TLegend(0.65, 0.6, 0.83, 0.8);
     leg->SetBorderSize(0);
     leg->AddEntry(gr_AK2, "R = 0.2", "pl");
     leg->AddEntry(gr_AK4, "R = 0.4", "pl");

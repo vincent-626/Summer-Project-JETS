@@ -74,7 +74,7 @@ void compareJetDelR() {
     h1_AK2_jet_matched_delR->Draw("histsame");
 
     // Legend
-    TLegend *leg1 = new TLegend(0.6, 0.6, 0.8, 0.8);
+    TLegend *leg1 = new TLegend(0.65, 0.6, 0.83, 0.8);
     leg1->SetBorderSize(0);
     leg1->AddEntry(h1_AK2_jet_matched_delR, "R = 0.2", "f");
     leg1->AddEntry(h1_AK4_jet_matched_delR, "R = 0.4", "f");

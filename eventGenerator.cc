@@ -146,10 +146,10 @@ int main() {
 
         for (int j = 0; j < event.size(); j++) {
             if (TMath::Abs(event[j].status()) != 23) continue;
+            if (TMath::Abs(event[j].eta()) > 1.) continue;
 
             nParton++;
-
-            if (TMath::Abs(event[j].eta()) < 1.) nEtaCutParton++;
+            nEtaCutParton++;
 
             Parton_pt.push_back(event[j].pT());
             Parton_eta.push_back(event[j].eta());
@@ -361,8 +361,7 @@ int main() {
         AK2_nMatchedJet = 0;
         AK2_nUnmatchedJet = 0;
 
-        for (int j = 0; j < 2; j++) {
-            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+        for (int j = 0; j < Parton_pt.size(); j++) {
             if (AK2_cutJets.size() == 0) {
                 AK2_nUnmatchedJet++;
                 continue;
@@ -392,8 +391,7 @@ int main() {
         AK4_nMatchedJet = 0;
         AK4_nUnmatchedJet = 0;
 
-        for (int j = 0; j < 2; j++) {
-            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+        for (int j = 0; j < Parton_pt.size(); j++) {
             if (AK4_cutJets.size() == 0) {
                 AK4_nUnmatchedJet++;
                 continue;
@@ -425,8 +423,7 @@ int main() {
         AK6_nMatchedJet = 0;
         AK6_nUnmatchedJet = 0;
 
-        for (int j = 0; j < 2; j++) {
-            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+        for (int j = 0; j < Parton_pt.size(); j++) {
             if (AK6_cutJets.size() == 0) {
                 AK6_nUnmatchedJet++;
                 continue;
@@ -456,8 +453,7 @@ int main() {
         AK8_nMatchedJet = 0;
         AK8_nUnmatchedJet = 0;
 
-        for (int j = 0; j < 2; j++) {
-            if (TMath::Abs(partons[j].eta()) > 1.) continue;
+        for (int j = 0; j < Parton_pt.size(); j++) {
             if (AK8_cutJets.size() == 0) {
                 AK8_nUnmatchedJet++;
                 continue;
