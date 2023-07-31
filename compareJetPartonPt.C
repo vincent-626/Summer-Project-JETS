@@ -359,8 +359,6 @@ void compareJetPartonPt() {
     yaxis2->SetLabelSize(0.03);
     yaxis2->SetTitleSize(0.05);
     yaxis2->CenterTitle(true);
-    yaxis2->ChangeLabel(1, -1, -1, -1, -1, -1, " ");
-    yaxis2->ChangeLabel(-1, -1, -1, -1, -1, -1, " ");
 
     // Middle line
     TLine *line = new TLine(0.5, 1., 5.5, 1.);
