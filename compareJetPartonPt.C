@@ -255,7 +255,7 @@ void compareJetPartonPt() {
         xaxis->SetLabelSize(35);
 
         // Legend
-        TLegend *leg = new TLegend(0.2, 0.55, 0.4, 0.8);
+        TLegend *leg = new TLegend(0.2, 0.5, 0.4, 0.75);
         leg->SetBorderSize(0);
         leg->AddEntry(h1_AK2_project, "R = 0.2", "pl");
         leg->AddEntry(f_AK2, "Gaussian fit", "l");
@@ -266,6 +266,17 @@ void compareJetPartonPt() {
         leg->AddEntry(h1_AK8_project, "R = 0.8", "pl");
         leg->AddEntry(f_AK8, "Gaussian fit", "l");
         leg->Draw();
+
+        // Text
+        TLatex *latex = new TLatex();
+        latex->SetNDC();
+        latex->SetTextFont(42);
+        latex->SetTextSize(0.03);
+        latex->SetTextColor(1);
+        latex->SetTextAlign(12);
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text = text.c_str();
+        latex->DrawLatex(0.2, 0.78, c_text);
 
         string title = "pdffiles/h1_jet_parton_pt_ratio_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
         auto c_title = title.c_str();
