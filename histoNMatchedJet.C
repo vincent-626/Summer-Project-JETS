@@ -13,19 +13,18 @@ void histoNMatchedJet() {
 
     auto AK2_nMatched = df.Sum("AK2_nMatchedJet");
     auto AK2_nUnmatched = df.Sum("AK2_nUnmatchedJet");
-    // auto AK2_nUnmatched = *df.Sum("AK2_nJet") - *AK2_nMatched;
     
     auto AK4_nMatched = df.Sum("AK4_nMatchedJet");
     auto AK4_nUnmatched = df.Sum("AK4_nUnmatchedJet");
-    // auto AK4_nUnmatched = *df.Sum("AK4_nJet") - *AK4_nMatched;
 
     auto AK6_nMatched = df.Sum("AK6_nMatchedJet");
     auto AK6_nUnmatched = df.Sum("AK6_nUnmatchedJet");
-    // auto AK6_nUnmatched = *df.Sum("AK6_nJet") - *AK6_nMatched;
 
     auto AK8_nMatched = df.Sum("AK8_nMatchedJet");
     auto AK8_nUnmatched = df.Sum("AK8_nUnmatchedJet");
-    // auto AK8_nUnmatched = *df.Sum("AK8_nJet") - *AK8_nMatched;
+
+    auto nMatchedParton = df.Sum("nMatchedParton");
+    auto nUnmatchedParton = df.Sum("nUnmatchedParton");
 
     std::cout << *AK2_nMatched << std::endl;
     std::cout << *AK2_nUnmatched << std::endl;
@@ -35,6 +34,8 @@ void histoNMatchedJet() {
     std::cout << *AK6_nUnmatched << std::endl;
     std::cout << *AK8_nMatched << std::endl;
     std::cout << *AK8_nUnmatched << std::endl;
+    std::cout << *nMatchedParton << std::endl;
+    std::cout << *nUnmatchedParton << std::endl;
 
     // AK2
     TH1I *h1_AK2_nMatched =new TH1I("h1_AK2_nMatched", "", 2, 0, 1);
@@ -247,4 +248,57 @@ void histoNMatchedJet() {
 
     c4->cd();
     c4->SaveAs("pdffiles/h1_AK8_nMatchedJet.pdf");
+
+    // Parton
+    TH1I *h1_Parton_nMatched =new TH1I("h1_Parton_nMatched", "", 2, 0, 1);
+
+    h1_Parton_nMatched->SetBinContent(1, *nUnmatchedParton);
+    h1_Parton_nMatched->SetBinContent(2, *nMatchedParton);
+
+    h1_Parton_nMatched->Scale(100./h1_Parton_nMatched->Integral());
+
+    h1_Parton_nMatched->SetFillColor(kCyan+1);
+    h1_Parton_nMatched->SetLineColor(kCyan+1);
+    h1_Parton_nMatched->SetStats(0);
+    h1_Parton_nMatched->SetTitle("");
+    h1_Parton_nMatched->SetMarkerSize(2);
+    h1_Parton_nMatched->SetMarkerColor(kCyan+1);
+    h1_Parton_nMatched->SetMinimum(0);
+    h1_Parton_nMatched->SetMaximum(100);
+
+    TCanvas *c5 = new TCanvas("c5", "c5");
+    c5->cd();
+    c5->SetCanvasSize(1200, 1200);
+
+    TPad *pad5 = new TPad("pad5", "pad5", 0, 0, 1, 1);
+    pad5->SetLeftMargin(0.15);
+    pad5->SetRightMargin(0.15);
+    pad5->SetBottomMargin(0.15);
+    pad5->SetTopMargin(0.15);
+    pad5->SetTickx();
+    pad5->SetTicky();
+    pad5->Draw();
+    pad5->cd();
+
+    // Formatting
+    auto xaxis5 = h1_Parton_nMatched->GetXaxis();
+    xaxis5->SetTitle("");
+    xaxis5->SetTitleFont(43);
+    xaxis5->SetTitleSize(55);
+    xaxis5->SetLabelFont(43);
+    xaxis5->SetLabelSize(35);
+    xaxis5->SetBinLabel(1, "Unmatched");
+    xaxis5->SetBinLabel(2, "Matched");
+
+    auto yaxis5 = h1_Parton_nMatched->GetYaxis();
+    yaxis5->SetTitle("All Matched Parton Percentage (\%)");
+    yaxis5->SetTitleFont(43);
+    yaxis5->SetTitleSize(55);
+    yaxis5->SetLabelFont(43);
+    yaxis5->SetLabelSize(35);
+
+    h1_Parton_nMatched->Draw("hist");
+
+    c5->cd();
+    c5->SaveAs("pdffiles/h1_nMatchedParton.pdf");
 }

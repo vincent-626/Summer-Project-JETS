@@ -14,8 +14,8 @@ int main() {
 
     int nParton;
     int AK2_nJet, AK4_nJet, AK6_nJet, AK8_nJet;
-    int AK2_nMatchedJet, AK4_nMatchedJet, AK6_nMatchedJet, AK8_nMatchedJet;
-    int AK2_nUnmatchedJet, AK4_nUnmatchedJet, AK6_nUnmatchedJet, AK8_nUnmatchedJet;
+    int AK2_nMatchedJet, AK4_nMatchedJet, AK6_nMatchedJet, AK8_nMatchedJet, nMatchedParton;
+    int AK2_nUnmatchedJet, AK4_nUnmatchedJet, AK6_nUnmatchedJet, AK8_nUnmatchedJet, nUnmatchedParton;
     std::vector<bool> AK2_match, AK4_match, AK6_match, AK8_match, Parton_match;
 
     std::vector<float>  Parton_pt, Parton_eta, Parton_phi, Parton_id,
@@ -42,6 +42,8 @@ int main() {
     std::vector<float> AK2_delta_R, AK4_delta_R, AK6_delta_R, AK8_delta_R;
 
     tree->Branch("nParton", &nParton);
+    tree->Branch("nMatchedParton", &nMatchedParton);
+    tree->Branch("nUnmatchedParton", &nUnmatchedParton);
     tree->Branch("Parton_match", &Parton_match);
     tree->Branch("Parton_pt", &Parton_pt);
     tree->Branch("Parton_eta", &Parton_eta);
@@ -114,7 +116,7 @@ int main() {
 
     pythia.init();
 
-    int nEvent = 10000;
+    int nEvent = 50000;
 
     auto &event = pythia.event;
 
@@ -507,11 +509,16 @@ int main() {
         }
 
         // Record Parton_match
+        nMatchedParton = 0;
+        nUnmatchedParton = 0;
+
         for (int j = 0; j < AK2_match.size(); j++) {
             if (AK2_match[j] == true && AK4_match[j] == true && AK6_match[j] == true && AK8_match[j] == true) {
                 Parton_match.push_back(true);
+                nMatchedParton++;
             } else {
                 Parton_match.push_back(false);
+                nUnmatchedParton++;
             }
 
         }
