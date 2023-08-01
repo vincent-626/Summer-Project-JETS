@@ -27,10 +27,10 @@ void compareJetPartonPt() {
     // TH1 plotting
     // -------------
 
-    ROOT::RDF::TH1DModel model_AK2("h1_AK2_jet_parton_pt_ratio", "", 60, 0.5, 1.1);
-    ROOT::RDF::TH1DModel model_AK4("h1_AK4_jet_parton_pt_ratio", "", 60, 0.5, 1.1);
-    ROOT::RDF::TH1DModel model_AK6("h1_AK6_jet_parton_pt_ratio", "", 60, 0.5, 1.1);
-    ROOT::RDF::TH1DModel model_AK8("h1_AK8_jet_parton_pt_ratio", "", 60, 0.5, 1.1);
+    ROOT::RDF::TH1DModel model_AK2("h1_AK2_jet_parton_pt_ratio", "", 200, 0., 2.);
+    ROOT::RDF::TH1DModel model_AK4("h1_AK4_jet_parton_pt_ratio", "", 200, 0., 2.);
+    ROOT::RDF::TH1DModel model_AK6("h1_AK6_jet_parton_pt_ratio", "", 200, 0., 2.);
+    ROOT::RDF::TH1DModel model_AK8("h1_AK8_jet_parton_pt_ratio", "", 200, 0., 2.);
 
     auto h1_AK2_jet_parton_pt_ratio = df.Histo1D(model_AK2, "AK2_jet_parton_pt_ratio");
     auto h1_AK4_jet_parton_pt_ratio = df.Histo1D(model_AK4, "AK4_jet_parton_pt_ratio");
@@ -147,10 +147,10 @@ void compareJetPartonPt() {
 
     const double ptbins[6] = {10., 40., 50., 70., 100., 200.};
 
-    ROOT::RDF::TH2DModel model_2D_AK2("h2_AK2_jet_parton_pt_ratio", "", 60, 0.5, 1.1, 5, ptbins);
-    ROOT::RDF::TH2DModel model_2D_AK4("h2_AK4_jet_parton_pt_ratio", "", 60, 0.5, 1.1, 5, ptbins);
-    ROOT::RDF::TH2DModel model_2D_AK6("h2_AK6_jet_parton_pt_ratio", "", 60, 0.5, 1.1, 5, ptbins);
-    ROOT::RDF::TH2DModel model_2D_AK8("h2_AK8_jet_parton_pt_ratio", "", 60, 0.5, 1.1, 5, ptbins);
+    ROOT::RDF::TH2DModel model_2D_AK2("h2_AK2_jet_parton_pt_ratio", "", 200, 0., 2., 5, ptbins);
+    ROOT::RDF::TH2DModel model_2D_AK4("h2_AK4_jet_parton_pt_ratio", "", 200, 0., 2., 5, ptbins);
+    ROOT::RDF::TH2DModel model_2D_AK6("h2_AK6_jet_parton_pt_ratio", "", 200, 0., 2., 5, ptbins);
+    ROOT::RDF::TH2DModel model_2D_AK8("h2_AK8_jet_parton_pt_ratio", "", 200, 0., 2., 5, ptbins);
 
     auto h2_AK2_jet_parton_pt_ratio = df.Histo2D(model_2D_AK2, "AK2_jet_parton_pt_ratio", "AK2_jet_all_matched_pt");
     auto h2_AK4_jet_parton_pt_ratio = df.Histo2D(model_2D_AK4, "AK4_jet_parton_pt_ratio", "AK4_jet_all_matched_pt");
@@ -348,8 +348,8 @@ void compareJetPartonPt() {
 
     TH1I *htemp = new TH1I("", "", 5, 0, 5);
     htemp->SetStats(0);
-    htemp->SetMaximum(1.3);
-    htemp->SetMinimum(0.7);
+    htemp->SetMaximum(1.6);
+    htemp->SetMinimum(0.4);
     
     auto xaxis2 = htemp->GetXaxis();
     xaxis2->SetLabelSize(0.035);
@@ -386,7 +386,7 @@ void compareJetPartonPt() {
     gr_AK8->Draw("psame");
 
     // Legend
-    TLegend *leg2 = new TLegend(0.65, 0.6, 0.83, 0.8);
+    TLegend *leg2 = new TLegend(0.2, 0.6, 0.45, 0.8);
     leg2->SetBorderSize(0);
     leg2->AddEntry(gr_AK2, "R = 0.2", "pl");
     leg2->AddEntry(gr_AK4, "R = 0.4", "pl");
