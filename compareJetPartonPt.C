@@ -348,7 +348,7 @@ void compareJetPartonPt() {
 
     TH1I *htemp = new TH1I("", "", 5, 0, 5);
     htemp->SetStats(0);
-    htemp->SetMaximum(1.6);
+    htemp->SetMaximum(1.3);
     htemp->SetMinimum(0.4);
     
     auto xaxis2 = htemp->GetXaxis();
@@ -386,7 +386,7 @@ void compareJetPartonPt() {
     gr_AK8->Draw("psame");
 
     // Legend
-    TLegend *leg2 = new TLegend(0.2, 0.6, 0.45, 0.8);
+    TLegend *leg2 = new TLegend(0.65, 0.2, 0.83, 0.4);
     leg2->SetBorderSize(0);
     leg2->AddEntry(gr_AK2, "R = 0.2", "pl");
     leg2->AddEntry(gr_AK4, "R = 0.4", "pl");
