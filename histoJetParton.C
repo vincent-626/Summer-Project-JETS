@@ -2027,7 +2027,7 @@ void histoJetParton() {
     xaxis44->SetLabelSize(35);
 
     auto yaxis44 = h1_AK2_jet_matched_lambda11->GetYaxis();
-    yaxis44->SetTitle("Jets per bin");
+    yaxis44->SetTitle("AK2 jets per bin");
     yaxis44->SetTitleFont(43);
     yaxis44->SetTitleSize(55);
     yaxis44->SetLabelFont(43);
@@ -2071,7 +2071,7 @@ void histoJetParton() {
     xaxis45->SetLabelSize(35);
 
     auto yaxis45 = h1_AK4_jet_matched_lambda11->GetYaxis();
-    yaxis45->SetTitle("Jets per bin");
+    yaxis45->SetTitle("AK4 jets per bin");
     yaxis45->SetTitleFont(43);
     yaxis45->SetTitleSize(55);
     yaxis45->SetLabelFont(43);
@@ -2115,7 +2115,7 @@ void histoJetParton() {
     xaxis46->SetLabelSize(35);
 
     auto yaxis46 = h1_AK6_jet_matched_lambda11->GetYaxis();
-    yaxis46->SetTitle("Jets per bin");
+    yaxis46->SetTitle("AK6 jets per bin");
     yaxis46->SetTitleFont(43);
     yaxis46->SetTitleSize(55);
     yaxis46->SetLabelFont(43);
@@ -2159,7 +2159,7 @@ void histoJetParton() {
     xaxis47->SetLabelSize(35);
 
     auto yaxis47 = h1_AK8_jet_matched_lambda11->GetYaxis();
-    yaxis47->SetTitle("Jets per bin");
+    yaxis47->SetTitle("AK8 jets per bin");
     yaxis47->SetTitleFont(43);
     yaxis47->SetTitleSize(55);
     yaxis47->SetLabelFont(43);
