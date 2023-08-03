@@ -1991,4 +1991,182 @@ void histoJetParton() {
 
     c43->cd();
     c43->SaveAs("pdffiles/h1_parton_matched_phi.pdf");
+
+    // Jet width
+
+    // AK2
+    auto *h1_AK2_jet_matched_lambda11 = f->Get<TH1D>("h1_AK2_jet_matched_lambda11");
+    h1_AK2_jet_matched_lambda11->SetFillColor(kBlue+1);
+    h1_AK2_jet_matched_lambda11->SetLineColor(kBlue+1);
+    h1_AK2_jet_matched_lambda11->SetStats(0);
+    h1_AK2_jet_matched_lambda11->SetTitle("");
+    h1_AK2_jet_matched_lambda11->SetMarkerSize(2);
+    h1_AK2_jet_matched_lambda11->SetMarkerColor(kBlue+1);
+    h1_AK2_jet_matched_lambda11->SetMinimum(0);
+
+    TCanvas *c44 = new TCanvas("c44", "c44");
+    c44->cd();
+    c44->SetCanvasSize(1200, 1200);
+
+    TPad *pad44 = new TPad("pad44", "pad44", 0, 0, 1, 1);
+    pad44->SetLeftMargin(0.15);
+    pad44->SetRightMargin(0.15);
+    pad44->SetBottomMargin(0.15);
+    pad44->SetTopMargin(0.15);
+    pad44->SetTickx();
+    pad44->SetTicky();
+    pad44->Draw();
+    pad44->cd();
+
+    // Formatting
+    auto xaxis44 = h1_AK2_jet_matched_lambda11->GetXaxis();
+    xaxis44->SetTitle("#lambda^{1}_{1}");
+    xaxis44->SetTitleFont(43);
+    xaxis44->SetTitleSize(55);
+    xaxis44->SetLabelFont(43);
+    xaxis44->SetLabelSize(35);
+
+    auto yaxis44 = h1_AK2_jet_matched_lambda11->GetYaxis();
+    yaxis44->SetTitle("Jets per bin");
+    yaxis44->SetTitleFont(43);
+    yaxis44->SetTitleSize(55);
+    yaxis44->SetLabelFont(43);
+    yaxis44->SetLabelSize(35);
+
+    h1_AK2_jet_matched_lambda11->Draw("hist");
+
+    c44->cd();
+    c44->SaveAs("pdffiles/h1_AK2_jet_matched_lambda11.pdf");
+
+    // AK4
+    auto *h1_AK4_jet_matched_lambda11 = f->Get<TH1D>("h1_AK4_jet_matched_lambda11");
+    h1_AK4_jet_matched_lambda11->SetFillColor(kGreen+1);
+    h1_AK4_jet_matched_lambda11->SetLineColor(kGreen+1);
+    h1_AK4_jet_matched_lambda11->SetStats(0);
+    h1_AK4_jet_matched_lambda11->SetTitle("");
+    h1_AK4_jet_matched_lambda11->SetMarkerSize(2);
+    h1_AK4_jet_matched_lambda11->SetMarkerColor(kGreen+1);
+    h1_AK4_jet_matched_lambda11->SetMinimum(0);
+
+    TCanvas *c45 = new TCanvas("c45", "c45");
+    c45->cd();
+    c45->SetCanvasSize(1200, 1200);
+
+    TPad *pad45 = new TPad("pad45", "pad45", 0, 0, 1, 1);
+    pad45->SetLeftMargin(0.15);
+    pad45->SetRightMargin(0.15);
+    pad45->SetBottomMargin(0.15);
+    pad45->SetTopMargin(0.15);
+    pad45->SetTickx();
+    pad45->SetTicky();
+    pad45->Draw();
+    pad45->cd();
+
+    // Formatting
+    auto xaxis45 = h1_AK4_jet_matched_lambda11->GetXaxis();
+    xaxis45->SetTitle("#lambda^{1}_{1}");
+    xaxis45->SetTitleFont(43);
+    xaxis45->SetTitleSize(55);
+    xaxis45->SetLabelFont(43);
+    xaxis45->SetLabelSize(35);
+
+    auto yaxis45 = h1_AK4_jet_matched_lambda11->GetYaxis();
+    yaxis45->SetTitle("Jets per bin");
+    yaxis45->SetTitleFont(43);
+    yaxis45->SetTitleSize(55);
+    yaxis45->SetLabelFont(43);
+    yaxis45->SetLabelSize(35);
+
+    h1_AK4_jet_matched_lambda11->Draw("hist");
+
+    c45->cd();
+    c45->SaveAs("pdffiles/h1_AK4_jet_matched_lambda11.pdf");
+
+    // AK6
+    auto *h1_AK6_jet_matched_lambda11 = f->Get<TH1D>("h1_AK6_jet_matched_lambda11");
+    h1_AK6_jet_matched_lambda11->SetFillColor(kOrange+1);
+    h1_AK6_jet_matched_lambda11->SetLineColor(kOrange+1);
+    h1_AK6_jet_matched_lambda11->SetStats(0);
+    h1_AK6_jet_matched_lambda11->SetTitle("");
+    h1_AK6_jet_matched_lambda11->SetMarkerSize(2);
+    h1_AK6_jet_matched_lambda11->SetMarkerColor(kOrange+1);
+    h1_AK6_jet_matched_lambda11->SetMinimum(0);
+
+    TCanvas *c46 = new TCanvas("c46", "c46");
+    c46->cd();
+    c46->SetCanvasSize(1200, 1200);
+
+    TPad *pad46 = new TPad("pad46", "pad46", 0, 0, 1, 1);
+    pad46->SetLeftMargin(0.15);
+    pad46->SetRightMargin(0.15);
+    pad46->SetBottomMargin(0.15);
+    pad46->SetTopMargin(0.15);
+    pad46->SetTickx();
+    pad46->SetTicky();
+    pad46->Draw();
+    pad46->cd();
+
+    // Formatting
+    auto xaxis46 = h1_AK6_jet_matched_lambda11->GetXaxis();
+    xaxis46->SetTitle("#lambda^{1}_{1}");
+    xaxis46->SetTitleFont(43);
+    xaxis46->SetTitleSize(55);
+    xaxis46->SetLabelFont(43);
+    xaxis46->SetLabelSize(35);
+
+    auto yaxis46 = h1_AK6_jet_matched_lambda11->GetYaxis();
+    yaxis46->SetTitle("Jets per bin");
+    yaxis46->SetTitleFont(43);
+    yaxis46->SetTitleSize(55);
+    yaxis46->SetLabelFont(43);
+    yaxis46->SetLabelSize(35);
+
+    h1_AK6_jet_matched_lambda11->Draw("hist");
+
+    c46->cd();
+    c46->SaveAs("pdffiles/h1_AK6_jet_matched_lambda11.pdf");
+
+    // AK8
+    auto *h1_AK8_jet_matched_lambda11 = f->Get<TH1D>("h1_AK8_jet_matched_lambda11");
+    h1_AK8_jet_matched_lambda11->SetFillColor(kRed+1);
+    h1_AK8_jet_matched_lambda11->SetLineColor(kRed+1);
+    h1_AK8_jet_matched_lambda11->SetStats(0);
+    h1_AK8_jet_matched_lambda11->SetTitle("");
+    h1_AK8_jet_matched_lambda11->SetMarkerSize(2);
+    h1_AK8_jet_matched_lambda11->SetMarkerColor(kRed+1);
+    h1_AK8_jet_matched_lambda11->SetMinimum(0);
+
+    TCanvas *c47 = new TCanvas("c47", "c47");
+    c47->cd();
+    c47->SetCanvasSize(1200, 1200);
+
+    TPad *pad47 = new TPad("pad47", "pad47", 0, 0, 1, 1);
+    pad47->SetLeftMargin(0.15);
+    pad47->SetRightMargin(0.15);
+    pad47->SetBottomMargin(0.15);
+    pad47->SetTopMargin(0.15);
+    pad47->SetTickx();
+    pad47->SetTicky();
+    pad47->Draw();
+    pad47->cd();
+
+    // Formatting
+    auto xaxis47 = h1_AK8_jet_matched_lambda11->GetXaxis();
+    xaxis47->SetTitle("#lambda^{1}_{1}");
+    xaxis47->SetTitleFont(43);
+    xaxis47->SetTitleSize(55);
+    xaxis47->SetLabelFont(43);
+    xaxis47->SetLabelSize(35);
+
+    auto yaxis47 = h1_AK8_jet_matched_lambda11->GetYaxis();
+    yaxis47->SetTitle("Jets per bin");
+    yaxis47->SetTitleFont(43);
+    yaxis47->SetTitleSize(55);
+    yaxis47->SetLabelFont(43);
+    yaxis47->SetLabelSize(35);
+
+    h1_AK8_jet_matched_lambda11->Draw("hist");
+
+    c47->cd();
+    c47->SaveAs("pdffiles/h1_AK8_jet_matched_lambda11.pdf");
 }

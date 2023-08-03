@@ -62,6 +62,11 @@ void histoPlotter() {
     ROOT::RDF::TH1DModel model_AK6_jet_matched_delR("h1_AK6_jet_matched_delR", "", 200, 0., 0.2);
     ROOT::RDF::TH1DModel model_AK8_jet_matched_delR("h1_AK8_jet_matched_delR", "", 200, 0., 0.2);
 
+    ROOT::RDF::TH1DModel model_AK2_jet_matched_lambda11("h1_AK2_jet_matched_lambda11", "", 100, 0., 1.);
+    ROOT::RDF::TH1DModel model_AK4_jet_matched_lambda11("h1_AK4_jet_matched_lambda11", "", 100, 0., 1.);
+    ROOT::RDF::TH1DModel model_AK6_jet_matched_lambda11("h1_AK6_jet_matched_lambda11", "", 100, 0., 1.);
+    ROOT::RDF::TH1DModel model_AK8_jet_matched_lambda11("h1_AK8_jet_matched_lambda11", "", 100, 0., 1.);
+
     ROOT::RDF::TH1DModel model_nParton("h1_nParton", "", 3, 0, 3);
     ROOT::RDF::TH1DModel model_AK2_nMatchedJet("h1_AK2_nMatchedJet", "", 5, 0, 5);
     ROOT::RDF::TH1DModel model_AK4_nMatchedJet("h1_AK4_nMatchedJet", "", 5, 0, 5);
@@ -122,6 +127,11 @@ void histoPlotter() {
     auto h1_AK6_jet_matched_delR = df.Histo1D(model_AK6_jet_matched_delR, "AK6_jet_matched_delR");
     auto h1_AK8_jet_matched_delR = df.Histo1D(model_AK8_jet_matched_delR, "AK8_jet_matched_delR");
 
+    auto h1_AK2_jet_matched_lambda11 = df.Histo1D(model_AK2_jet_matched_lambda11, "AK2_jet_matched_lambda11");
+    auto h1_AK4_jet_matched_lambda11 = df.Histo1D(model_AK4_jet_matched_lambda11, "AK4_jet_matched_lambda11");
+    auto h1_AK6_jet_matched_lambda11 = df.Histo1D(model_AK6_jet_matched_lambda11, "AK6_jet_matched_lambda11");
+    auto h1_AK8_jet_matched_lambda11 = df.Histo1D(model_AK8_jet_matched_lambda11, "AK8_jet_matched_lambda11");
+
     auto h1_nParton = df.Histo1D(model_nParton, "nParton");
     auto h1_AK2_nMatchedJet = df.Histo1D(model_AK2_nMatchedJet, "AK2_nMatchedJet");
     auto h1_AK4_nMatchedJet = df.Histo1D(model_AK4_nMatchedJet, "AK4_nMatchedJet");
@@ -152,6 +162,7 @@ void histoPlotter() {
     h1_AK2_jet_matched_eta->Write();
     h1_AK2_jet_matched_phi->Write();
     h1_AK2_jet_matched_delR->Write();
+    h1_AK2_jet_matched_lambda11->Write();
     h1_AK2_jet_all_matched_pt->Write();
     
     h1_AK4_jet_pt->Write();
@@ -162,6 +173,7 @@ void histoPlotter() {
     h1_AK4_jet_matched_eta->Write();
     h1_AK4_jet_matched_phi->Write();
     h1_AK4_jet_matched_delR->Write();
+    h1_AK4_jet_matched_lambda11->Write();
     h1_AK4_jet_all_matched_pt->Write();
 
     h1_AK6_jet_pt->Write();
@@ -172,6 +184,7 @@ void histoPlotter() {
     h1_AK6_jet_matched_eta->Write();
     h1_AK6_jet_matched_phi->Write();
     h1_AK6_jet_matched_delR->Write();
+    h1_AK6_jet_matched_lambda11->Write();
     h1_AK6_jet_all_matched_pt->Write();
 
     h1_AK8_jet_pt->Write();
@@ -182,6 +195,7 @@ void histoPlotter() {
     h1_AK8_jet_matched_eta->Write();
     h1_AK8_jet_matched_phi->Write();
     h1_AK8_jet_matched_delR->Write();
+    h1_AK8_jet_matched_lambda11->Write();
     h1_AK8_jet_all_matched_pt->Write();
 
     h1_nParton->Write();
