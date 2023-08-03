@@ -120,10 +120,10 @@ void histoJetDelPt() {
     h1_AK8_Delta_pt->SetMarkerColor(kRed+1);
 
     TPad *pad3 = new TPad("pad3", "pad3", 0, 0, 1, 1);
-    pad3->SetLeftMargin(0.15);
-    pad3->SetRightMargin(0.15);
-    pad3->SetBottomMargin(0.15);
-    pad3->SetTopMargin(0.15);
+    pad3->SetLeftMargin(0.18);
+    pad3->SetRightMargin(0.18);
+    pad3->SetBottomMargin(0.18);
+    pad3->SetTopMargin(0.18);
     pad3->SetTickx();
     pad3->SetTicky();
     pad3->Draw();
@@ -148,4 +148,68 @@ void histoJetDelPt() {
 
     c3->cd();
     c3->SaveAs("pdffiles/h1_AK8_Delta_pt.pdf");
+
+    // TH2 plotting
+    TH2D *h2_Delta_pt = new TH2D("h2_Delta_pt", "", 3, 0., 3., 200, 0., 20.);
+
+    for (int i = 1; i < 201; i++) {
+        h2_Delta_pt->SetBinContent(1, i, h1_AK4_Delta_pt->GetBinContent(i));
+        h2_Delta_pt->SetBinError(1, i, h1_AK4_Delta_pt->GetBinError(i));
+
+        h2_Delta_pt->SetBinContent(2, i, h1_AK6_Delta_pt->GetBinContent(i));
+        h2_Delta_pt->SetBinError(2, i, h1_AK6_Delta_pt->GetBinError(i));
+
+        h2_Delta_pt->SetBinContent(3, i, h1_AK8_Delta_pt->GetBinContent(i));
+        h2_Delta_pt->SetBinError(3, i, h1_AK8_Delta_pt->GetBinError(i));
+    }
+
+    TCanvas *c4 = new TCanvas("c4", "c4");
+    c4->cd();
+    c4->SetCanvasSize(1200, 1200);
+
+    h2_Delta_pt->SetStats(0);
+    h2_Delta_pt->SetTitle("");
+
+    TPad *pad4 = new TPad("pad4", "pad4", 0, 0, 1, 1);
+    pad4->SetLeftMargin(0.15);
+    pad4->SetRightMargin(0.2);
+    pad4->SetBottomMargin(0.15);
+    pad4->SetTopMargin(0.2);
+    pad4->SetTickx();
+    pad4->SetTicky();
+    pad4->Draw();
+    pad4->cd();
+
+    // Formatting
+    auto xaxis4 = h2_Delta_pt->GetXaxis();
+    xaxis4->SetTitle("");
+    xaxis4->SetTitleFont(43);
+    xaxis4->SetTitleSize(55);
+    xaxis4->SetLabelFont(43);
+    xaxis4->SetLabelSize(35);
+    xaxis4->SetNdivisions(3);
+    xaxis4->CenterLabels();
+    xaxis4->ChangeLabel(1, -1, -1, -1, -1, -1, "AK2 to AK4");
+    xaxis4->ChangeLabel(2, -1, -1, -1, -1, -1, "AK4 to AK6");
+    xaxis4->ChangeLabel(3, -1, -1, -1, -1, -1, "AK6 to AK8");
+
+    auto yaxis4 = h2_Delta_pt->GetYaxis();
+    yaxis4->SetTitle("#Delta p_{T} (GeV)");
+    yaxis4->SetTitleFont(43);
+    yaxis4->SetTitleSize(55);
+    yaxis4->SetLabelFont(43);
+    yaxis4->SetLabelSize(35);
+
+    auto zaxis4 = h2_Delta_pt->GetZaxis();
+    zaxis4->SetTitle("Jets per bin");
+    zaxis4->SetTitleOffset(1.5);
+    zaxis4->SetTitleFont(43);
+    zaxis4->SetTitleSize(55);
+    zaxis4->SetLabelFont(43);
+    zaxis4->SetLabelSize(35);
+
+    h2_Delta_pt->Draw("colz");
+
+    c4->cd();
+    c4->SaveAs("pdffiles/h2_Delta_pt.pdf");
 }
