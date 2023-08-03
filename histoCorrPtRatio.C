@@ -88,15 +88,19 @@ void histoCorrPtRatio() {
     yaxis->ChangeLabel(3, -1, -1, -1, -1, -1, "#frac{p_{T, AK6 Jet}}{p_{T, Parton}}");
     yaxis->ChangeLabel(4, -1, -1, -1, -1, -1, "#frac{p_{T, AK8 Jet}}{p_{T, Parton}}");
 
+    auto zaxis = h2_corr->GetZaxis();
+    zaxis->SetTitle("Correlation factor");
+    zaxis->SetTitleOffset(1.5);
+
     TCanvas *c = new TCanvas("c", "c");
     c->cd();
     c->SetCanvasSize(1200, 1200);
 
     TPad *pad = new TPad("pad", "pad", 0, 0, 1, 1);
-    pad->SetLeftMargin(0.15);
-    pad->SetRightMargin(0.15);
-    pad->SetBottomMargin(0.15);
-    pad->SetTopMargin(0.15);
+    pad->SetLeftMargin(0.18);
+    pad->SetRightMargin(0.18);
+    pad->SetBottomMargin(0.18);
+    pad->SetTopMargin(0.18);
     pad->SetTickx();
     pad->SetTicky();
     pad->Draw();
