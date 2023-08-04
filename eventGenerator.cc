@@ -422,12 +422,12 @@ int main() {
                 AK4_jet_sorted_matched_lambda11.back() += AK4_constituents[k].pt()
                     / AK4_cutJets[std::distance(AK4_delta_R.begin(), AK4_delta_R_min)].pt()
                     * AK4_constituents[k].delta_R(AK4_cutJets[std::distance(AK4_delta_R.begin(), AK4_delta_R_min)])
-                    / 0.2;
+                    / 0.4;
                 
                 AK4_jet_matched_lambda11.back() += AK4_constituents[k].pt()
                     / AK4_cutJets[std::distance(AK4_delta_R.begin(), AK4_delta_R_min)].pt()
                     * AK4_constituents[k].delta_R(AK4_cutJets[std::distance(AK4_delta_R.begin(), AK4_delta_R_min)])
-                    / 0.2;
+                    / 0.4;
             }
         }
 
@@ -483,12 +483,12 @@ int main() {
                 AK6_jet_sorted_matched_lambda11.back() += AK6_constituents[k].pt()
                     / AK6_cutJets[std::distance(AK6_delta_R.begin(), AK6_delta_R_min)].pt()
                     * AK6_constituents[k].delta_R(AK6_cutJets[std::distance(AK6_delta_R.begin(), AK6_delta_R_min)])
-                    / 0.2;
+                    / 0.6;
                 
                 AK6_jet_matched_lambda11.back() += AK6_constituents[k].pt()
                     / AK6_cutJets[std::distance(AK6_delta_R.begin(), AK6_delta_R_min)].pt()
                     * AK6_constituents[k].delta_R(AK6_cutJets[std::distance(AK6_delta_R.begin(), AK6_delta_R_min)])
-                    / 0.2;
+                    / 0.6;
             }
         }
 
@@ -544,12 +544,12 @@ int main() {
                 AK8_jet_sorted_matched_lambda11.back() += AK8_constituents[k].pt()
                     / AK8_cutJets[std::distance(AK8_delta_R.begin(), AK8_delta_R_min)].pt()
                     * AK8_constituents[k].delta_R(AK8_cutJets[std::distance(AK8_delta_R.begin(), AK8_delta_R_min)])
-                    / 0.2;
+                    / 0.8;
                 
                 AK8_jet_matched_lambda11.back() += AK8_constituents[k].pt()
                     / AK8_cutJets[std::distance(AK8_delta_R.begin(), AK8_delta_R_min)].pt()
                     * AK8_constituents[k].delta_R(AK8_cutJets[std::distance(AK8_delta_R.begin(), AK8_delta_R_min)])
-                    / 0.2;
+                    / 0.8;
             }
         }
 
