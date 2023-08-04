@@ -13,203 +13,530 @@ void histoJetDelPt() {
 
     auto df = rdf.Define("AK4_Delta_pt", "AK4_jet_all_matched_pt - AK2_jet_all_matched_pt")
                     .Define("AK6_Delta_pt", "AK6_jet_all_matched_pt - AK4_jet_all_matched_pt")
-                    .Define("AK8_Delta_pt", "AK8_jet_all_matched_pt - AK6_jet_all_matched_pt");
+                    .Define("AK8_Delta_pt", "AK8_jet_all_matched_pt - AK6_jet_all_matched_pt")
+                    .Define("AK4_Percent_pt", "100*AK4_Delta_pt/AK2_jet_all_matched_pt")
+                    .Define("AK6_Percent_pt", "100*AK6_Delta_pt/AK4_jet_all_matched_pt")
+                    .Define("AK8_Percent_pt", "100*AK8_Delta_pt/AK6_jet_all_matched_pt");
 
-    ROOT::RDF::TH1DModel model_AK4_Delta_pt("h1_AK4_Delta_pt", "", 200, 0., 20.);
-    ROOT::RDF::TH1DModel model_AK6_Delta_pt("h1_AK4_Delta_pt", "", 200, 0., 20.);
-    ROOT::RDF::TH1DModel model_AK8_Delta_pt("h1_AK4_Delta_pt", "", 200, 0., 20.);
+    const double ptbins[6] = {10., 40., 50., 70., 100., 200.};
+    const int pt[6] = {10, 40, 50, 70, 100, 200};
 
-    auto h1_AK4_Delta_pt = df.Histo1D(model_AK4_Delta_pt, "AK4_Delta_pt");
-    auto h1_AK6_Delta_pt = df.Histo1D(model_AK6_Delta_pt, "AK6_Delta_pt");
-    auto h1_AK8_Delta_pt = df.Histo1D(model_AK8_Delta_pt, "AK8_Delta_pt");
+    // ---------
+    // Delta pT
+    // ---------
+
+    ROOT::RDF::TH2DModel model_AK4_Delta_pt("h2_AK4_Delta_pt", "", 200, 0., 20., 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK6_Delta_pt("h2_AK6_Delta_pt", "", 200, 0., 20., 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK8_Delta_pt("h2_AK8_Delta_pt", "", 200, 0., 20., 5, ptbins);
+
+    auto h2_AK4_Delta_pt = df.Histo2D(model_AK4_Delta_pt, "AK4_Delta_pt", "AK4_jet_all_matched_pt");
+    auto h2_AK6_Delta_pt = df.Histo2D(model_AK6_Delta_pt, "AK6_Delta_pt", "AK6_jet_all_matched_pt");
+    auto h2_AK8_Delta_pt = df.Histo2D(model_AK8_Delta_pt, "AK8_Delta_pt", "AK8_jet_all_matched_pt");
 
     // AK4 - AK2
-    TCanvas *c1 = new TCanvas("c1", "c1");
-    c1->cd();
-    c1->SetCanvasSize(1200, 1200);
+    for (int i = 1; i < 6; i++) {
+        TCanvas *c1 = new TCanvas("c1", "c1");
+        c1->cd();
+        c1->SetCanvasSize(1200, 1200);
+        
+        string title_AK4 = "h1_AK4_Delta_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK4 = title_AK4.c_str();
+        auto h1_AK4_Delta_pt = h2_AK4_Delta_pt->ProjectionX(c_title_AK4, i, i);
 
-    h1_AK4_Delta_pt->SetStats(0);
-    h1_AK4_Delta_pt->SetFillColor(kGreen+1);
-    h1_AK4_Delta_pt->SetLineColor(kGreen+1);
-    h1_AK4_Delta_pt->SetTitle("");
-    h1_AK4_Delta_pt->SetMarkerSize(2);
-    h1_AK4_Delta_pt->SetMarkerColor(kGreen+1);
+        h1_AK4_Delta_pt->SetStats(0);
+        h1_AK4_Delta_pt->SetFillColor(kGreen+1);
+        h1_AK4_Delta_pt->SetLineColor(kGreen+1);
+        h1_AK4_Delta_pt->SetTitle("");
+        h1_AK4_Delta_pt->SetMarkerSize(2);
+        h1_AK4_Delta_pt->SetMarkerColor(kGreen+1);
 
-    TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
-    pad1->SetLeftMargin(0.15);
-    pad1->SetRightMargin(0.15);
-    pad1->SetBottomMargin(0.15);
-    pad1->SetTopMargin(0.15);
-    pad1->SetTickx();
-    pad1->SetTicky();
-    pad1->Draw();
-    pad1->cd();
+        TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+        pad1->SetLeftMargin(0.15);
+        pad1->SetRightMargin(0.15);
+        pad1->SetBottomMargin(0.15);
+        pad1->SetTopMargin(0.15);
+        pad1->SetTickx();
+        pad1->SetTicky();
+        pad1->Draw();
+        pad1->cd();
 
-    // Formatting
-    auto xaxis1 = h1_AK4_Delta_pt->GetXaxis();
-    xaxis1->SetTitle("#Delta p_{T} (AK2, AK4) (GeV)");
-    xaxis1->SetTitleFont(43);
-    xaxis1->SetTitleSize(55);
-    xaxis1->SetLabelFont(43);
-    xaxis1->SetLabelSize(35);
+        // Formatting
+        auto xaxis1 = h1_AK4_Delta_pt->GetXaxis();
+        xaxis1->SetTitle("#Delta p_{T} (AK2, AK4) (GeV)");
+        xaxis1->SetTitleFont(43);
+        xaxis1->SetTitleSize(55);
+        xaxis1->SetLabelFont(43);
+        xaxis1->SetLabelSize(35);
 
-    auto yaxis1 = h1_AK4_Delta_pt->GetYaxis();
-    yaxis1->SetTitle("Jets per bin");
-    yaxis1->SetTitleFont(43);
-    yaxis1->SetTitleSize(55);
-    yaxis1->SetLabelFont(43);
-    yaxis1->SetLabelSize(35);
+        auto yaxis1 = h1_AK4_Delta_pt->GetYaxis();
+        yaxis1->SetTitle("Jets per bin");
+        yaxis1->SetTitleFont(43);
+        yaxis1->SetTitleSize(55);
+        yaxis1->SetLabelFont(43);
+        yaxis1->SetLabelSize(35);
 
-    h1_AK4_Delta_pt->Draw("hist");
+        h1_AK4_Delta_pt->Draw("hist");
 
-    c1->cd();
-    c1->SaveAs("pdffiles/h1_AK4_Delta_pt.pdf");
+        // Text
+        TLatex *latex = new TLatex();
+        latex->SetNDC();
+        latex->SetTextFont(42);
+        latex->SetTextSize(0.03);
+        latex->SetTextColor(1);
+        latex->SetTextAlign(12);
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T, AK4 Jet} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text = text.c_str();
+        latex->DrawLatex(0.45, 0.78, c_text);
 
-    // AK6 - AK4
-    TCanvas *c2 = new TCanvas("c2", "c2");
-    c2->cd();
-    c2->SetCanvasSize(1200, 1200);
+        TLatex *latex2 = new TLatex();
+        latex2->SetNDC();
+        latex2->SetTextFont(42);
+        latex2->SetTextSize(0.03);
+        latex2->SetTextColor(1);
+        latex2->SetTextAlign(12);
+        string text2 = "Mean = " + std::to_string(h1_AK4_Delta_pt->GetMean());
+        auto c_text2 = text2.c_str();
+        latex2->DrawLatex(0.455, 0.73, c_text2);
 
-    h1_AK6_Delta_pt->SetStats(0);
-    h1_AK6_Delta_pt->SetFillColor(kOrange+1);
-    h1_AK6_Delta_pt->SetLineColor(kOrange+1);
-    h1_AK6_Delta_pt->SetTitle("");
-    h1_AK6_Delta_pt->SetMarkerSize(2);
-    h1_AK6_Delta_pt->SetMarkerColor(kOrange+1);
+        TLatex *latex3 = new TLatex();
+        latex3->SetNDC();
+        latex3->SetTextFont(42);
+        latex3->SetTextSize(0.03);
+        latex3->SetTextColor(1);
+        latex3->SetTextAlign(12);
+        string text3 = "RMS = " + std::to_string(h1_AK4_Delta_pt->GetRMS());
+        auto c_text3 = text3.c_str();
+        latex3->DrawLatex(0.455, 0.68, c_text3);
 
-    TPad *pad2 = new TPad("pad2", "pad2", 0, 0, 1, 1);
-    pad2->SetLeftMargin(0.15);
-    pad2->SetRightMargin(0.15);
-    pad2->SetBottomMargin(0.15);
-    pad2->SetTopMargin(0.15);
-    pad2->SetTickx();
-    pad2->SetTicky();
-    pad2->Draw();
-    pad2->cd();
+        string output_AK4 = "pdffiles/h1_AK4_Delta_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_output_AK4 = output_AK4.c_str();
 
-    // Formatting
-    auto xaxis2 = h1_AK6_Delta_pt->GetXaxis();
-    xaxis2->SetTitle("#Delta p_{T} (AK4, AK6) (GeV)");
-    xaxis2->SetTitleFont(43);
-    xaxis2->SetTitleSize(55);
-    xaxis2->SetLabelFont(43);
-    xaxis2->SetLabelSize(35);
-
-    auto yaxis2 = h1_AK6_Delta_pt->GetYaxis();
-    yaxis2->SetTitle("Jets per bin");
-    yaxis2->SetTitleFont(43);
-    yaxis2->SetTitleSize(55);
-    yaxis2->SetLabelFont(43);
-    yaxis2->SetLabelSize(35);
-
-    h1_AK6_Delta_pt->Draw("hist");
-
-    c2->cd();
-    c2->SaveAs("pdffiles/h1_AK6_Delta_pt.pdf");
-
-    // AK8 - AK6
-    TCanvas *c3 = new TCanvas("c3", "c3");
-    c3->cd();
-    c3->SetCanvasSize(1200, 1200);
-
-    h1_AK8_Delta_pt->SetStats(0);
-    h1_AK8_Delta_pt->SetFillColor(kRed+1);
-    h1_AK8_Delta_pt->SetLineColor(kRed+1);
-    h1_AK8_Delta_pt->SetTitle("");
-    h1_AK8_Delta_pt->SetMarkerSize(2);
-    h1_AK8_Delta_pt->SetMarkerColor(kRed+1);
-
-    TPad *pad3 = new TPad("pad3", "pad3", 0, 0, 1, 1);
-    pad3->SetLeftMargin(0.18);
-    pad3->SetRightMargin(0.18);
-    pad3->SetBottomMargin(0.18);
-    pad3->SetTopMargin(0.18);
-    pad3->SetTickx();
-    pad3->SetTicky();
-    pad3->Draw();
-    pad3->cd();
-
-    // Formatting
-    auto xaxis3 = h1_AK8_Delta_pt->GetXaxis();
-    xaxis3->SetTitle("#Delta p_{T} (AK6, AK8) (GeV)");
-    xaxis3->SetTitleFont(43);
-    xaxis3->SetTitleSize(55);
-    xaxis3->SetLabelFont(43);
-    xaxis3->SetLabelSize(35);
-
-    auto yaxis3 = h1_AK8_Delta_pt->GetYaxis();
-    yaxis3->SetTitle("Jets per bin");
-    yaxis3->SetTitleFont(43);
-    yaxis3->SetTitleSize(55);
-    yaxis3->SetLabelFont(43);
-    yaxis3->SetLabelSize(35);
-
-    h1_AK8_Delta_pt->Draw("hist");
-
-    c3->cd();
-    c3->SaveAs("pdffiles/h1_AK8_Delta_pt.pdf");
-
-    // TH2 plotting
-    TH2D *h2_Delta_pt = new TH2D("h2_Delta_pt", "", 3, 0., 3., 200, 0., 20.);
-
-    for (int i = 1; i < 201; i++) {
-        h2_Delta_pt->SetBinContent(1, i, h1_AK4_Delta_pt->GetBinContent(i));
-        h2_Delta_pt->SetBinError(1, i, h1_AK4_Delta_pt->GetBinError(i));
-
-        h2_Delta_pt->SetBinContent(2, i, h1_AK6_Delta_pt->GetBinContent(i));
-        h2_Delta_pt->SetBinError(2, i, h1_AK6_Delta_pt->GetBinError(i));
-
-        h2_Delta_pt->SetBinContent(3, i, h1_AK8_Delta_pt->GetBinContent(i));
-        h2_Delta_pt->SetBinError(3, i, h1_AK8_Delta_pt->GetBinError(i));
+        c1->cd();
+        c1->SaveAs(c_output_AK4);
     }
 
-    TCanvas *c4 = new TCanvas("c4", "c4");
-    c4->cd();
-    c4->SetCanvasSize(1200, 1200);
+    // AK6 - AK4
+    for (int i = 1; i < 6; i++) {
+        TCanvas *c1 = new TCanvas("c1", "c1");
+        c1->cd();
+        c1->SetCanvasSize(1200, 1200);
+        
+        string title_AK6 = "h1_AK6_Delta_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK6 = title_AK6.c_str();
+        auto h1_AK6_Delta_pt = h2_AK6_Delta_pt->ProjectionX(c_title_AK6, i, i);
 
-    h2_Delta_pt->SetStats(0);
-    h2_Delta_pt->SetTitle("");
+        h1_AK6_Delta_pt->SetStats(0);
+        h1_AK6_Delta_pt->SetFillColor(kOrange+1);
+        h1_AK6_Delta_pt->SetLineColor(kOrange+1);
+        h1_AK6_Delta_pt->SetTitle("");
+        h1_AK6_Delta_pt->SetMarkerSize(2);
+        h1_AK6_Delta_pt->SetMarkerColor(kOrange+1);
 
-    TPad *pad4 = new TPad("pad4", "pad4", 0, 0, 1, 1);
-    pad4->SetLeftMargin(0.15);
-    pad4->SetRightMargin(0.2);
-    pad4->SetBottomMargin(0.15);
-    pad4->SetTopMargin(0.2);
-    pad4->SetTickx();
-    pad4->SetTicky();
-    pad4->Draw();
-    pad4->cd();
+        TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+        pad1->SetLeftMargin(0.15);
+        pad1->SetRightMargin(0.15);
+        pad1->SetBottomMargin(0.15);
+        pad1->SetTopMargin(0.15);
+        pad1->SetTickx();
+        pad1->SetTicky();
+        pad1->Draw();
+        pad1->cd();
 
-    // Formatting
-    auto xaxis4 = h2_Delta_pt->GetXaxis();
-    xaxis4->SetTitle("");
-    xaxis4->SetTitleFont(43);
-    xaxis4->SetTitleSize(55);
-    xaxis4->SetLabelFont(43);
-    xaxis4->SetLabelSize(35);
-    xaxis4->SetNdivisions(3);
-    xaxis4->CenterLabels();
-    xaxis4->ChangeLabel(1, -1, -1, -1, -1, -1, "AK2 to AK4");
-    xaxis4->ChangeLabel(2, -1, -1, -1, -1, -1, "AK4 to AK6");
-    xaxis4->ChangeLabel(3, -1, -1, -1, -1, -1, "AK6 to AK8");
+        // Formatting
+        auto xaxis1 = h1_AK6_Delta_pt->GetXaxis();
+        xaxis1->SetTitle("#Delta p_{T} (AK4, AK6) (GeV)");
+        xaxis1->SetTitleFont(43);
+        xaxis1->SetTitleSize(55);
+        xaxis1->SetLabelFont(43);
+        xaxis1->SetLabelSize(35);
 
-    auto yaxis4 = h2_Delta_pt->GetYaxis();
-    yaxis4->SetTitle("#Delta p_{T} (GeV)");
-    yaxis4->SetTitleFont(43);
-    yaxis4->SetTitleSize(55);
-    yaxis4->SetLabelFont(43);
-    yaxis4->SetLabelSize(35);
+        auto yaxis1 = h1_AK6_Delta_pt->GetYaxis();
+        yaxis1->SetTitle("Jets per bin");
+        yaxis1->SetTitleFont(43);
+        yaxis1->SetTitleSize(55);
+        yaxis1->SetLabelFont(43);
+        yaxis1->SetLabelSize(35);
 
-    auto zaxis4 = h2_Delta_pt->GetZaxis();
-    zaxis4->SetTitle("Jets per bin");
-    zaxis4->SetTitleOffset(1.5);
-    zaxis4->SetTitleFont(43);
-    zaxis4->SetTitleSize(55);
-    zaxis4->SetLabelFont(43);
-    zaxis4->SetLabelSize(35);
+        h1_AK6_Delta_pt->Draw("hist");
 
-    h2_Delta_pt->Draw("colz");
+        // Text
+        TLatex *latex = new TLatex();
+        latex->SetNDC();
+        latex->SetTextFont(42);
+        latex->SetTextSize(0.03);
+        latex->SetTextColor(1);
+        latex->SetTextAlign(12);
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T, AK6 Jet} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text = text.c_str();
+        latex->DrawLatex(0.45, 0.78, c_text);
 
-    c4->cd();
-    c4->SaveAs("pdffiles/h2_Delta_pt.pdf");
+        TLatex *latex2 = new TLatex();
+        latex2->SetNDC();
+        latex2->SetTextFont(42);
+        latex2->SetTextSize(0.03);
+        latex2->SetTextColor(1);
+        latex2->SetTextAlign(12);
+        string text2 = "Mean = " + std::to_string(h1_AK6_Delta_pt->GetMean());
+        auto c_text2 = text2.c_str();
+        latex2->DrawLatex(0.455, 0.73, c_text2);
+
+        TLatex *latex3 = new TLatex();
+        latex3->SetNDC();
+        latex3->SetTextFont(42);
+        latex3->SetTextSize(0.03);
+        latex3->SetTextColor(1);
+        latex3->SetTextAlign(12);
+        string text3 = "RMS = " + std::to_string(h1_AK6_Delta_pt->GetRMS());
+        auto c_text3 = text3.c_str();
+        latex3->DrawLatex(0.455, 0.68, c_text3);
+
+        string output_AK6 = "pdffiles/h1_AK6_Delta_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_output_AK6 = output_AK6.c_str();
+
+        c1->cd();
+        c1->SaveAs(c_output_AK6);
+    }
+
+    // AK8 - AK6
+    for (int i = 1; i < 6; i++) {
+        TCanvas *c1 = new TCanvas("c1", "c1");
+        c1->cd();
+        c1->SetCanvasSize(1200, 1200);
+        
+        string title_AK8 = "h1_AK8_Delta_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK8 = title_AK8.c_str();
+        auto h1_AK8_Delta_pt = h2_AK8_Delta_pt->ProjectionX(c_title_AK8, i, i);
+
+        h1_AK8_Delta_pt->SetStats(0);
+        h1_AK8_Delta_pt->SetFillColor(kRed+1);
+        h1_AK8_Delta_pt->SetLineColor(kRed+1);
+        h1_AK8_Delta_pt->SetTitle("");
+        h1_AK8_Delta_pt->SetMarkerSize(2);
+        h1_AK8_Delta_pt->SetMarkerColor(kRed+1);
+
+        TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+        pad1->SetLeftMargin(0.15);
+        pad1->SetRightMargin(0.15);
+        pad1->SetBottomMargin(0.15);
+        pad1->SetTopMargin(0.15);
+        pad1->SetTickx();
+        pad1->SetTicky();
+        pad1->Draw();
+        pad1->cd();
+
+        // Formatting
+        auto xaxis1 = h1_AK8_Delta_pt->GetXaxis();
+        xaxis1->SetTitle("#Delta p_{T} (AK6, AK8) (GeV)");
+        xaxis1->SetTitleFont(43);
+        xaxis1->SetTitleSize(55);
+        xaxis1->SetLabelFont(43);
+        xaxis1->SetLabelSize(35);
+
+        auto yaxis1 = h1_AK8_Delta_pt->GetYaxis();
+        yaxis1->SetTitle("Jets per bin");
+        yaxis1->SetTitleFont(43);
+        yaxis1->SetTitleSize(55);
+        yaxis1->SetLabelFont(43);
+        yaxis1->SetLabelSize(35);
+
+        h1_AK8_Delta_pt->Draw("hist");
+
+        // Text
+        TLatex *latex = new TLatex();
+        latex->SetNDC();
+        latex->SetTextFont(42);
+        latex->SetTextSize(0.03);
+        latex->SetTextColor(1);
+        latex->SetTextAlign(12);
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T, AK8 Jet} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text = text.c_str();
+        latex->DrawLatex(0.45, 0.78, c_text);
+
+        TLatex *latex2 = new TLatex();
+        latex2->SetNDC();
+        latex2->SetTextFont(42);
+        latex2->SetTextSize(0.03);
+        latex2->SetTextColor(1);
+        latex2->SetTextAlign(12);
+        string text2 = "Mean = " + std::to_string(h1_AK8_Delta_pt->GetMean());
+        auto c_text2 = text2.c_str();
+        latex2->DrawLatex(0.455, 0.73, c_text2);
+
+        TLatex *latex3 = new TLatex();
+        latex3->SetNDC();
+        latex3->SetTextFont(42);
+        latex3->SetTextSize(0.03);
+        latex3->SetTextColor(1);
+        latex3->SetTextAlign(12);
+        string text3 = "RMS = " + std::to_string(h1_AK8_Delta_pt->GetRMS());
+        auto c_text3 = text3.c_str();
+        latex3->DrawLatex(0.455, 0.68, c_text3);
+
+        string output_AK8 = "pdffiles/h1_AK8_Delta_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_output_AK8 = output_AK8.c_str();
+
+        c1->cd();
+        c1->SaveAs(c_output_AK8);
+    }
+
+
+    // ------------------
+    // Percentage change
+    // ------------------
+
+    ROOT::RDF::TH2DModel model_AK4_Percent_pt("h2_AK4_Percent_pt", "", 500, 0., 50., 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK6_Percent_pt("h2_AK6_Percent_pt", "", 500, 0., 50., 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK8_Percent_pt("h2_AK8_Percent_pt", "", 500, 0., 50., 5, ptbins);
+
+    auto h2_AK4_Percent_pt = df.Histo2D(model_AK4_Percent_pt, "AK4_Percent_pt", "AK4_jet_all_matched_pt");
+    auto h2_AK6_Percent_pt = df.Histo2D(model_AK6_Percent_pt, "AK6_Percent_pt", "AK6_jet_all_matched_pt");
+    auto h2_AK8_Percent_pt = df.Histo2D(model_AK8_Percent_pt, "AK8_Percent_pt", "AK8_jet_all_matched_pt");
+
+    // AK4 - AK2
+    for (int i = 1; i < 6; i++) {
+        TCanvas *c1 = new TCanvas("c1", "c1");
+        c1->cd();
+        c1->SetCanvasSize(1200, 1200);
+        
+        string title_AK4 = "h1_AK4_Percent_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK4 = title_AK4.c_str();
+        auto h1_AK4_Percent_pt = h2_AK4_Percent_pt->ProjectionX(c_title_AK4, i, i);
+
+        h1_AK4_Percent_pt->SetStats(0);
+        h1_AK4_Percent_pt->SetFillColor(kGreen+1);
+        h1_AK4_Percent_pt->SetLineColor(kGreen+1);
+        h1_AK4_Percent_pt->SetTitle("");
+        h1_AK4_Percent_pt->SetMarkerSize(2);
+        h1_AK4_Percent_pt->SetMarkerColor(kGreen+1);
+
+        TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+        pad1->SetLeftMargin(0.15);
+        pad1->SetRightMargin(0.15);
+        pad1->SetBottomMargin(0.15);
+        pad1->SetTopMargin(0.15);
+        pad1->SetTickx();
+        pad1->SetTicky();
+        pad1->Draw();
+        pad1->cd();
+
+        // Formatting
+        auto xaxis1 = h1_AK4_Percent_pt->GetXaxis();
+        xaxis1->SetTitle("#Delta p_{T} (AK2, AK4) (\%)");
+        xaxis1->SetTitleFont(43);
+        xaxis1->SetTitleSize(55);
+        xaxis1->SetLabelFont(43);
+        xaxis1->SetLabelSize(35);
+
+        auto yaxis1 = h1_AK4_Percent_pt->GetYaxis();
+        yaxis1->SetTitle("Jets per bin");
+        yaxis1->SetTitleFont(43);
+        yaxis1->SetTitleSize(55);
+        yaxis1->SetLabelFont(43);
+        yaxis1->SetLabelSize(35);
+
+        h1_AK4_Percent_pt->Draw("hist");
+
+        // Text
+        TLatex *latex = new TLatex();
+        latex->SetNDC();
+        latex->SetTextFont(42);
+        latex->SetTextSize(0.03);
+        latex->SetTextColor(1);
+        latex->SetTextAlign(12);
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T, AK4 Jet} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text = text.c_str();
+        latex->DrawLatex(0.45, 0.78, c_text);
+
+        TLatex *latex2 = new TLatex();
+        latex2->SetNDC();
+        latex2->SetTextFont(42);
+        latex2->SetTextSize(0.03);
+        latex2->SetTextColor(1);
+        latex2->SetTextAlign(12);
+        string text2 = "Mean = " + std::to_string(h1_AK4_Percent_pt->GetMean());
+        auto c_text2 = text2.c_str();
+        latex2->DrawLatex(0.455, 0.73, c_text2);
+
+        TLatex *latex3 = new TLatex();
+        latex3->SetNDC();
+        latex3->SetTextFont(42);
+        latex3->SetTextSize(0.03);
+        latex3->SetTextColor(1);
+        latex3->SetTextAlign(12);
+        string text3 = "RMS = " + std::to_string(h1_AK4_Percent_pt->GetRMS());
+        auto c_text3 = text3.c_str();
+        latex3->DrawLatex(0.455, 0.68, c_text3);
+
+        string output_AK4 = "pdffiles/h1_AK4_Percent_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_output_AK4 = output_AK4.c_str();
+
+        c1->cd();
+        c1->SaveAs(c_output_AK4);
+    }
+
+    // AK6 - AK4
+    for (int i = 1; i < 6; i++) {
+        TCanvas *c1 = new TCanvas("c1", "c1");
+        c1->cd();
+        c1->SetCanvasSize(1200, 1200);
+        
+        string title_AK6 = "h1_AK6_Percent_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK6 = title_AK6.c_str();
+        auto h1_AK6_Percent_pt = h2_AK6_Percent_pt->ProjectionX(c_title_AK6, i, i);
+
+        h1_AK6_Percent_pt->SetStats(0);
+        h1_AK6_Percent_pt->SetFillColor(kOrange+1);
+        h1_AK6_Percent_pt->SetLineColor(kOrange+1);
+        h1_AK6_Percent_pt->SetTitle("");
+        h1_AK6_Percent_pt->SetMarkerSize(2);
+        h1_AK6_Percent_pt->SetMarkerColor(kOrange+1);
+
+        TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+        pad1->SetLeftMargin(0.15);
+        pad1->SetRightMargin(0.15);
+        pad1->SetBottomMargin(0.15);
+        pad1->SetTopMargin(0.15);
+        pad1->SetTickx();
+        pad1->SetTicky();
+        pad1->Draw();
+        pad1->cd();
+
+        // Formatting
+        auto xaxis1 = h1_AK6_Percent_pt->GetXaxis();
+        xaxis1->SetTitle("#Delta p_{T} (AK4, AK6) (\%)");
+        xaxis1->SetTitleFont(43);
+        xaxis1->SetTitleSize(55);
+        xaxis1->SetLabelFont(43);
+        xaxis1->SetLabelSize(35);
+
+        auto yaxis1 = h1_AK6_Percent_pt->GetYaxis();
+        yaxis1->SetTitle("Jets per bin");
+        yaxis1->SetTitleFont(43);
+        yaxis1->SetTitleSize(55);
+        yaxis1->SetLabelFont(43);
+        yaxis1->SetLabelSize(35);
+
+        h1_AK6_Percent_pt->Draw("hist");
+
+        // Text
+        TLatex *latex = new TLatex();
+        latex->SetNDC();
+        latex->SetTextFont(42);
+        latex->SetTextSize(0.03);
+        latex->SetTextColor(1);
+        latex->SetTextAlign(12);
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T, AK6 Jet} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text = text.c_str();
+        latex->DrawLatex(0.45, 0.78, c_text);
+
+        TLatex *latex2 = new TLatex();
+        latex2->SetNDC();
+        latex2->SetTextFont(42);
+        latex2->SetTextSize(0.03);
+        latex2->SetTextColor(1);
+        latex2->SetTextAlign(12);
+        string text2 = "Mean = " + std::to_string(h1_AK6_Percent_pt->GetMean());
+        auto c_text2 = text2.c_str();
+        latex2->DrawLatex(0.455, 0.73, c_text2);
+
+        TLatex *latex3 = new TLatex();
+        latex3->SetNDC();
+        latex3->SetTextFont(42);
+        latex3->SetTextSize(0.03);
+        latex3->SetTextColor(1);
+        latex3->SetTextAlign(12);
+        string text3 = "RMS = " + std::to_string(h1_AK6_Percent_pt->GetRMS());
+        auto c_text3 = text3.c_str();
+        latex3->DrawLatex(0.455, 0.68, c_text3);
+
+        string output_AK6 = "pdffiles/h1_AK6_Percent_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_output_AK6 = output_AK6.c_str();
+
+        c1->cd();
+        c1->SaveAs(c_output_AK6);
+    }
+
+    // AK8 - AK6
+    for (int i = 1; i < 6; i++) {
+        TCanvas *c1 = new TCanvas("c1", "c1");
+        c1->cd();
+        c1->SetCanvasSize(1200, 1200);
+        
+        string title_AK8 = "h1_AK8_Percent_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]);
+        auto c_title_AK8 = title_AK8.c_str();
+        auto h1_AK8_Percent_pt = h2_AK8_Percent_pt->ProjectionX(c_title_AK8, i, i);
+
+        h1_AK8_Percent_pt->SetStats(0);
+        h1_AK8_Percent_pt->SetFillColor(kRed+1);
+        h1_AK8_Percent_pt->SetLineColor(kRed+1);
+        h1_AK8_Percent_pt->SetTitle("");
+        h1_AK8_Percent_pt->SetMarkerSize(2);
+        h1_AK8_Percent_pt->SetMarkerColor(kRed+1);
+
+        TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+        pad1->SetLeftMargin(0.15);
+        pad1->SetRightMargin(0.15);
+        pad1->SetBottomMargin(0.15);
+        pad1->SetTopMargin(0.15);
+        pad1->SetTickx();
+        pad1->SetTicky();
+        pad1->Draw();
+        pad1->cd();
+
+        // Formatting
+        auto xaxis1 = h1_AK8_Percent_pt->GetXaxis();
+        xaxis1->SetTitle("#Delta p_{T} (AK6, AK8) (\%)");
+        xaxis1->SetTitleFont(43);
+        xaxis1->SetTitleSize(55);
+        xaxis1->SetLabelFont(43);
+        xaxis1->SetLabelSize(35);
+
+        auto yaxis1 = h1_AK8_Percent_pt->GetYaxis();
+        yaxis1->SetTitle("Jets per bin");
+        yaxis1->SetTitleFont(43);
+        yaxis1->SetTitleSize(55);
+        yaxis1->SetLabelFont(43);
+        yaxis1->SetLabelSize(35);
+
+        h1_AK8_Percent_pt->Draw("hist");
+
+        // Text
+        TLatex *latex = new TLatex();
+        latex->SetNDC();
+        latex->SetTextFont(42);
+        latex->SetTextSize(0.03);
+        latex->SetTextColor(1);
+        latex->SetTextAlign(12);
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T, AK8 Jet} < " + std::to_string(pt[i]) + "GeV";
+        auto c_text = text.c_str();
+        latex->DrawLatex(0.45, 0.78, c_text);
+
+        TLatex *latex2 = new TLatex();
+        latex2->SetNDC();
+        latex2->SetTextFont(42);
+        latex2->SetTextSize(0.03);
+        latex2->SetTextColor(1);
+        latex2->SetTextAlign(12);
+        string text2 = "Mean = " + std::to_string(h1_AK8_Percent_pt->GetMean());
+        auto c_text2 = text2.c_str();
+        latex2->DrawLatex(0.455, 0.73, c_text2);
+
+        TLatex *latex3 = new TLatex();
+        latex3->SetNDC();
+        latex3->SetTextFont(42);
+        latex3->SetTextSize(0.03);
+        latex3->SetTextColor(1);
+        latex3->SetTextAlign(12);
+        string text3 = "RMS = " + std::to_string(h1_AK8_Percent_pt->GetRMS());
+        auto c_text3 = text3.c_str();
+        latex3->DrawLatex(0.455, 0.68, c_text3);
+
+        string output_AK8 = "pdffiles/h1_AK8_Percent_pt_Pt" + std::to_string(pt[i-1]) + "to" + std::to_string(pt[i]) + ".pdf";
+        auto c_output_AK8 = output_AK8.c_str();
+
+        c1->cd();
+        c1->SaveAs(c_output_AK8);
+    }
+
+
 }
