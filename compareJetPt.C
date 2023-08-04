@@ -72,10 +72,6 @@ void compareJetPt() {
     pad1->Draw();
     pad1->cd();
 
-    // Formatting
-    // h1_AK2_jet_pt->SetMaximum(100);
-    // h1_AK2_jet_pt->SetMinimum(1e-6);
-
     auto yaxis = h1_AK2_jet_pt->GetYaxis();
     yaxis->SetTitle("#frac{1}{N_{event}} #frac{d^{2}N}{dp_{T, Jet}d#eta_{Jet}}");
     yaxis->SetTitleFont(43);
@@ -83,7 +79,6 @@ void compareJetPt() {
     yaxis->SetTitleOffset(1.7);
     yaxis->SetLabelFont(43);
     yaxis->SetLabelSize(35);
-    yaxis->ChangeLabel(1, -1, -1, -1, -1, -1, " ");
 
     pad1->cd();
     h1_AK2_jet_pt->DrawCopy("ep");
@@ -114,8 +109,8 @@ void compareJetPt() {
 
     // TH1 as base
     TH1D *htemp = new TH1D("", "", 20, 0., 200.);
-    htemp->SetMinimum(-0.5);
-    htemp->SetMaximum(2.5);
+    htemp->SetMinimum(0.);
+    htemp->SetMaximum(2.);
     htemp->SetStats(0);
 
     auto xaxis1 = htemp->GetXaxis();
@@ -127,7 +122,7 @@ void compareJetPt() {
     xaxis1->SetTitleOffset(2.5);
 
     auto yaxis1 = htemp->GetYaxis();
-    yaxis1->SetTitle("#frac{R = x}{R = 0.2}");
+    yaxis1->SetTitle("#frac{R = x}{R = x-0.2}");
     yaxis1->SetTitleFont(43);
     yaxis1->SetTitleSize(55);
     yaxis1->SetTitleOffset(1.7);
@@ -150,10 +145,10 @@ void compareJetPt() {
     line->Draw("same");
 
     // Draw histos
+    h1_AK8_jet_pt->Divide(h1_AK6_jet_pt);
+    h1_AK6_jet_pt->Divide(h1_AK4_jet_pt);
     h1_AK4_jet_pt->Divide(h1_AK2_jet_pt);
-    h1_AK6_jet_pt->Divide(h1_AK2_jet_pt);
-    h1_AK8_jet_pt->Divide(h1_AK2_jet_pt);
-
+    
     h1_AK4_jet_pt->Draw("epsame");
     h1_AK6_jet_pt->Draw("epsame");
     h1_AK8_jet_pt->Draw("epsame");
