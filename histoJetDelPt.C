@@ -284,9 +284,9 @@ void histoJetDelPt() {
     // Percentage change
     // ------------------
 
-    ROOT::RDF::TH2DModel model_AK4_Percent_pt("h2_AK4_Percent_pt", "", 500, 0., 50., 5, ptbins);
-    ROOT::RDF::TH2DModel model_AK6_Percent_pt("h2_AK6_Percent_pt", "", 500, 0., 50., 5, ptbins);
-    ROOT::RDF::TH2DModel model_AK8_Percent_pt("h2_AK8_Percent_pt", "", 500, 0., 50., 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK4_Percent_pt("h2_AK4_Percent_pt", "", 300, 0., 30., 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK6_Percent_pt("h2_AK6_Percent_pt", "", 300, 0., 30., 5, ptbins);
+    ROOT::RDF::TH2DModel model_AK8_Percent_pt("h2_AK8_Percent_pt", "", 300, 0., 30., 5, ptbins);
 
     auto h2_AK4_Percent_pt = df.Histo2D(model_AK4_Percent_pt, "AK4_Percent_pt", "AK4_jet_all_matched_pt");
     auto h2_AK6_Percent_pt = df.Histo2D(model_AK6_Percent_pt, "AK6_Percent_pt", "AK6_jet_all_matched_pt");
