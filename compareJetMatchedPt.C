@@ -170,7 +170,7 @@ void compareJetMatchedPt() {
     xaxis1->SetTitleOffset(2.5);
 
     auto yaxis1 = htemp->GetYaxis();
-    yaxis1->SetTitle("#frac{R = x}{R = 0.2}");
+    yaxis1->SetTitle("#frac{All jets}{Matched jets}");
     yaxis1->SetTitleFont(43);
     yaxis1->SetTitleSize(55);
     yaxis1->SetTitleOffset(1.7);
@@ -264,7 +264,7 @@ void compareJetMatchedPt() {
     xaxis4->SetTitleOffset(2.5);
 
     auto yaxis4 = htemp3->GetYaxis();
-    yaxis4->SetTitle("#frac{R = x}{R = 0.2}");
+    yaxis4->SetTitle("#frac{All jets}{Matched jets}");
     yaxis4->SetTitleFont(43);
     yaxis4->SetTitleSize(55);
     yaxis4->SetTitleOffset(1.7);
@@ -358,7 +358,7 @@ void compareJetMatchedPt() {
     xaxis6->SetTitleOffset(2.5);
 
     auto yaxis6 = htemp6->GetYaxis();
-    yaxis6->SetTitle("#frac{R = x}{R = 0.2}");
+    yaxis6->SetTitle("#frac{All jets}{Matched jets}");
     yaxis6->SetTitleFont(43);
     yaxis6->SetTitleSize(55);
     yaxis6->SetTitleOffset(1.7);
@@ -452,7 +452,7 @@ void compareJetMatchedPt() {
     xaxis8->SetTitleOffset(2.5);
 
     auto yaxis8 = htemp8->GetYaxis();
-    yaxis8->SetTitle("#frac{R = x}{R = 0.2}");
+    yaxis8->SetTitle("#frac{All jets}{Matched jets}");
     yaxis8->SetTitleFont(43);
     yaxis8->SetTitleSize(55);
     yaxis8->SetTitleOffset(1.7);
