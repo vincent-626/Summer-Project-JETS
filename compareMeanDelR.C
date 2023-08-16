@@ -121,8 +121,6 @@ void compareMeanDelR() {
     yaxis->SetLabelSize(0.03);
     yaxis->SetTitleSize(0.05);
     yaxis->CenterTitle(true);
-    yaxis->ChangeLabel(1, -1, -1, -1, -1, -1, " ");
-    yaxis->ChangeLabel(-1, -1, -1, -1, -1, -1, " ");
 
     // Drawing
     pad1->cd();

@@ -301,4 +301,62 @@ void histoNMatchedJet() {
 
     c5->cd();
     c5->SaveAs("pdffiles/h1_nMatchedParton.pdf");
+
+
+    // Plot matching efficiency
+    double x[4] = {0.2, 0.4, 0.6, 0.8};
+    double y[4] = {h1_AK2_nMatched->GetBinContent(2), h1_AK4_nMatched->GetBinContent(2), h1_AK6_nMatched->GetBinContent(2), h1_AK8_nMatched->GetBinContent(2)};
+    double err_x[4] = {0., 0., 0., 0.};
+    double err_y[4] = {0., 0., 0., 0.};
+
+    for (int i = 0; i < 4; i++) {
+        std::cout << y[i] << std::endl;
+    }
+
+    TGraphAsymmErrors *gr = new TGraphAsymmErrors(4, x, y, err_x, err_x, err_y, err_y);
+
+    gr->SetTitle("");
+    gr->SetMarkerStyle(kFullCircle);
+    gr->SetMarkerSize(3);
+    gr->SetMarkerColor(kBlue+2);
+    gr->SetLineWidth(2);
+    gr->SetLineColor(kBlue+1);
+
+    TCanvas *c6 = new TCanvas("c6", "c6");
+    c6->cd();
+    c6->SetCanvasSize(1200, 1200);
+
+    TPad *pad6 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+    pad6->SetLeftMargin(0.15);
+    pad6->SetRightMargin(0.15);
+    pad6->SetBottomMargin(0.15);
+    pad6->SetTopMargin(0.15);
+    pad6->SetTickx();
+    pad6->SetTicky();
+    pad6->Draw();
+    pad6->cd();
+
+    TH1D *htemp = new TH1D("", "", 5, 0, 1);
+    htemp->SetStats(0);
+    htemp->SetMaximum(100);
+    htemp->SetMinimum(95);
+
+    auto xaxis6 = htemp->GetXaxis();
+    xaxis6->SetTitle("R");
+    xaxis6->SetLabelSize(0.03);
+    xaxis6->SetTitleSize(0.05);
+    xaxis6->SetNdivisions(5);
+    xaxis6->SetTickLength(0.01);
+
+    auto yaxis6 = htemp->GetYaxis();
+    yaxis6->SetTitle("Jet matching efficiency (\%)");
+    yaxis6->SetLabelSize(0.03);
+    yaxis6->SetTitleSize(0.05);
+
+    pad6->cd();
+    htemp->Draw();
+    gr->Draw("lpsame");
+
+    c6->cd();
+    c6->SaveAs("pdffiles/g2_jet_matching_eff.pdf");
 }

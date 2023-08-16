@@ -29,6 +29,8 @@ void histoJetWidth() {
     auto h2_AK8_lambda11 = df.Histo2D(model_AK8_lambda11, "AK8_jet_all_matched_lambda11", "AK8_jet_all_matched_pt");
 
     // AK2
+    double mean_AK2[5], rms_AK2[5];
+
     for (int i = 1; i < 6; i++) {
         TCanvas *c1 = new TCanvas("c1", "c1");
         c1->cd();
@@ -108,9 +110,14 @@ void histoJetWidth() {
 
         c1->cd();
         c1->SaveAs(c_output_AK2);
+
+        mean_AK2[i-1] = h1_AK2_lambda11->GetMean();
+        rms_AK2[i-1] = h1_AK2_lambda11->GetRMS();
     }
 
     // AK4
+    double mean_AK4[5], rms_AK4[5];
+
     for (int i = 1; i < 6; i++) {
         TCanvas *c1 = new TCanvas("c1", "c1");
         c1->cd();
@@ -190,9 +197,14 @@ void histoJetWidth() {
 
         c1->cd();
         c1->SaveAs(c_output_AK4);
+
+        mean_AK4[i-1] = h1_AK4_lambda11->GetMean();
+        rms_AK4[i-1] = h1_AK4_lambda11->GetRMS();
     }
 
     // AK6
+    double mean_AK6[5], rms_AK6[5];
+
     for (int i = 1; i < 6; i++) {
         TCanvas *c1 = new TCanvas("c1", "c1");
         c1->cd();
@@ -272,9 +284,14 @@ void histoJetWidth() {
 
         c1->cd();
         c1->SaveAs(c_output_AK6);
+
+        mean_AK6[i-1] = h1_AK6_lambda11->GetMean();
+        rms_AK6[i-1] = h1_AK6_lambda11->GetRMS();
     }
 
     // AK8
+    double mean_AK8[5], rms_AK8[5];
+
     for (int i = 1; i < 6; i++) {
         TCanvas *c1 = new TCanvas("c1", "c1");
         c1->cd();
@@ -354,5 +371,105 @@ void histoJetWidth() {
 
         c1->cd();
         c1->SaveAs(c_output_AK8);
+
+        mean_AK8[i-1] = h1_AK8_lambda11->GetMean();
+        rms_AK8[i-1] = h1_AK8_lambda11->GetRMS();
     }
+
+
+    // ----------------------------------------
+    // Plot mean jet width as a function of pT
+    // ----------------------------------------
+
+    double x[5] = {1., 2., 3., 4., 5.};
+    double err_x[5] = {0., 0., 0., 0., 0.};
+
+    TGraphAsymmErrors *gr_AK2 = new TGraphAsymmErrors(5, x, mean_AK2, err_x, err_x, rms_AK2, rms_AK2);
+    TGraphAsymmErrors *gr_AK4 = new TGraphAsymmErrors(5, x, mean_AK4, err_x, err_x, rms_AK4, rms_AK4);
+    TGraphAsymmErrors *gr_AK6 = new TGraphAsymmErrors(5, x, mean_AK6, err_x, err_x, rms_AK6, rms_AK6);
+    TGraphAsymmErrors *gr_AK8 = new TGraphAsymmErrors(5, x, mean_AK8, err_x, err_x, rms_AK8, rms_AK8);
+
+    // TGraph formatting
+    gr_AK2->SetTitle("");
+    gr_AK2->SetMarkerColor(kBlue+1);
+    gr_AK2->SetMarkerStyle(kFullCircle);
+    gr_AK2->SetMarkerSize(3);
+    gr_AK2->SetLineColor(kBlue+1);
+
+    gr_AK4->SetTitle("");
+    gr_AK4->SetMarkerColor(kGreen+1);
+    gr_AK4->SetMarkerStyle(kFullSquare);
+    gr_AK4->SetMarkerSize(3);
+    gr_AK4->SetLineColor(kGreen+1);
+
+    gr_AK6->SetTitle("");
+    gr_AK6->SetMarkerColor(kOrange+1);
+    gr_AK6->SetMarkerStyle(kFullTriangleUp);
+    gr_AK6->SetMarkerSize(3);
+    gr_AK6->SetLineColor(kOrange+1);
+
+    gr_AK8->SetTitle("");
+    gr_AK8->SetMarkerColor(kRed+1);
+    gr_AK8->SetMarkerStyle(kFullTriangleDown);
+    gr_AK8->SetMarkerSize(3);
+    gr_AK8->SetLineColor(kRed+1);
+
+    // TH1 as base
+    TCanvas *c1 = new TCanvas("c1", "c1");
+    c1->cd();
+    c1->SetCanvasSize(1200, 1200);
+
+    TPad *pad1 = new TPad("pad1", "pad1", 0, 0, 1, 1);
+    pad1->SetLeftMargin(0.15);
+    pad1->SetRightMargin(0.15);
+    pad1->SetBottomMargin(0.15);
+    pad1->SetTopMargin(0.15);
+    pad1->SetTickx();
+    pad1->SetTicky();
+    pad1->Draw();
+    pad1->cd();
+
+    TH1I *htemp = new TH1I("", "", 5, 1, 5);
+    htemp->SetStats(0);
+    htemp->SetMaximum(0.4);
+    
+    auto xaxis = htemp->GetXaxis();
+    xaxis->SetLabelSize(0.04);
+    xaxis->SetLimits(0.5, 5.5);
+    xaxis->SetNdivisions(5);
+    
+    for (int i = 1; i < 6; i++) {
+        string label = "p_{T} #in [" + std::to_string(pt[i-1]) + ", " + std::to_string(pt[i]) + "] GeV";
+        auto c_label = label.c_str();
+        xaxis->SetBinLabel(i, c_label);
+    }
+        
+    xaxis->LabelsOption("d");
+    xaxis->SetLabelOffset(0.01);
+
+    auto yaxis = htemp->GetYaxis();
+    yaxis->SetTitle("#LT#lambda^{1}_{1}#GT");
+    yaxis->SetLabelSize(0.03);
+    yaxis->SetTitleSize(0.05);
+    yaxis->CenterTitle(true);
+
+    // Drawing
+    pad1->cd();
+    htemp->Draw();
+    gr_AK2->Draw("psame");
+    gr_AK4->Draw("psame");
+    gr_AK6->Draw("psame");
+    gr_AK8->Draw("psame");
+
+    // Legend
+    TLegend *leg = new TLegend(0.65, 0.6, 0.83, 0.8);
+    leg->SetBorderSize(0);
+    leg->AddEntry(gr_AK2, "R = 0.2", "pl");
+    leg->AddEntry(gr_AK4, "R = 0.4", "pl");
+    leg->AddEntry(gr_AK6, "R = 0.6", "pl");
+    leg->AddEntry(gr_AK8, "R = 0.8", "pl");
+    leg->Draw();
+
+    c1->cd();
+    c1->SaveAs("pdffiles/g2_jet_all_matched_meanLambda11.pdf");
 }

@@ -9,7 +9,16 @@
 void compareJetPt() {
     TFile *f = new TFile("rootfiles/Histo_Jet_Parton.root");
 
-    auto *h1_AK2_jet_pt = f->Get<TH1D>("h1_AK2_jet_all_matched_pt");
+    // auto *h1_AK2_jet_pt = f->Get<TH1D>("h1_AK2_jet_pt");
+    // auto *h1_AK4_jet_pt = f->Get<TH1D>("h1_AK4_jet_pt");
+    // auto *h1_AK6_jet_pt = f->Get<TH1D>("h1_AK6_jet_pt");
+    // auto *h1_AK8_jet_pt = f->Get<TH1D>("h1_AK8_jet_pt");
+
+    auto *h1_AK2_jet_pt = f->Get<TH1D>("h1_AK2_jet_matched_pt");
+    auto *h1_AK4_jet_pt = f->Get<TH1D>("h1_AK4_jet_matched_pt");
+    auto *h1_AK6_jet_pt = f->Get<TH1D>("h1_AK6_jet_matched_pt");
+    auto *h1_AK8_jet_pt = f->Get<TH1D>("h1_AK8_jet_matched_pt");
+
     h1_AK2_jet_pt->SetFillColor(0);
     h1_AK2_jet_pt->SetLineColor(kBlue+1);
     h1_AK2_jet_pt->SetStats(0);
@@ -18,7 +27,6 @@ void compareJetPt() {
     h1_AK2_jet_pt->SetMarkerSize(2);
     h1_AK2_jet_pt->SetMarkerColor(kBlue+1);
 
-    auto *h1_AK4_jet_pt = f->Get<TH1D>("h1_AK4_jet_all_matched_pt");
     h1_AK4_jet_pt->SetFillColor(0);
     h1_AK4_jet_pt->SetLineColor(kGreen+1);
     h1_AK4_jet_pt->SetStats(0);
@@ -27,7 +35,6 @@ void compareJetPt() {
     h1_AK4_jet_pt->SetMarkerSize(2);
     h1_AK4_jet_pt->SetMarkerColor(kGreen+1);
 
-    auto *h1_AK6_jet_pt = f->Get<TH1D>("h1_AK6_jet_all_matched_pt");
     h1_AK6_jet_pt->SetFillColor(0);
     h1_AK6_jet_pt->SetLineColor(kOrange+1);
     h1_AK6_jet_pt->SetStats(0);
@@ -36,7 +43,6 @@ void compareJetPt() {
     h1_AK6_jet_pt->SetMarkerSize(2);
     h1_AK6_jet_pt->SetMarkerColor(kOrange+1);
 
-    auto *h1_AK8_jet_pt = f->Get<TH1D>("h1_AK8_jet_all_matched_pt");
     h1_AK8_jet_pt->SetFillColor(0);
     h1_AK8_jet_pt->SetLineColor(kRed+1);
     h1_AK8_jet_pt->SetStats(0);
@@ -47,15 +53,21 @@ void compareJetPt() {
 
     // Scale bins to 1/nEvent * d2N/dptdeta
     int nBin = h1_AK2_jet_pt->GetNbinsX();
+    double nEvent = 50000.;
     double dpt = 10.;
-    double deta = 4.;
-    double nEvent = 10000.;
-    double normFactor = 1 / dpt / deta / nEvent;
+    double deta_AK2 = 3.6;
+    double deta_AK4 = 3.2;
+    double deta_AK6 = 2.8;
+    double deta_AK8 = 2.4;
+    double normFactor_AK2 = 1 / dpt / deta_AK2 / nEvent;
+    double normFactor_AK4 = 1 / dpt / deta_AK4 / nEvent;
+    double normFactor_AK6 = 1 / dpt / deta_AK6 / nEvent;
+    double normFactor_AK8 = 1 / dpt / deta_AK8 / nEvent;
 
-    h1_AK2_jet_pt->Scale(normFactor);
-    h1_AK4_jet_pt->Scale(normFactor);
-    h1_AK6_jet_pt->Scale(normFactor);
-    h1_AK8_jet_pt->Scale(normFactor);
+    h1_AK2_jet_pt->Scale(normFactor_AK2);
+    h1_AK4_jet_pt->Scale(normFactor_AK4);
+    h1_AK6_jet_pt->Scale(normFactor_AK6);
+    h1_AK8_jet_pt->Scale(normFactor_AK8);
 
     TCanvas *c1 = new TCanvas("c1", "c1");
     c1->cd();
@@ -72,7 +84,7 @@ void compareJetPt() {
     pad1->Draw();
     pad1->cd();
 
-    auto yaxis = h1_AK2_jet_pt->GetYaxis();
+    auto yaxis = h1_AK8_jet_pt->GetYaxis();
     yaxis->SetTitle("#frac{1}{N_{event}} #frac{d^{2}N}{dp_{T, Jet}d#eta_{Jet}}");
     yaxis->SetTitleFont(43);
     yaxis->SetTitleSize(55);
@@ -80,11 +92,14 @@ void compareJetPt() {
     yaxis->SetLabelFont(43);
     yaxis->SetLabelSize(35);
 
+    h1_AK8_jet_pt->SetMaximum(1e-1);
+    h1_AK8_jet_pt->SetMinimum(1.1e-6);
+
     pad1->cd();
-    h1_AK2_jet_pt->DrawCopy("ep");
-    h1_AK4_jet_pt->DrawCopy("epsame");
+    h1_AK8_jet_pt->DrawCopy("ep");
     h1_AK6_jet_pt->DrawCopy("epsame");
-    h1_AK8_jet_pt->DrawCopy("epsame");
+    h1_AK4_jet_pt->DrawCopy("epsame");
+    h1_AK2_jet_pt->DrawCopy("epsame");
 
     // Legend
     TLegend *leg = new TLegend(0.72, 0.6, 0.86, 0.85);
@@ -109,8 +124,8 @@ void compareJetPt() {
 
     // TH1 as base
     TH1D *htemp = new TH1D("", "", 20, 0., 200.);
-    htemp->SetMinimum(0.);
-    htemp->SetMaximum(2.);
+    htemp->SetMinimum(0.2);
+    htemp->SetMaximum(1.8);
     htemp->SetStats(0);
 
     auto xaxis1 = htemp->GetXaxis();
@@ -122,7 +137,7 @@ void compareJetPt() {
     xaxis1->SetTitleOffset(2.5);
 
     auto yaxis1 = htemp->GetYaxis();
-    yaxis1->SetTitle("#frac{R = x}{R = x-0.2}");
+    yaxis1->SetTitle("#frac{R = x}{R = 0.2}");
     yaxis1->SetTitleFont(43);
     yaxis1->SetTitleSize(55);
     yaxis1->SetTitleOffset(1.7);
@@ -145,14 +160,15 @@ void compareJetPt() {
     line->Draw("same");
 
     // Draw histos
-    h1_AK8_jet_pt->Divide(h1_AK6_jet_pt);
-    h1_AK6_jet_pt->Divide(h1_AK4_jet_pt);
-    h1_AK4_jet_pt->Divide(h1_AK2_jet_pt);
+    h1_AK8_jet_pt->Divide(h1_AK8_jet_pt, h1_AK2_jet_pt, 1., 1., "B");
+    h1_AK6_jet_pt->Divide(h1_AK6_jet_pt, h1_AK2_jet_pt, 1., 1., "B");
+    h1_AK4_jet_pt->Divide(h1_AK4_jet_pt, h1_AK2_jet_pt, 1., 1., "B");
     
-    h1_AK4_jet_pt->Draw("epsame");
-    h1_AK6_jet_pt->Draw("epsame");
     h1_AK8_jet_pt->Draw("epsame");
+    h1_AK6_jet_pt->Draw("epsame");
+    h1_AK4_jet_pt->Draw("epsame");
 
     c1->cd();
+    // c1->SaveAs("pdffiles/h1_jet_pt_compare.pdf");
     c1->SaveAs("pdffiles/h1_jet_matched_pt_compare.pdf");
 }

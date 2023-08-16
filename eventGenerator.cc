@@ -128,6 +128,7 @@ int main() {
     pythia.readString("Beams::idA = 2212");
     pythia.readString("Beams::idB = 2212");
     pythia.readString("Beams::eCM = 13600");
+    // pythia.readString("softQCD:all = on");
     pythia.readString("HardQCD:all = on");
     pythia.readString("PhaseSpace:pTHatMin = 40.");
     pythia.readString("PartonLevel:ISR = off");
@@ -178,7 +179,7 @@ int main() {
 
         for (int j = 0; j < event.size(); j++) {
             if (TMath::Abs(event[j].status()) != 23) continue;
-            if (TMath::Abs(event[j].eta()) > 1.) continue;
+            // if (TMath::Abs(event[j].eta()) > 1.) continue;
 
             nParton++;
 
@@ -315,6 +316,14 @@ int main() {
         for (int j = 0; j < Parton_pt.size(); j++) {
             AK2_jet_sorted_matched_lambda11.push_back(0.);
 
+            if (TMath::Abs(Parton_eta[j]) > 2.) {
+                AK2_match.push_back(false);
+                AK2_jet_sorted_matched_pt.push_back(0.);
+                AK2_jet_sorted_matched_eta.push_back(0.);
+                AK2_jet_sorted_matched_phi.push_back(0.);
+                continue;
+            }
+
             if (AK2_cutJets.size() == 0) {
                 AK2_nUnmatchedJet++;
                 AK2_match.push_back(false);
@@ -375,6 +384,14 @@ int main() {
 
         for (int j = 0; j < Parton_pt.size(); j++) {
             AK4_jet_sorted_matched_lambda11.push_back(0.);
+
+            if (TMath::Abs(Parton_eta[j]) > 1.8) {
+                AK4_match.push_back(false);
+                AK4_jet_sorted_matched_pt.push_back(0.);
+                AK4_jet_sorted_matched_eta.push_back(0.);
+                AK4_jet_sorted_matched_phi.push_back(0.);
+                continue;
+            }
 
             if (AK4_cutJets.size() == 0) {
                 AK4_nUnmatchedJet++;
@@ -437,6 +454,14 @@ int main() {
 
         for (int j = 0; j < Parton_pt.size(); j++) {
             AK6_jet_sorted_matched_lambda11.push_back(0.);
+
+            if (TMath::Abs(Parton_eta[j]) > 1.6) {
+                AK6_match.push_back(false);
+                AK6_jet_sorted_matched_pt.push_back(0.);
+                AK6_jet_sorted_matched_eta.push_back(0.);
+                AK6_jet_sorted_matched_phi.push_back(0.);
+                continue;
+            }
             
             if (AK6_cutJets.size() == 0) {
                 AK6_nUnmatchedJet++;
@@ -498,6 +523,14 @@ int main() {
 
         for (int j = 0; j < Parton_pt.size(); j++) {
             AK8_jet_sorted_matched_lambda11.push_back(0.);
+
+            if (TMath::Abs(Parton_eta[j]) > 1.4) {
+                AK8_match.push_back(false);
+                AK8_jet_sorted_matched_pt.push_back(0.);
+                AK8_jet_sorted_matched_eta.push_back(0.);
+                AK8_jet_sorted_matched_phi.push_back(0.);
+                continue;
+            }
 
             if (AK8_cutJets.size() == 0) {
                 AK8_nUnmatchedJet++;
