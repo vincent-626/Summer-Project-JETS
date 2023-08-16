@@ -19,10 +19,10 @@ void histoPlotter() {
                     .Define("AK6_jet_all_matched_pt", "AK6_jet_sorted_matched_pt[Parton_match]")
                     .Define("AK8_jet_all_matched_pt", "AK8_jet_sorted_matched_pt[Parton_match]");
 
-    ROOT::RDF::TH1DModel model_AK2_jet_pt("h1_AK2_jet_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK4_jet_pt("h1_AK4_jet_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK6_jet_pt("h1_AK6_jet_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK8_jet_pt("h1_AK8_jet_pt", "", 20, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK2_jet_pt("h1_AK2_jet_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK4_jet_pt("h1_AK4_jet_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK6_jet_pt("h1_AK6_jet_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK8_jet_pt("h1_AK8_jet_pt", "", 40, 0., 200.);
 
     ROOT::RDF::TH1DModel model_AK2_jet_eta("h1_AK2_jet_eta", "", 40, -2., 2.);
     ROOT::RDF::TH1DModel model_AK4_jet_eta("h1_AK4_jet_eta", "", 40, -2., 2.);
@@ -34,18 +34,18 @@ void histoPlotter() {
     ROOT::RDF::TH1DModel model_AK6_jet_phi("h1_AK6_jet_phi", "", 63, -TMath::Pi(), TMath::Pi());
     ROOT::RDF::TH1DModel model_AK8_jet_phi("h1_AK8_jet_phi", "", 63, -TMath::Pi(), TMath::Pi());
 
-    ROOT::RDF::TH1DModel model_parton_pt("h1_parton_pt", "", 20, 0., 200.);
+    ROOT::RDF::TH1DModel model_parton_pt("h1_parton_pt", "", 40, 0., 200.);
     ROOT::RDF::TH1DModel model_parton_eta("h1_parton_eta", "", 40, -2., 2.);
     ROOT::RDF::TH1DModel model_parton_phi("h1_parton_phi", "", 63, -TMath::Pi(), TMath::Pi());
 
-    ROOT::RDF::TH1DModel model_parton_matched_pt("h1_parton_matched_pt", "", 20, 0., 200.);
+    ROOT::RDF::TH1DModel model_parton_matched_pt("h1_parton_matched_pt", "", 40, 0., 200.);
     ROOT::RDF::TH1DModel model_parton_matched_eta("h1_parton_matched_eta", "", 40, -2., 2.);
     ROOT::RDF::TH1DModel model_parton_matched_phi("h1_parton_matched_phi", "", 63, -TMath::Pi(), TMath::Pi());
 
-    ROOT::RDF::TH1DModel model_AK2_jet_matched_pt("h1_AK2_jet_matched_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK4_jet_matched_pt("h1_AK4_jet_matched_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK6_jet_matched_pt("h1_AK6_jet_matched_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK8_jet_matched_pt("h1_AK8_jet_matched_pt", "", 20, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK2_jet_matched_pt("h1_AK2_jet_matched_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK4_jet_matched_pt("h1_AK4_jet_matched_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK6_jet_matched_pt("h1_AK6_jet_matched_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK8_jet_matched_pt("h1_AK8_jet_matched_pt", "", 40, 0., 200.);
 
     ROOT::RDF::TH1DModel model_AK2_jet_matched_eta("h1_AK2_jet_matched_eta", "", 40, -2., 2.);
     ROOT::RDF::TH1DModel model_AK4_jet_matched_eta("h1_AK4_jet_matched_eta", "", 40, -2., 2.);
@@ -79,10 +79,10 @@ void histoPlotter() {
     ROOT::RDF::TH2DModel model_AK6_jet_matched_delR_pt("h2_AK6_jet_matched_delR_pt", "", 200, 0., 0.2, 5, ptbins);
     ROOT::RDF::TH2DModel model_AK8_jet_matched_delR_pt("h2_AK8_jet_matched_delR_pt", "", 200, 0., 0.2, 5, ptbins);
 
-    ROOT::RDF::TH1DModel model_AK2_jet_all_matched_pt("h1_AK2_jet_all_matched_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK4_jet_all_matched_pt("h1_AK4_jet_all_matched_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK6_jet_all_matched_pt("h1_AK6_jet_all_matched_pt", "", 20, 0., 200.);
-    ROOT::RDF::TH1DModel model_AK8_jet_all_matched_pt("h1_AK8_jet_all_matched_pt", "", 20, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK2_jet_all_matched_pt("h1_AK2_jet_all_matched_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK4_jet_all_matched_pt("h1_AK4_jet_all_matched_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK6_jet_all_matched_pt("h1_AK6_jet_all_matched_pt", "", 40, 0., 200.);
+    ROOT::RDF::TH1DModel model_AK8_jet_all_matched_pt("h1_AK8_jet_all_matched_pt", "", 40, 0., 200.);
 
     auto h1_AK2_jet_pt = df.Histo1D(model_AK2_jet_pt, "AK2_jet_pt");
     auto h1_AK4_jet_pt = df.Histo1D(model_AK4_jet_pt, "AK4_jet_pt");

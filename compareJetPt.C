@@ -54,7 +54,7 @@ void compareJetPt() {
     // Scale bins to 1/nEvent * d2N/dptdeta
     int nBin = h1_AK2_jet_pt->GetNbinsX();
     double nEvent = 50000.;
-    double dpt = 10.;
+    double dpt = 5.;
     double deta_AK2 = 3.6;
     double deta_AK4 = 3.2;
     double deta_AK6 = 2.8;
@@ -92,7 +92,7 @@ void compareJetPt() {
     yaxis->SetLabelFont(43);
     yaxis->SetLabelSize(35);
 
-    h1_AK8_jet_pt->SetMaximum(1e-1);
+    h1_AK8_jet_pt->SetMaximum(10.);
     h1_AK8_jet_pt->SetMinimum(1.1e-6);
 
     pad1->cd();
@@ -124,8 +124,8 @@ void compareJetPt() {
 
     // TH1 as base
     TH1D *htemp = new TH1D("", "", 20, 0., 200.);
-    htemp->SetMinimum(0.2);
-    htemp->SetMaximum(1.8);
+    htemp->SetMinimum(0.);
+    htemp->SetMaximum(20.);
     htemp->SetStats(0);
 
     auto xaxis1 = htemp->GetXaxis();
