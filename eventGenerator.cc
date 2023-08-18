@@ -128,9 +128,10 @@ int main() {
     pythia.readString("Beams::idA = 2212");
     pythia.readString("Beams::idB = 2212");
     pythia.readString("Beams::eCM = 13600");
-    // pythia.readString("softQCD:all = on");
-    pythia.readString("HardQCD:all = on");
-    pythia.readString("PhaseSpace:pTHatMin = 40.");
+    pythia.readString("softQCD:all = on");
+    // pythia.readString("HardQCD:all = on");
+    // pythia.readString("PhaseSpace:pTHatMin = 100.");
+    // pythia.readString("PhaseSpace:pTHatMax = 101.");
     pythia.readString("PartonLevel:ISR = off");
     pythia.readString("PartonLevel:FSR = off");
     pythia.readString("PartonLevel:MPI = off");
@@ -189,6 +190,7 @@ int main() {
             Parton_id.push_back(event[j].id());
 
             fastjet::PseudoJet parton(event[j].px(), event[j].py(), event[j].pz(), event[j].e());
+            parton.set_user_index(j);
             partons.push_back(parton);
         }
 
@@ -211,6 +213,9 @@ int main() {
 
             // Only pt > 150 MeV
             if (particle.pt() < 0.15) continue;
+
+            // Label index
+            particle.set_user_index(event[j].index());
 
             particles.push_back(particle);
         }
@@ -248,28 +253,28 @@ int main() {
         // Jet pt & eta cut
         for (int j = 0; j < AK2_sortedJets.size(); j++) {
             if (TMath::Abs(AK2_sortedJets[j].eta()) > 1.8) continue;
-            if (AK2_sortedJets[j].pt() < 10.) continue;
+            // if (AK2_sortedJets[j].pt() < 10.) continue;
 
             AK2_cutJets.push_back(AK2_sortedJets[j]);
         }
 
         for (int j = 0; j < AK4_sortedJets.size(); j++) {
             if (TMath::Abs(AK4_sortedJets[j].eta()) > 1.6) continue;
-            if (AK4_sortedJets[j].pt() < 10.) continue;
+            // if (AK4_sortedJets[j].pt() < 10.) continue;
 
             AK4_cutJets.push_back(AK4_sortedJets[j]);
         }
 
         for (int j = 0; j < AK6_sortedJets.size(); j++) {
             if (TMath::Abs(AK6_sortedJets[j].eta()) > 1.4) continue;
-            if (AK6_sortedJets[j].pt() < 10.) continue;
+            // if (AK6_sortedJets[j].pt() < 10.) continue;
 
             AK6_cutJets.push_back(AK6_sortedJets[j]);
         }
 
         for (int j = 0; j < AK8_sortedJets.size(); j++) {
             if (TMath::Abs(AK8_sortedJets[j].eta()) > 1.2) continue;
-            if (AK8_sortedJets[j].pt() < 10.) continue;
+            // if (AK8_sortedJets[j].pt() < 10.) continue;
 
             AK8_cutJets.push_back(AK8_sortedJets[j]);
         }
@@ -304,6 +309,7 @@ int main() {
             AK8_jet_eta.push_back(AK8_cutJets[j].eta());
             AK8_jet_phi.push_back(AK8_cutJets[j].phi_std());
         }
+
 
         // ------------------------
         // Jet matching (all jets)
@@ -586,6 +592,326 @@ int main() {
             }
         }
 
+
+
+
+
+        // // ----------------------------------------------------------
+        // // Jet matching (contain 50% pT of the parton decay products)
+        // // ----------------------------------------------------------
+
+        // // AK2
+        // AK2_nMatchedJet = 0;
+        // AK2_nUnmatchedJet = 0;
+
+        // for (int j = 0; j < Parton_pt.size(); j++) {
+        //     AK2_jet_sorted_matched_lambda11.push_back(0.);
+
+        //     if (AK2_cutJets.size() == 0) {
+        //         AK2_nUnmatchedJet++;
+        //         AK2_match.push_back(false);
+        //         AK2_jet_sorted_matched_pt.push_back(0.);
+        //         AK2_jet_sorted_matched_eta.push_back(0.);
+        //         AK2_jet_sorted_matched_phi.push_back(0.);
+        //         continue;
+        //     }
+
+        //     AK2_delta_R.clear();
+
+        //     int parton_index = partons[j].user_index();
+
+        //     auto daughterList = event[parton_index].daughterListRecursive();
+
+        //     for (int k = 0; k < AK2_cutJets.size(); k++) {
+        //         double AK2_const_pt = 0;
+
+        //         AK2_constituents.clear();
+        //         AK2_constituents = AK2_cutJets[k].constituents();
+
+        //         for (int l = 0; l < AK2_constituents.size(); l++) {
+        //             for (int m = 0; m < daughterList.size(); m++) {
+        //                 if (AK2_constituents[l].user_index() != daughterList[m]) continue;
+
+        //                 AK2_const_pt += AK2_constituents[l].pt();
+        //                 break;
+        //             }
+
+        //             if (AK2_const_pt > 0.5*event[parton_index].pT()) break;
+        //         }
+
+        //         if (AK2_const_pt < 0.5*event[parton_index].pT()) continue;
+
+        //         AK2_nMatchedJet++;
+        //         AK2_match.push_back(true);
+        //         AK2_jet_sorted_matched_pt.push_back(AK2_cutJets[k].pt());
+        //         AK2_jet_sorted_matched_eta.push_back(AK2_cutJets[k].eta());
+        //         AK2_jet_sorted_matched_phi.push_back(AK2_cutJets[k].phi_std());
+        //         AK2_jet_matched_pt.push_back(AK2_cutJets[k].pt());
+        //         AK2_jet_matched_eta.push_back(AK2_cutJets[k].eta());
+        //         AK2_jet_matched_phi.push_back(AK2_cutJets[k].phi_std());
+        //         AK2_jet_matched_delR.push_back(partons[j].delta_R(AK2_cutJets[k]));
+
+        //         // Compute width
+        //         AK2_jet_matched_lambda11.push_back(0.);
+                
+        //         for (int l = 0; l < AK2_constituents.size(); l++) {
+        //             AK2_jet_sorted_matched_lambda11.back() += AK2_constituents[l].pt()
+        //                 / AK2_cutJets[k].pt()
+        //                 * AK2_constituents[l].delta_R(AK2_cutJets[k])
+        //                 / 0.2;
+                    
+        //             AK2_jet_matched_lambda11.back() += AK2_constituents[l].pt()
+        //                 / AK2_cutJets[k].pt()
+        //                 * AK2_constituents[l].delta_R(AK2_cutJets[k])
+        //                 / 0.2;
+        //         }
+
+        //         break;
+        //     }
+
+        //     if (AK2_match.size() < j+1) {
+        //         AK2_nUnmatchedJet++;
+        //         AK2_match.push_back(false);
+        //         AK2_jet_sorted_matched_pt.push_back(0.);
+        //         AK2_jet_sorted_matched_eta.push_back(0.);
+        //         AK2_jet_sorted_matched_phi.push_back(0.);
+        //     }
+        // }
+
+        // // AK4
+        // AK4_nMatchedJet = 0;
+        // AK4_nUnmatchedJet = 0;
+
+        // for (int j = 0; j < Parton_pt.size(); j++) {
+        //     AK4_jet_sorted_matched_lambda11.push_back(0.);
+
+        //     if (AK4_cutJets.size() == 0) {
+        //         AK4_nUnmatchedJet++;
+        //         AK4_match.push_back(false);
+        //         AK4_jet_sorted_matched_pt.push_back(0.);
+        //         AK4_jet_sorted_matched_eta.push_back(0.);
+        //         AK4_jet_sorted_matched_phi.push_back(0.);
+        //         continue;
+        //     }
+
+        //     AK4_delta_R.clear();
+
+        //     int parton_index = partons[j].user_index();
+
+        //     auto daughterList = event[parton_index].daughterListRecursive();
+
+        //     for (int k = 0; k < AK4_cutJets.size(); k++) {
+        //         double AK4_const_pt = 0;
+
+        //         AK4_constituents.clear();
+        //         AK4_constituents = AK4_cutJets[k].constituents();
+
+        //         for (int l = 0; l < AK4_constituents.size(); l++) {
+        //             for (int m = 0; m < daughterList.size(); m++) {
+        //                 if (AK4_constituents[l].user_index() != daughterList[m]) continue;
+
+        //                 AK4_const_pt += AK4_constituents[l].pt();
+        //                 break;
+        //             }
+
+        //             if (AK4_const_pt > 0.5*event[parton_index].pT()) break;
+        //         }
+
+        //         if (AK4_const_pt < 0.5*event[parton_index].pT()) continue;
+
+        //         AK4_nMatchedJet++;
+        //         AK4_match.push_back(true);
+        //         AK4_jet_sorted_matched_pt.push_back(AK4_cutJets[k].pt());
+        //         AK4_jet_sorted_matched_eta.push_back(AK4_cutJets[k].eta());
+        //         AK4_jet_sorted_matched_phi.push_back(AK4_cutJets[k].phi_std());
+        //         AK4_jet_matched_pt.push_back(AK4_cutJets[k].pt());
+        //         AK4_jet_matched_eta.push_back(AK4_cutJets[k].eta());
+        //         AK4_jet_matched_phi.push_back(AK4_cutJets[k].phi_std());
+        //         AK4_jet_matched_delR.push_back(partons[j].delta_R(AK4_cutJets[k]));
+
+        //         // Compute width
+        //         AK4_jet_matched_lambda11.push_back(0.);
+                
+        //         for (int l = 0; l < AK4_constituents.size(); l++) {
+        //             AK4_jet_sorted_matched_lambda11.back() += AK4_constituents[l].pt()
+        //                 / AK4_cutJets[k].pt()
+        //                 * AK4_constituents[l].delta_R(AK4_cutJets[k])
+        //                 / 0.4;
+                    
+        //             AK4_jet_matched_lambda11.back() += AK4_constituents[l].pt()
+        //                 / AK4_cutJets[k].pt()
+        //                 * AK4_constituents[l].delta_R(AK4_cutJets[k])
+        //                 / 0.4;
+        //         }
+
+        //         break;
+        //     }
+
+        //     if (AK4_match.size() < j+1) {
+        //         AK4_nUnmatchedJet++;
+        //         AK4_match.push_back(false);
+        //         AK4_jet_sorted_matched_pt.push_back(0.);
+        //         AK4_jet_sorted_matched_eta.push_back(0.);
+        //         AK4_jet_sorted_matched_phi.push_back(0.);
+        //     }
+        // }
+
+        // // AK6
+        // AK6_nMatchedJet = 0;
+        // AK6_nUnmatchedJet = 0;
+
+        // for (int j = 0; j < Parton_pt.size(); j++) {
+        //     AK6_jet_sorted_matched_lambda11.push_back(0.);
+
+        //     if (AK6_cutJets.size() == 0) {
+        //         AK6_nUnmatchedJet++;
+        //         AK6_match.push_back(false);
+        //         AK6_jet_sorted_matched_pt.push_back(0.);
+        //         AK6_jet_sorted_matched_eta.push_back(0.);
+        //         AK6_jet_sorted_matched_phi.push_back(0.);
+        //         continue;
+        //     }
+
+        //     AK6_delta_R.clear();
+
+        //     int parton_index = partons[j].user_index();
+
+        //     auto daughterList = event[parton_index].daughterListRecursive();
+
+        //     for (int k = 0; k < AK6_cutJets.size(); k++) {
+        //         double AK6_const_pt = 0;
+
+        //         AK6_constituents.clear();
+        //         AK6_constituents = AK6_cutJets[k].constituents();
+
+        //         for (int l = 0; l < AK6_constituents.size(); l++) {
+        //             for (int m = 0; m < daughterList.size(); m++) {
+        //                 if (AK6_constituents[l].user_index() != daughterList[m]) continue;
+
+        //                 AK6_const_pt += AK6_constituents[l].pt();
+        //                 break;
+        //             }
+
+        //             if (AK6_const_pt > 0.5*event[parton_index].pT()) break;
+        //         }
+
+        //         if (AK6_const_pt < 0.5*event[parton_index].pT()) continue;
+
+        //         AK6_nMatchedJet++;
+        //         AK6_match.push_back(true);
+        //         AK6_jet_sorted_matched_pt.push_back(AK6_cutJets[k].pt());
+        //         AK6_jet_sorted_matched_eta.push_back(AK6_cutJets[k].eta());
+        //         AK6_jet_sorted_matched_phi.push_back(AK6_cutJets[k].phi_std());
+        //         AK6_jet_matched_pt.push_back(AK6_cutJets[k].pt());
+        //         AK6_jet_matched_eta.push_back(AK6_cutJets[k].eta());
+        //         AK6_jet_matched_phi.push_back(AK6_cutJets[k].phi_std());
+        //         AK6_jet_matched_delR.push_back(partons[j].delta_R(AK6_cutJets[k]));
+
+        //         // Compute width
+        //         AK6_jet_matched_lambda11.push_back(0.);
+                
+        //         for (int l = 0; l < AK6_constituents.size(); l++) {
+        //             AK6_jet_sorted_matched_lambda11.back() += AK6_constituents[l].pt()
+        //                 / AK6_cutJets[k].pt()
+        //                 * AK6_constituents[l].delta_R(AK6_cutJets[k])
+        //                 / 0.6;
+                    
+        //             AK6_jet_matched_lambda11.back() += AK6_constituents[l].pt()
+        //                 / AK6_cutJets[k].pt()
+        //                 * AK6_constituents[l].delta_R(AK6_cutJets[k])
+        //                 / 0.6;
+        //         }
+
+        //         break;
+        //     }
+
+        //     if (AK6_match.size() < j+1) {
+        //         AK6_nUnmatchedJet++;
+        //         AK6_match.push_back(false);
+        //         AK6_jet_sorted_matched_pt.push_back(0.);
+        //         AK6_jet_sorted_matched_eta.push_back(0.);
+        //         AK6_jet_sorted_matched_phi.push_back(0.);
+        //     }
+        // }
+
+        // // AK8
+        // AK8_nMatchedJet = 0;
+        // AK8_nUnmatchedJet = 0;
+
+        // for (int j = 0; j < Parton_pt.size(); j++) {
+        //     AK8_jet_sorted_matched_lambda11.push_back(0.);
+
+        //     if (AK8_cutJets.size() == 0) {
+        //         AK8_nUnmatchedJet++;
+        //         AK8_match.push_back(false);
+        //         AK8_jet_sorted_matched_pt.push_back(0.);
+        //         AK8_jet_sorted_matched_eta.push_back(0.);
+        //         AK8_jet_sorted_matched_phi.push_back(0.);
+        //         continue;
+        //     }
+
+        //     AK8_delta_R.clear();
+
+        //     int parton_index = partons[j].user_index();
+
+        //     auto daughterList = event[parton_index].daughterListRecursive();
+
+        //     for (int k = 0; k < AK8_cutJets.size(); k++) {
+        //         double AK8_const_pt = 0;
+
+        //         AK8_constituents.clear();
+        //         AK8_constituents = AK8_cutJets[k].constituents();
+
+        //         for (int l = 0; l < AK8_constituents.size(); l++) {
+        //             for (int m = 0; m < daughterList.size(); m++) {
+        //                 if (AK8_constituents[l].user_index() != daughterList[m]) continue;
+
+        //                 AK8_const_pt += AK8_constituents[l].pt();
+        //                 break;
+        //             }
+
+        //             if (AK8_const_pt > 0.5*event[parton_index].pT()) break;
+        //         }
+
+        //         if (AK8_const_pt < 0.5*event[parton_index].pT()) continue;
+
+        //         AK8_nMatchedJet++;
+        //         AK8_match.push_back(true);
+        //         AK8_jet_sorted_matched_pt.push_back(AK8_cutJets[k].pt());
+        //         AK8_jet_sorted_matched_eta.push_back(AK8_cutJets[k].eta());
+        //         AK8_jet_sorted_matched_phi.push_back(AK8_cutJets[k].phi_std());
+        //         AK8_jet_matched_pt.push_back(AK8_cutJets[k].pt());
+        //         AK8_jet_matched_eta.push_back(AK8_cutJets[k].eta());
+        //         AK8_jet_matched_phi.push_back(AK8_cutJets[k].phi_std());
+        //         AK8_jet_matched_delR.push_back(partons[j].delta_R(AK8_cutJets[k]));
+
+        //         // Compute width
+        //         AK8_jet_matched_lambda11.push_back(0.);
+                
+        //         for (int l = 0; l < AK8_constituents.size(); l++) {
+        //             AK8_jet_sorted_matched_lambda11.back() += AK8_constituents[l].pt()
+        //                 / AK8_cutJets[k].pt()
+        //                 * AK8_constituents[l].delta_R(AK8_cutJets[k])
+        //                 / 0.8;
+                    
+        //             AK8_jet_matched_lambda11.back() += AK8_constituents[l].pt()
+        //                 / AK8_cutJets[k].pt()
+        //                 * AK8_constituents[l].delta_R(AK8_cutJets[k])
+        //                 / 0.8;
+        //         }
+
+        //         break;
+        //     }
+
+        //     if (AK8_match.size() < j+1) {
+        //         AK8_nUnmatchedJet++;
+        //         AK8_match.push_back(false);
+        //         AK8_jet_sorted_matched_pt.push_back(0.);
+        //         AK8_jet_sorted_matched_eta.push_back(0.);
+        //         AK8_jet_sorted_matched_phi.push_back(0.);
+        //     }
+        // }
+
         // Record Parton_match
         nMatchedParton = 0;
         nUnmatchedParton = 0;
@@ -604,6 +930,7 @@ int main() {
         tree->Fill();
     }
     
+    output->cd();
     output->Write();
     output->Close();
 
