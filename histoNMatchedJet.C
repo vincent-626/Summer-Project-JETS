@@ -1,3 +1,6 @@
+// To plot the matching efficiency
+// This definition of efficiency might not be useful (Need to implement a new way to define matched and unmatched)
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"

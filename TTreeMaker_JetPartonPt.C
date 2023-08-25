@@ -1,3 +1,5 @@
+// To create a root file with only all matched jets (Jets with all different R have to be matched to a parton)
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"

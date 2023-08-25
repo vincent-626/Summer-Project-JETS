@@ -1,3 +1,6 @@
+// To plot jet spectra
+// Run histoPlotter.C first to get Histo_Jet_Parton.root
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"
@@ -319,75 +322,4 @@ void compareJetPt() {
 
     c2->cd();
     c2->SaveAs("pdffiles/h1_jet_matched_pt_compare.pdf");
-
-
-
-
-    // // ---------------
-    // // Big ratio plot
-    // // ---------------
-
-    // // Inverse bin content
-    // for (int i = 1; i < 41; i++) {
-    //     h1_AK4_jet_pt->SetBinContent(i, 1 / h1_AK4_jet_pt->GetBinContent(i));
-    //     h1_AK4_jet_pt->SetBinError(i, TMath::Sqrt(h1_AK4_jet_pt->GetBinContent(i)));
-
-    //     h1_AK6_jet_pt->SetBinContent(i, 1 / h1_AK6_jet_pt->GetBinContent(i));
-    //     h1_AK6_jet_pt->SetBinError(i, TMath::Sqrt(h1_AK6_jet_pt->GetBinContent(i)));
-
-    //     h1_AK8_jet_pt->SetBinContent(i, 1 / h1_AK8_jet_pt->GetBinContent(i));
-    //     h1_AK8_jet_pt->SetBinError(i, TMath::Sqrt(h1_AK8_jet_pt->GetBinContent(i)));
-    // }
-
-    // // AK4
-    // TCanvas *c2 = new TCanvas("c2", "c2");
-    // c2->cd();
-    // c2->SetCanvasSize(1200, 1200);
-
-    // TPad *pad3 = new TPad("pad3", "pad3", 0, 0, 1, 1);
-    // pad3->SetLeftMargin(0.15);
-    // pad3->SetRightMargin(0.15);
-    // pad3->SetBottomMargin(0.15);
-    // pad3->SetTopMargin(0.15);
-    // pad3->SetTickx();
-    // pad3->SetTicky();
-    // pad3->Draw();
-    // pad3->cd();
-
-    // TH1D *htemp2 = new TH1D("", "", 40, 0., 200.);
-    // htemp2->SetStats(0);
-    // htemp2->SetMinimum(0.);
-    // htemp2->SetMaximum(2.);
-
-    // auto xaxis3 = htemp2->GetXaxis();
-    // xaxis3->SetTitle("p_{T, Jet} (GeV)");
-    // xaxis3->SetTitleFont(43);
-    // xaxis3->SetTitleSize(55);
-    // xaxis3->SetLabelFont(43);
-    // xaxis3->SetLabelSize(35);
-
-    // auto yaxis3 = htemp2->GetYaxis();
-    // yaxis3->SetTitle("#sigma(R = 0.2)/#sigma(R = 0.4)");
-    // yaxis3->SetTitleFont(43);
-    // yaxis3->SetTitleSize(55);
-    // yaxis3->SetLabelFont(43);
-    // yaxis3->SetLabelSize(35);
-
-    // htemp2->Draw("0");
-
-    // TLine *line2 = new TLine(0., 1., 200., 1.);
-    // line2->SetLineColor(kBlack);
-    // line2->SetLineStyle(7);
-    // line2->Draw("same");
-
-    // h1_AK4_jet_pt->DrawCopy("epsame");
-
-    // c2->cd();
-    // c2->SaveAs("pdffiles/h1_jet_spectrum_ratio_AK2to4.pdf");
-
-
-
-
-
-
 }

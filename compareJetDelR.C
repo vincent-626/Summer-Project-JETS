@@ -1,3 +1,6 @@
+// To plot delta R distribution of all the jets with different R
+// Run histoPlotter.C first to get Histo_Jet_Parton.root
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"

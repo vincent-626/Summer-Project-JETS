@@ -1,3 +1,6 @@
+// To plot mean delta R as a function of pt
+// Run histoPlotter.C first to get Histo_Jet_Parton.root
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"

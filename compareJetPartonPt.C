@@ -1,3 +1,6 @@
+// To plot the ratio of jet pt to parton pt as a function of pt
+// Run TTreeMaker_JetPartonPt.C first to get matched_jets.root (contains only all matched jets)
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"

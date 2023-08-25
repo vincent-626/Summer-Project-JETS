@@ -1,3 +1,6 @@
+// To plot percentage change in pt when R is increased by 0.2 as a function of pt
+// Run TTreeMaker_JetPartonPt.C first to get matched_jets.root (contains only all matched jets)
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"

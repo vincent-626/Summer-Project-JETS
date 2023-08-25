@@ -1,3 +1,5 @@
+// To create a root file with histograms
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"

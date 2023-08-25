@@ -1,3 +1,6 @@
+// To compare jet spectra of all jets and matched jets (by having a ratio plot between them)
+// Run histoPlotter.C first to get Histo_Jet_Parton.root
+
 #include <iostream>
 #include <vector>
 #include "TROOT.h"
