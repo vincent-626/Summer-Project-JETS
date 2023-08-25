@@ -18,8 +18,8 @@ void histoJetDelPt() {
                     .Define("AK6_Percent_pt", "100*AK6_Delta_pt/AK4_jet_all_matched_pt")
                     .Define("AK8_Percent_pt", "100*AK8_Delta_pt/AK6_jet_all_matched_pt");
 
-    const double ptbins[6] = {10., 40., 50., 70., 100., 200.};
-    const int pt[6] = {10, 40, 50, 70, 100, 200};
+    const double ptbins[6] = {0., 10., 20., 40., 60., 200.};
+    const int pt[6] = {0, 10, 20, 40, 60, 200};
 
     // ---------
     // Delta pT
@@ -555,7 +555,7 @@ void histoJetDelPt() {
     // -----------------------------------------
 
     double x[5] = {1., 2., 3., 4., 5.};
-    double err_x[5] = {0., 0., 0., 0., 0.};
+    double err_x[5] = {0.5, 0.5, 0.5, 0.5, 0.5};
 
     TGraphAsymmErrors *gr_AK4 = new TGraphAsymmErrors(5, x, mean_AK4, err_x, err_x, rms_AK4, rms_AK4);
     TGraphAsymmErrors *gr_AK6 = new TGraphAsymmErrors(5, x, mean_AK6, err_x, err_x, rms_AK6, rms_AK6);
@@ -567,18 +567,21 @@ void histoJetDelPt() {
     gr_AK4->SetMarkerStyle(kFullSquare);
     gr_AK4->SetMarkerSize(3);
     gr_AK4->SetLineColor(kGreen+1);
+    gr_AK4->SetFillColorAlpha(kGreen+1, 0.2);
 
     gr_AK6->SetTitle("");
     gr_AK6->SetMarkerColor(kOrange+1);
     gr_AK6->SetMarkerStyle(kFullTriangleUp);
     gr_AK6->SetMarkerSize(3);
     gr_AK6->SetLineColor(kOrange+1);
+    gr_AK6->SetFillColorAlpha(kOrange+1, 0.2);
 
     gr_AK8->SetTitle("");
     gr_AK8->SetMarkerColor(kRed+1);
     gr_AK8->SetMarkerStyle(kFullTriangleDown);
     gr_AK8->SetMarkerSize(3);
     gr_AK8->SetLineColor(kRed+1);
+    gr_AK8->SetFillColorAlpha(kRed+1, 0.2);
 
     // TH1 as base
     TCanvas *c1 = new TCanvas("c1", "c1");
@@ -597,7 +600,7 @@ void histoJetDelPt() {
 
     TH1I *htemp = new TH1I("", "", 5, 1, 5);
     htemp->SetStats(0);
-    htemp->SetMaximum(18.);
+    htemp->SetMaximum(25.);
     
     auto xaxis = htemp->GetXaxis();
     xaxis->SetLabelSize(0.04);
@@ -622,9 +625,9 @@ void histoJetDelPt() {
     // Drawing
     pad1->cd();
     htemp->Draw();
-    gr_AK4->Draw("psame");
-    gr_AK6->Draw("psame");
-    gr_AK8->Draw("psame");
+    gr_AK4->Draw("5psame");
+    gr_AK6->Draw("5psame");
+    gr_AK8->Draw("5psame");
 
     // Legend
     TLegend *leg = new TLegend(0.65, 0.6, 0.83, 0.8);

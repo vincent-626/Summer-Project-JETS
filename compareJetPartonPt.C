@@ -133,7 +133,11 @@ void compareJetPartonPt() {
     // pT projection
     // --------------
 
-    const double ptbins[6] = {10., 40., 50., 70., 100., 200.};
+    // const double ptbins[6] = {10., 40., 50., 70., 100., 200.};
+    // const int pt[6] = {10, 40, 50, 70, 100, 200};
+
+    const double ptbins[6] = {0., 10., 20., 40., 60., 200.};
+    const int pt[6] = {0, 10, 20, 40, 60, 200};
 
     ROOT::RDF::TH2DModel model_2D_AK2("h2_AK2_jet_parton_pt_ratio", "", 200, 0., 2., 5, ptbins);
     ROOT::RDF::TH2DModel model_2D_AK4("h2_AK4_jet_parton_pt_ratio", "", 200, 0., 2., 5, ptbins);
@@ -144,8 +148,6 @@ void compareJetPartonPt() {
     auto h2_AK4_jet_parton_pt_ratio = df.Histo2D(model_2D_AK4, "AK4_jet_parton_pt_ratio", "AK4_jet_all_matched_pt");
     auto h2_AK6_jet_parton_pt_ratio = df.Histo2D(model_2D_AK6, "AK6_jet_parton_pt_ratio", "AK6_jet_all_matched_pt");
     auto h2_AK8_jet_parton_pt_ratio = df.Histo2D(model_2D_AK8, "AK8_jet_parton_pt_ratio", "AK8_jet_all_matched_pt");
-
-    const int pt[6] = {10, 40, 50, 70, 100, 200};
 
     double mean_AK2[5], sigma_AK2[5], mean_AK4[5], sigma_AK4[5], mean_AK6[5], sigma_AK6[5], mean_AK8[5], sigma_AK8[5];
 
@@ -191,7 +193,7 @@ void compareJetPartonPt() {
         h1_AK8_project->SetMarkerSize(2);
         h1_AK8_project->SetMarkerColor(kRed+1);
 
-        h1_AK2_project->SetMaximum(0.45);
+        h1_AK2_project->SetMaximum(0.3);
 
         h1_AK2_project->Fit("gaus");
         h1_AK4_project->Fit("gaus");
@@ -262,7 +264,7 @@ void compareJetPartonPt() {
         latex->SetTextSize(0.03);
         latex->SetTextColor(1);
         latex->SetTextAlign(12);
-        string text = std::to_string(pt[i-1]) + "GeV < p_{T} < " + std::to_string(pt[i]) + "GeV";
+        string text = std::to_string(pt[i-1]) + "GeV < p_{T, Jet} < " + std::to_string(pt[i]) + "GeV";
         auto c_text = text.c_str();
         latex->DrawLatex(0.2, 0.78, c_text);
 
@@ -287,7 +289,7 @@ void compareJetPartonPt() {
     // ----------------
 
     double x[5] = {1., 2., 3., 4., 5.};
-    double err_x[5] = {0., 0., 0., 0., 0.};
+    double err_x[5] = {0.5, 0.5, 0.5, 0.5, 0.5};
 
     TGraphAsymmErrors *gr_AK2 = new TGraphAsymmErrors(5, x, mean_AK2, err_x, err_x, sigma_AK2, sigma_AK2);
     TGraphAsymmErrors *gr_AK4 = new TGraphAsymmErrors(5, x, mean_AK4, err_x, err_x, sigma_AK4, sigma_AK4);
@@ -300,24 +302,28 @@ void compareJetPartonPt() {
     gr_AK2->SetMarkerStyle(kFullCircle);
     gr_AK2->SetMarkerSize(3);
     gr_AK2->SetLineColor(kBlue+1);
+    gr_AK2->SetFillColorAlpha(kBlue+1, 0.2);
 
     gr_AK4->SetTitle("");
     gr_AK4->SetMarkerColor(kGreen+1);
     gr_AK4->SetMarkerStyle(kFullSquare);
     gr_AK4->SetMarkerSize(3);
     gr_AK4->SetLineColor(kGreen+1);
+    gr_AK4->SetFillColorAlpha(kGreen+1, 0.2);
 
     gr_AK6->SetTitle("");
     gr_AK6->SetMarkerColor(kOrange+1);
     gr_AK6->SetMarkerStyle(kFullTriangleUp);
     gr_AK6->SetMarkerSize(3);
     gr_AK6->SetLineColor(kOrange+1);
+    gr_AK6->SetFillColorAlpha(kOrange+1, 0.2);
 
     gr_AK8->SetTitle("");
     gr_AK8->SetMarkerColor(kRed+1);
     gr_AK8->SetMarkerStyle(kFullTriangleDown);
     gr_AK8->SetMarkerSize(3);
     gr_AK8->SetLineColor(kRed+1);
+    gr_AK8->SetFillColorAlpha(kRed+1, 0.2);
 
     // TH1 as base
     TCanvas *c2 = new TCanvas("c2", "c2");
@@ -336,8 +342,8 @@ void compareJetPartonPt() {
 
     TH1I *htemp = new TH1I("", "", 5, 0, 5);
     htemp->SetStats(0);
-    htemp->SetMaximum(1.3);
-    htemp->SetMinimum(0.4);
+    htemp->SetMaximum(1.6);
+    htemp->SetMinimum(0.);
     
     auto xaxis2 = htemp->GetXaxis();
     xaxis2->SetLabelSize(0.035);
@@ -368,10 +374,10 @@ void compareJetPartonPt() {
     pad2->cd();
     htemp->Draw();
     line->Draw("same");
-    gr_AK2->Draw("psame");
-    gr_AK4->Draw("psame");
-    gr_AK6->Draw("psame");
-    gr_AK8->Draw("psame");
+    gr_AK2->Draw("5psame");
+    gr_AK4->Draw("5psame");
+    gr_AK6->Draw("5psame");
+    gr_AK8->Draw("5psame");
 
     // Legend
     TLegend *leg2 = new TLegend(0.65, 0.2, 0.83, 0.4);

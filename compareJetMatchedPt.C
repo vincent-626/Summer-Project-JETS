@@ -85,7 +85,7 @@ void compareJetMatchedPt() {
 
     // Scale bins to 1/nEvent * d2N/dptdeta
     double nEvent = 50000.;
-    double dpt = 10.;
+    double dpt = 5.;
     double deta_AK2 = 3.6;
     double deta_AK4 = 3.2;
     double deta_AK6 = 2.8;
@@ -223,8 +223,8 @@ void compareJetMatchedPt() {
     yaxis3->SetLabelFont(43);
     yaxis3->SetLabelSize(35);
 
-    h1_AK4_jet_pt->SetMaximum(1.);
-    h1_AK4_jet_pt->SetMinimum(1.1e-6);
+    h1_AK4_jet_pt->SetMaximum(10.);
+    h1_AK4_jet_pt->SetMinimum(1.1e-9);
 
     pad3->cd();
     h1_AK4_jet_pt->DrawCopy("ep");
@@ -251,8 +251,8 @@ void compareJetMatchedPt() {
 
     // TH1 as base
     TH1D *htemp3 = new TH1D("", "", 20, 0., 200.);
-    htemp3->SetMinimum(0.8);
-    htemp3->SetMaximum(1.2);
+    htemp3->SetMinimum(0.);
+    htemp3->SetMaximum(12.);
     htemp3->SetStats(0);
 
     auto xaxis4 = htemp3->GetXaxis();
